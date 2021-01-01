@@ -17,8 +17,22 @@ import (
 import "C"
 
 //export hookCallback
-func hookCallback(ebBook *C.EB_Book, ebAppendix *C.EB_Appendix, container *C.void, ebHookCode C.EB_Hook_Code, argc C.int, argv *C.uint) C.EB_Error_Code {
-	return 0
+func hookCallback(book *C.EB_Book, appendix *C.EB_Appendix, container *C.void, hookCode C.EB_Hook_Code, argc C.int, argv *C.uint) C.EB_Error_Code {
+	var marker string
+	switch hookCode {
+	case C.EB_HOOK_NARROW_FONT:
+		marker = fmt.Sprintf("{{n_%d}}", *argv)
+	case C.EB_HOOK_WIDE_FONT:
+		marker = fmt.Sprintf("{{w_%d}}", *argv)
+	}
+
+	if len(marker) > 0 {
+		markerC := C.CString(marker)
+		defer C.free(unsafe.Pointer(markerC))
+		C.eb_write_text_string(book, markerC)
+	}
+
+	return C.EB_SUCCESS
 }
 
 type blockType int
@@ -85,52 +99,8 @@ func (c *Context) shutdown() {
 
 func (c *Context) installHooks() error {
 	hookCodes := []C.EB_Hook_Code{
-		C.EB_HOOK_BEGIN_CANDIDATE,
-		C.EB_HOOK_BEGIN_CLICKABLE_AREA,
-		C.EB_HOOK_BEGIN_COLOR_BMP,
-		C.EB_HOOK_BEGIN_COLOR_JPEG,
-		C.EB_HOOK_BEGIN_DECORATION,
-		C.EB_HOOK_BEGIN_EBXAC_GAIJI,
-		C.EB_HOOK_BEGIN_EMPHASIS,
-		C.EB_HOOK_BEGIN_GRAPHIC_REFERENCE,
-		C.EB_HOOK_BEGIN_GRAY_GRAPHIC,
-		C.EB_HOOK_BEGIN_IMAGE_PAGE,
-		C.EB_HOOK_BEGIN_IN_COLOR_BMP,
-		C.EB_HOOK_BEGIN_IN_COLOR_JPEG,
-		C.EB_HOOK_BEGIN_KEYWORD,
-		C.EB_HOOK_BEGIN_MONO_GRAPHIC,
-		C.EB_HOOK_BEGIN_MPEG,
-		C.EB_HOOK_BEGIN_NARROW,
-		C.EB_HOOK_BEGIN_NO_NEWLINE,
-		C.EB_HOOK_BEGIN_REFERENCE,
-		C.EB_HOOK_BEGIN_SUBSCRIPT,
-		C.EB_HOOK_BEGIN_SUPERSCRIPT,
-		C.EB_HOOK_BEGIN_UNICODE,
-		C.EB_HOOK_BEGIN_WAVE,
-		C.EB_HOOK_END_CANDIDATE_GROUP,
-		C.EB_HOOK_END_CANDIDATE_LEAF,
-		C.EB_HOOK_END_CLICKABLE_AREA,
-		C.EB_HOOK_END_COLOR_GRAPHIC,
-		C.EB_HOOK_END_DECORATION,
-		C.EB_HOOK_END_EBXAC_GAIJI,
-		C.EB_HOOK_END_EMPHASIS,
-		C.EB_HOOK_END_GRAPHIC_REFERENCE,
-		C.EB_HOOK_END_GRAY_GRAPHIC,
-		C.EB_HOOK_END_IMAGE_PAGE,
-		C.EB_HOOK_END_IN_COLOR_GRAPHIC,
-		C.EB_HOOK_END_KEYWORD,
-		C.EB_HOOK_END_MONO_GRAPHIC,
-		C.EB_HOOK_END_MPEG,
-		C.EB_HOOK_END_NARROW,
-		C.EB_HOOK_END_NO_NEWLINE,
-		C.EB_HOOK_END_REFERENCE,
-		C.EB_HOOK_END_SUBSCRIPT,
-		C.EB_HOOK_END_SUPERSCRIPT,
-		C.EB_HOOK_END_UNICODE,
-		C.EB_HOOK_END_WAVE,
-		C.EB_HOOK_GRAPHIC_REFERENCE,
-		C.EB_HOOK_NEWLINE,
-		C.EB_HOOK_SET_INDENT,
+		C.EB_HOOK_NARROW_FONT,
+		C.EB_HOOK_WIDE_FONT,
 	}
 
 	for _, hookCode := range hookCodes {
