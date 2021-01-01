@@ -4,7 +4,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/FooSoft/zero-epwing-go/zig"
+	zig "github.com/FooSoft/zero-epwing-go"
 )
 
 func main() {
