@@ -1,0 +1,3 @@
+[submodule "eb"]
+	path = zig/eb
+	url = https://github.com/FooSoft/eb
