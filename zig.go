@@ -10,8 +10,8 @@ import (
 )
 
 /*
-#cgo linux LDFLAGS: -L"./eb/eb/.libs" -l:libeb.a -lz
-#cgo linux CFLAGS: -I"./eb/"
+#cgo LDFLAGS: -L"./eb/eb/.libs" -l:libeb.a -lz
+#cgo CFLAGS: -I"./eb/"
 #include "zig.h"
 */
 import "C"
@@ -71,10 +71,10 @@ func (c *Context) initialize() error {
 		return fmt.Errorf("eb_initialize_library failed with code %d", errEb)
 	}
 
-	c.book = (*C.EB_Book)(C.calloc(1, C.ulong(unsafe.Sizeof(C.EB_Book{}))))
+	c.book = (*C.EB_Book)(C.calloc(1, C.size_t(unsafe.Sizeof(C.EB_Book{}))))
 	C.eb_initialize_book(c.book)
 
-	c.hookset = (*C.EB_Hookset)(C.calloc(1, C.ulong(unsafe.Sizeof(C.EB_Hookset{}))))
+	c.hookset = (*C.EB_Hookset)(C.calloc(1, C.size_t(unsafe.Sizeof(C.EB_Hookset{}))))
 	C.eb_initialize_hookset(c.hookset)
 
 	if err := c.installHooks(); err != nil {
@@ -316,8 +316,8 @@ func (c *Context) loadContent(position C.EB_Position, blockType blockType) (stri
 	for {
 		var (
 			data     = (*C.char)(unsafe.Pointer(&c.buffer[0]))
-			dataSize = (C.ulong)(len(c.buffer))
-			dataUsed C.long
+			dataSize = (C.size_t)(len(c.buffer))
+			dataUsed C.ssize_t
 		)
 
 		if errEb := C.eb_seek_text(c.book, &position); errEb != C.EB_SUCCESS {
@@ -337,7 +337,7 @@ func (c *Context) loadContent(position C.EB_Position, blockType blockType) (stri
 			panic("invalid block type")
 		}
 
-		if dataUsed+8 >= (C.long)(dataSize) {
+		if dataUsed+8 >= (C.ssize_t)(dataSize) {
 			c.buffer = make([]byte, dataSize*2)
 		} else {
 			return c.decoder.String(C.GoString(data))
