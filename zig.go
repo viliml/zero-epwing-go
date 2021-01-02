@@ -71,7 +71,7 @@ func (c *Context) initialize() error {
 		return fmt.Errorf("eb_initialize_library failed with code %d", errEb)
 	}
 
-	c.book = (*C.EB_Book)(C.calloc(1, C.size_t(unsafe.Sizeof(C.EB_Book{}))))
+	c.book = (*C.EB_Book)(C.calloc(1, C.size_t(unsafe.Sizeof(C.EB_Book{}))+8))
 	C.eb_initialize_book(c.book)
 
 	c.hookset = (*C.EB_Hookset)(C.calloc(1, C.size_t(unsafe.Sizeof(C.EB_Hookset{}))))
