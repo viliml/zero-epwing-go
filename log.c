@@ -55,7 +55,7 @@ void
 eb_initialize_log(void)
 {
     if (eb_log_initialized)
-	return;
+    return;
 
     eb_log_flag = (getenv(EB_DEBUG_ENVIRONMENT_VARIABLE) != NULL);
     eb_log_function = eb_log_stderr;
@@ -69,7 +69,7 @@ void
 eb_set_log_function(void (*function)(const char *message, va_list ap))
 {
     if (!eb_log_initialized)
-	eb_initialize_log();
+    eb_initialize_log();
     eb_log_function = function;
 }
 
@@ -80,7 +80,7 @@ void
 eb_enable_log(void)
 {
     if (!eb_log_initialized)
-	eb_initialize_log();
+    eb_initialize_log();
     eb_log_flag = 1;
 }
 
@@ -91,7 +91,7 @@ void
 eb_disable_log(void)
 {
     if (!eb_log_initialized)
-	eb_initialize_log();
+    eb_initialize_log();
     eb_log_flag = 0;
 }
 
@@ -106,7 +106,7 @@ eb_log(const char *message, ...)
     va_start(ap, message);
 
     if (eb_log_flag && eb_log_function != NULL)
-	eb_log_function(message, ap);
+    eb_log_function(message, ap);
 
     va_end(ap);
 }
@@ -121,7 +121,6 @@ eb_log(const char *message, ...)
 void
 eb_log_stderr(const char *message, va_list ap)
 {
-    pthread_mutex_lock(&log_mutex);
 
     fputs("[EB] ", stderr);
 
@@ -129,10 +128,9 @@ eb_log_stderr(const char *message, va_list ap)
     fputc('\n', stderr);
     fflush(stderr);
 
-    pthread_mutex_unlock(&log_mutex);
 }
 
-#define MAX_QUOTED_STREAM_LENGTH	100
+#define MAX_QUOTED_STREAM_LENGTH    100
 
 /*
  * Return Quoted printable string of `stream'.
@@ -152,29 +150,29 @@ eb_quoted_stream(const char *stream, size_t stream_length)
     stream_p = (const unsigned char *)stream;
 
     if (stream == NULL)
-	return "";
+    return "";
 
     for (i = 0; i < stream_length && *stream_p != '\0'; i++) {
-	if (0x20 <= *stream_p && *stream_p <= 0x7f && *stream_p != '=') {
-	    if (MAX_QUOTED_STREAM_LENGTH < quoted_length + 1) {
-		*quoted_p++ = '.';
-		*quoted_p++ = '.';
-		break;
-	    }
-	    *quoted_p++ = *stream_p;
-	    quoted_length++;
-	} else {
-	    if (MAX_QUOTED_STREAM_LENGTH < quoted_length + 3) {
-		*quoted_p++ = '.';
-		*quoted_p++ = '.';
-		break;
-	    }
-	    *quoted_p++ = '=';
-	    *quoted_p++ = "0123456789ABCDEF" [*stream_p / 0x10];
-	    *quoted_p++ = "0123456789ABCDEF" [*stream_p % 0x10];
-	    quoted_length += 3;
-	}
-	stream_p++;
+    if (0x20 <= *stream_p && *stream_p <= 0x7f && *stream_p != '=') {
+        if (MAX_QUOTED_STREAM_LENGTH < quoted_length + 1) {
+        *quoted_p++ = '.';
+        *quoted_p++ = '.';
+        break;
+        }
+        *quoted_p++ = *stream_p;
+        quoted_length++;
+    } else {
+        if (MAX_QUOTED_STREAM_LENGTH < quoted_length + 3) {
+        *quoted_p++ = '.';
+        *quoted_p++ = '.';
+        break;
+        }
+        *quoted_p++ = '=';
+        *quoted_p++ = "0123456789ABCDEF" [*stream_p / 0x10];
+        *quoted_p++ = "0123456789ABCDEF" [*stream_p % 0x10];
+        quoted_length += 3;
+    }
+    stream_p++;
     }
 
     *quoted_p = '\0';

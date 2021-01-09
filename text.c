@@ -38,23 +38,21 @@
 int
 eb_have_text(EB_Book *book)
 {
-    eb_lock(&book->lock);
     LOG(("in: eb_have_text(book=%d)", (int)book->code));
 
     /*
      * Current subbook must have been set.
      */
     if (book->subbook_current == NULL)
-	goto failed;
+    goto failed;
 
     /*
      * Check for the index page of text.
      */
     if (book->subbook_current->text.start_page == 0)
-	goto failed;
+    goto failed;
 
     LOG(("out: eb_have_text() = %d", 1));
-    eb_unlock(&book->lock);
 
     return 1;
 
@@ -63,7 +61,6 @@ eb_have_text(EB_Book *book)
      */
   failed:
     LOG(("out: eb_have_text() = %d", 0));
-    eb_unlock(&book->lock);
     return 0;
 }
 
@@ -77,15 +74,14 @@ eb_text(EB_Book *book, EB_Position *position)
     EB_Error_Code error_code;
     int page;
 
-    eb_lock(&book->lock);
     LOG(("in: eb_text(book=%d)", (int)book->code));
 
     /*
      * Current subbook must have been set.
      */
     if (book->subbook_current == NULL) {
-	error_code = EB_ERR_NO_CUR_SUB;
-	goto failed;
+    error_code = EB_ERR_NO_CUR_SUB;
+    goto failed;
     }
 
     /*
@@ -93,8 +89,8 @@ eb_text(EB_Book *book, EB_Position *position)
      */
     page = book->subbook_current->text.start_page;
     if (page == 0) {
-	error_code = EB_ERR_NO_SUCH_SEARCH;
-	goto failed;
+    error_code = EB_ERR_NO_SUCH_SEARCH;
+    goto failed;
     }
 
     /*
@@ -104,8 +100,7 @@ eb_text(EB_Book *book, EB_Position *position)
     position->offset = 0;
 
     LOG(("out: eb_text(position={%d,%d}) = %s",
-	position->page, position->offset, eb_error_string(EB_SUCCESS)));
-    eb_unlock(&book->lock);
+    position->page, position->offset, eb_error_string(EB_SUCCESS)));
 
     return EB_SUCCESS;
 
@@ -114,7 +109,6 @@ eb_text(EB_Book *book, EB_Position *position)
      */
   failed:
     LOG(("out: eb_text() = %s", eb_error_string(error_code)));
-    eb_unlock(&book->lock);
     return error_code;
 }
 

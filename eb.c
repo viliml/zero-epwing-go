@@ -45,8 +45,8 @@ eb_initialize_library(void)
 
     eb_initialize_default_hookset();
     if (zio_initialize_library() < 0) {
-	error_code = EB_ERR_MEMORY_EXHAUSTED;
-	goto failed;
+    error_code = EB_ERR_MEMORY_EXHAUSTED;
+    goto failed;
     }
 
     LOG(("out: eb_initialize_library() = %s", eb_error_string(EB_SUCCESS)));

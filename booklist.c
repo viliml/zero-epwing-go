@@ -34,7 +34,7 @@
 /*
  * Initial value of `max_entry_count' in `EB_BookList'.
  */
-#define EB_INITIAL_BOOKLIST_MAX_ENTRY_COUNT	16
+#define EB_INITIAL_BOOKLIST_MAX_ENTRY_COUNT 16
 
 /*
  * BookList ID counter.
@@ -52,7 +52,6 @@ eb_initialize_booklist(EB_BookList *booklist)
     booklist->entry_count = 0;
     booklist->max_entry_count = 0;
     booklist->entries = NULL;
-    eb_initialize_lock(&booklist->lock);
 
     LOG(("out: eb_initialize_booklist()"));
 }
@@ -69,12 +68,12 @@ eb_finalize_booklist(EB_BookList *booklist)
     LOG(("in: eb_finalize_booklist()"));
 
     if (booklist->entries != NULL) {
-	for (i = 0; i < booklist->entry_count; i++) {
-	    free(booklist->entries[i].name);
-	    free(booklist->entries[i].title);
-	}
-	free(booklist->entries);
-	booklist->entries = NULL;
+    for (i = 0; i < booklist->entry_count; i++) {
+        free(booklist->entries[i].name);
+        free(booklist->entries[i].title);
+    }
+    free(booklist->entries);
+    booklist->entries = NULL;
     }
     booklist->entry_count = 0;
     booklist->max_entry_count = 0;
@@ -99,34 +98,34 @@ eb_booklist_add_book(EB_BookList *booklist, const char *name,
     LOG(("in: eb_booklist_add_book(name=%s, title=%s)", name, title));
 
     if (booklist->entry_count == booklist->max_entry_count) {
-	if (booklist->max_entry_count == 0) {
-	    new_max_entry_count = EB_INITIAL_BOOKLIST_MAX_ENTRY_COUNT;
-	    new_entries = (EB_BookList_Entry *)
-		malloc(sizeof(EB_BookList_Entry) * new_max_entry_count);
-	} else {
-	    new_max_entry_count = booklist->max_entry_count * 2;
-	    new_entries = (EB_BookList_Entry *)realloc(booklist->entries,
-		sizeof(EB_BookList_Entry) * new_max_entry_count);
-	}
-	if (new_entries == NULL) {
-	    error_code = EB_ERR_MEMORY_EXHAUSTED;
-	    goto failed;
-	}
-	booklist->max_entry_count = new_max_entry_count;
-	booklist->entries = new_entries;
+    if (booklist->max_entry_count == 0) {
+        new_max_entry_count = EB_INITIAL_BOOKLIST_MAX_ENTRY_COUNT;
+        new_entries = (EB_BookList_Entry *)
+        malloc(sizeof(EB_BookList_Entry) * new_max_entry_count);
+    } else {
+        new_max_entry_count = booklist->max_entry_count * 2;
+        new_entries = (EB_BookList_Entry *)realloc(booklist->entries,
+        sizeof(EB_BookList_Entry) * new_max_entry_count);
+    }
+    if (new_entries == NULL) {
+        error_code = EB_ERR_MEMORY_EXHAUSTED;
+        goto failed;
+    }
+    booklist->max_entry_count = new_max_entry_count;
+    booklist->entries = new_entries;
     }
 
     new_name = (char *)malloc(strlen(name) + 1);
     if (new_name == NULL) {
-	error_code = EB_ERR_MEMORY_EXHAUSTED;
-	goto failed;
+    error_code = EB_ERR_MEMORY_EXHAUSTED;
+    goto failed;
     }
     strcpy(new_name, name);
 
     new_title = (char *)malloc(strlen(title) + 1);
     if (new_title == NULL) {
-	error_code = EB_ERR_MEMORY_EXHAUSTED;
-	goto failed;
+    error_code = EB_ERR_MEMORY_EXHAUSTED;
+    goto failed;
     }
     strcpy(new_title, title);
 
@@ -143,9 +142,9 @@ eb_booklist_add_book(EB_BookList *booklist, const char *name,
      */
   failed:
     if (new_name != NULL)
-	free(new_name);
+    free(new_name);
     if (new_title != NULL)
-	free(new_title);
+    free(new_title);
 
     LOG(("out: eb_booklist_book_add() = %s", eb_error_string(error_code)));
     return error_code;
@@ -160,18 +159,16 @@ eb_booklist_book_count(EB_BookList *booklist, int *book_count)
 {
     EB_Error_Code error_code;
 
-    eb_lock(&booklist->lock);
     LOG(("in: eb_booklist_book_count(booklist=%d)", (int)booklist->code));
 
     if (booklist->entries == NULL) {
-	error_code = EB_ERR_UNBOUND_BOOKLIST;
-	goto failed;
+    error_code = EB_ERR_UNBOUND_BOOKLIST;
+    goto failed;
     }
     *book_count = booklist->entry_count;
 
     LOG(("out: eb_booklist_book_count(count=%d) = %s", *book_count,
-	eb_error_string(EB_SUCCESS)));
-    eb_unlock(&booklist->lock);
+    eb_error_string(EB_SUCCESS)));
     return EB_SUCCESS;
 
     /*
@@ -179,7 +176,6 @@ eb_booklist_book_count(EB_BookList *booklist, int *book_count)
      */
   failed:
     LOG(("out: eb_booklist_book_count() = %s", eb_error_string(error_code)));
-    eb_unlock(&booklist->lock);
     return error_code;
 }
 
@@ -192,26 +188,24 @@ eb_booklist_book_name(EB_BookList *booklist, int book_index, char **book_name)
 {
     EB_Error_Code error_code;
 
-    eb_lock(&booklist->lock);
     LOG(("in: eb_booklist_book_name(booklist=%d,index=%d)",
-	(int)booklist->code, book_index));
+    (int)booklist->code, book_index));
 
     if (booklist->entries == NULL) {
-	error_code = EB_ERR_UNBOUND_BOOKLIST;
-	goto failed;
+    error_code = EB_ERR_UNBOUND_BOOKLIST;
+    goto failed;
     }
     if (book_index < 0 || booklist->entry_count <= book_index) {
-	error_code = EB_ERR_NO_SUCH_BOOK;
-	goto failed;
+    error_code = EB_ERR_NO_SUCH_BOOK;
+    goto failed;
     }
 
     *book_name = booklist->entries[book_index].name;
 
     LOG(("out: eb_booklist_book_name(*book_name=%s) = %s",
-	(*book_name == NULL) ? "NULL" : *book_name,
-	eb_error_string(EB_SUCCESS)));
+    (*book_name == NULL) ? "NULL" : *book_name,
+    eb_error_string(EB_SUCCESS)));
 
-    eb_unlock(&booklist->lock);
     return EB_SUCCESS;
 
     /*
@@ -219,7 +213,6 @@ eb_booklist_book_name(EB_BookList *booklist, int book_index, char **book_name)
      */
   failed:
     LOG(("out: eb_booklist_book_name() = %s", eb_error_string(error_code)));
-    eb_unlock(&booklist->lock);
     return error_code;
 }
 
@@ -233,25 +226,23 @@ eb_booklist_book_title(EB_BookList *booklist, int book_index,
 {
     EB_Error_Code error_code;
 
-    eb_lock(&booklist->lock);
     LOG(("in: eb_booklist_book_title(booklist=%d,index=%d)",
-	(int)booklist->code, book_index));
+    (int)booklist->code, book_index));
 
     if (booklist->entries == NULL) {
-	error_code = EB_ERR_UNBOUND_BOOKLIST;
-	goto failed;
+    error_code = EB_ERR_UNBOUND_BOOKLIST;
+    goto failed;
     }
     if (book_index < 0 || booklist->entry_count <= book_index) {
-	error_code = EB_ERR_NO_SUCH_BOOK;
-	goto failed;
+    error_code = EB_ERR_NO_SUCH_BOOK;
+    goto failed;
     }
     *book_title = booklist->entries[book_index].title;
 
     LOG(("out: eb_booklist_book_title(*book_title=%s) = %s",
-	(*book_title == NULL) ? "NULL" : *book_title,
-	eb_error_string(EB_SUCCESS)));
+    (*book_title == NULL) ? "NULL" : *book_title,
+    eb_error_string(EB_SUCCESS)));
 
-    eb_unlock(&booklist->lock);
     return EB_SUCCESS;
 
     /*
@@ -259,6 +250,5 @@ eb_booklist_book_title(EB_BookList *booklist, int book_index,
      */
   failed:
     LOG(("out: eb_booklist_book_title() = %s", eb_error_string(error_code)));
-    eb_unlock(&booklist->lock);
     return error_code;
 }

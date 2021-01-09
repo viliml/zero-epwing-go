@@ -38,23 +38,21 @@
 int
 eb_have_menu(EB_Book *book)
 {
-    eb_lock(&book->lock);
     LOG(("in: eb_have_menu(book=%d)", (int)book->code));
 
     /*
      * Current subbook must have been set.
      */
     if (book->subbook_current == NULL)
-	goto failed;
+    goto failed;
 
     /*
      * Check for the index page of menu search.
      */
     if (book->subbook_current->menu.start_page == 0)
-	goto failed;
+    goto failed;
 
     LOG(("out: eb_have_menu() = %d", 1));
-    eb_unlock(&book->lock);
 
     return 1;
 
@@ -63,7 +61,6 @@ eb_have_menu(EB_Book *book)
      */
   failed:
     LOG(("out: eb_have_menu() = %d", 0));
-    eb_unlock(&book->lock);
     return 0;
 }
 
@@ -77,15 +74,14 @@ eb_menu(EB_Book *book, EB_Position *position)
     EB_Error_Code error_code;
     int page;
 
-    eb_lock(&book->lock);
     LOG(("in: eb_menu(book=%d)", (int)book->code));
 
     /*
      * Current subbook must have been set.
      */
     if (book->subbook_current == NULL) {
-	error_code = EB_ERR_NO_CUR_SUB;
-	goto failed;
+    error_code = EB_ERR_NO_CUR_SUB;
+    goto failed;
     }
 
     /*
@@ -93,8 +89,8 @@ eb_menu(EB_Book *book, EB_Position *position)
      */
     page = book->subbook_current->menu.start_page;
     if (page == 0) {
-	error_code = EB_ERR_NO_SUCH_SEARCH;
-	goto failed;
+    error_code = EB_ERR_NO_SUCH_SEARCH;
+    goto failed;
     }
 
     /*
@@ -104,8 +100,7 @@ eb_menu(EB_Book *book, EB_Position *position)
     position->offset = 0;
 
     LOG(("out: eb_menu(position={%d,%d}) = %s",
-	position->page, position->offset, eb_error_string(EB_SUCCESS)));
-    eb_unlock(&book->lock);
+    position->page, position->offset, eb_error_string(EB_SUCCESS)));
 
     return EB_SUCCESS;
 
@@ -114,7 +109,6 @@ eb_menu(EB_Book *book, EB_Position *position)
      */
   failed:
     LOG(("out: eb_menu() = %s", eb_error_string(error_code)));
-    eb_unlock(&book->lock);
     return error_code;
 }
 
@@ -125,23 +119,21 @@ eb_menu(EB_Book *book, EB_Position *position)
 int
 eb_have_image_menu(EB_Book *book)
 {
-    eb_lock(&book->lock);
     LOG(("in: eb_have_image_menu(book=%d)", (int)book->code));
 
     /*
      * Current subbook must have been set.
      */
     if (book->subbook_current == NULL)
-	goto failed;
+    goto failed;
 
     /*
      * Check for the index page of graphic menu search.
      */
     if (book->subbook_current->image_menu.start_page == 0)
-	goto failed;
+    goto failed;
 
     LOG(("out: eb_have_image_menu() = %d", 1));
-    eb_unlock(&book->lock);
 
     return 1;
 
@@ -150,7 +142,6 @@ eb_have_image_menu(EB_Book *book)
      */
   failed:
     LOG(("out: eb_have_image_menu() = %d", 0));
-    eb_unlock(&book->lock);
     return 0;
 }
 
@@ -164,15 +155,14 @@ eb_image_menu(EB_Book *book, EB_Position *position)
     EB_Error_Code error_code;
     int page;
 
-    eb_lock(&book->lock);
     LOG(("in: eb_image_menu(book=%d)", (int)book->code));
 
     /*
      * Current subbook must have been set.
      */
     if (book->subbook_current == NULL) {
-	error_code = EB_ERR_NO_CUR_SUB;
-	goto failed;
+    error_code = EB_ERR_NO_CUR_SUB;
+    goto failed;
     }
 
     /*
@@ -180,8 +170,8 @@ eb_image_menu(EB_Book *book, EB_Position *position)
      */
     page = book->subbook_current->image_menu.start_page;
     if (page == 0) {
-	error_code = EB_ERR_NO_SUCH_SEARCH;
-	goto failed;
+    error_code = EB_ERR_NO_SUCH_SEARCH;
+    goto failed;
     }
 
     /*
@@ -191,8 +181,7 @@ eb_image_menu(EB_Book *book, EB_Position *position)
     position->offset = 0;
 
     LOG(("out: eb_image_menu(position={%d,%d}) = %s",
-	position->page, position->offset, eb_error_string(EB_SUCCESS)));
-    eb_unlock(&book->lock);
+    position->page, position->offset, eb_error_string(EB_SUCCESS)));
 
     return EB_SUCCESS;
 
@@ -201,6 +190,5 @@ eb_image_menu(EB_Book *book, EB_Position *position)
      */
   failed:
     LOG(("out: eb_image_menu() = %s", eb_error_string(error_code)));
-    eb_unlock(&book->lock);
     return error_code;
 }

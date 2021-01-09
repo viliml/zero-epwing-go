@@ -38,7 +38,7 @@ eb_jisx0208_to_euc(char *out_string, const char *in_string)
     const unsigned char *in_p = (unsigned char *)in_string;
 
     while (*in_p != '\0')
-	*out_p++ = ((*in_p++) | 0x80);
+    *out_p++ = ((*in_p++) | 0x80);
 
     *out_p = '\0';
 }
@@ -56,52 +56,52 @@ eb_sjis_to_euc(char *out_string, const char *in_string)
     unsigned char c1, c2;
 
     for (;;) {
-	/*
-	 * Break at '\0'.
-	 */
-	c1 = *in_p++;
-	if (c1 == '\0')
-	    break;
+    /*
+     * Break at '\0'.
+     */
+    c1 = *in_p++;
+    if (c1 == '\0')
+        break;
 
-	if (c1 <= 0x7f) {
-	    /*
-	     * JIS X 0201 Roman character.
-	     */
-	    *out_p++ = c1;
-	} else if (0xa1 <= c1 && c1 <= 0xdf) {
-	    /*
-	     * JIS X 0201 Kana.
-	     */
-	    *out_p++ = ' ';
-	} else {
-	    /*
-	     * JIS X 0208 character.
-	     */
-	    c2 = *in_p++;
-	    if (c2 == 0x00)
-		break;
+    if (c1 <= 0x7f) {
+        /*
+         * JIS X 0201 Roman character.
+         */
+        *out_p++ = c1;
+    } else if (0xa1 <= c1 && c1 <= 0xdf) {
+        /*
+         * JIS X 0201 Kana.
+         */
+        *out_p++ = ' ';
+    } else {
+        /*
+         * JIS X 0208 character.
+         */
+        c2 = *in_p++;
+        if (c2 == 0x00)
+        break;
 
-	    if (c2 < 0x9f) {
-		if (c1 < 0xdf)
-		    c1 = ((c1 - 0x30) << 1) - 1;
-		else
-		    c1 = ((c1 - 0x70) << 1) - 1;
+        if (c2 < 0x9f) {
+        if (c1 < 0xdf)
+            c1 = ((c1 - 0x30) << 1) - 1;
+        else
+            c1 = ((c1 - 0x70) << 1) - 1;
 
-		if (c2 < 0x7f)
-		    c2 += 0x61;
-		else
-		    c2 += 0x60;
-	    } else {
-		if (c1 < 0xdf)
-		    c1 = (c1 - 0x30) << 1;
-		else
-		    c1 = (c1 - 0x70) << 1;
-		c2 += 0x02;
-	    }
+        if (c2 < 0x7f)
+            c2 += 0x61;
+        else
+            c2 += 0x60;
+        } else {
+        if (c1 < 0xdf)
+            c1 = (c1 - 0x30) << 1;
+        else
+            c1 = (c1 - 0x70) << 1;
+        c2 += 0x02;
+        }
 
-	    *out_p++ = c1;
-	    *out_p++ = c2;
-	}
+        *out_p++ = c1;
+        *out_p++ = c2;
+    }
     }
 
     *out_p = '\0';

@@ -39,20 +39,18 @@
 int
 eb_have_stop_code(EB_Appendix *appendix)
 {
-    eb_lock(&appendix->lock);
     LOG(("in: eb_have_stop_code(appendix=%d)", (int)appendix->code));
 
     /*
      * Current subbook must have been set.
      */
     if (appendix->subbook_current == NULL)
-	goto failed;
+    goto failed;
 
     if (appendix->subbook_current->stop_code0 == 0)
-	goto failed;
+    goto failed;
 
     LOG(("out: eb_have_stop_code() = %d", 1));
-    eb_unlock(&appendix->lock);
 
     return 1;
 
@@ -61,7 +59,6 @@ eb_have_stop_code(EB_Appendix *appendix)
      */
   failed:
     LOG(("out: eb_have_stop_code() = %d", 0));
-    eb_unlock(&appendix->lock);
     return 0;
 }
 
@@ -74,28 +71,26 @@ eb_stop_code(EB_Appendix *appendix, int *stop_code)
 {
     EB_Error_Code error_code;
 
-    eb_lock(&appendix->lock);
     LOG(("in: eb_stop_code(appendix=%d)", (int)appendix->code));
 
     /*
      * Current subbook must have been set.
      */
     if (appendix->subbook_current == NULL) {
-	error_code = EB_ERR_NO_CUR_APPSUB;
-	goto failed;
+    error_code = EB_ERR_NO_CUR_APPSUB;
+    goto failed;
     }
 
     if (appendix->subbook_current->stop_code0 == 0) {
-	error_code = EB_ERR_NO_STOPCODE;
-	goto failed;
+    error_code = EB_ERR_NO_STOPCODE;
+    goto failed;
     }
 
     stop_code[0] = appendix->subbook_current->stop_code0;
     stop_code[1] = appendix->subbook_current->stop_code1;
 
     LOG(("out: eb_stop_code(stop_code=%d,%d) = %s",
-	stop_code[0], stop_code[1], eb_error_string(EB_SUCCESS)));
-    eb_unlock(&appendix->lock);
+    stop_code[0], stop_code[1], eb_error_string(EB_SUCCESS)));
 
     return EB_SUCCESS;
 
@@ -106,6 +101,5 @@ eb_stop_code(EB_Appendix *appendix, int *stop_code)
     stop_code[0] = -1;
     stop_code[1] = -1;
     LOG(("out: eb_stop_code() = %s", eb_error_string(error_code)));
-    eb_unlock(&appendix->lock);
     return error_code;
 }

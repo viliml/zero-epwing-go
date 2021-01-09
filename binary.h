@@ -29,10 +29,6 @@
 #ifndef EB_BINARY_H
 #define EB_BINARY_H
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 #include <sys/types.h>
 
 #include "defs.h"
@@ -61,9 +57,5 @@ EB_Error_Code eb_compose_movie_path_name(EB_Book *book,
     const unsigned int *argv, char *composed_path_name);
 EB_Error_Code eb_decompose_movie_file_name(unsigned int *argv,
     const char *composed_file_name);
-
-#ifdef __cplusplus
-}
-#endif
 
 #endif /* not EB_BINARY_H */

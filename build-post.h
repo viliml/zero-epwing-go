@@ -34,110 +34,101 @@
 /*
  * Text domain name.
  */
-#define EB_TEXT_DOMAIN_NAME	"eb"
-
-/*
- * Locale directory.
- */
-#ifndef WIN32
-#define EB_LOCALEDIR		"@localedir@"
-#else
-#define EB_LOCALEDIR		localedir()
-#endif
+#define EB_TEXT_DOMAIN_NAME "eb"
 
 /*
  * Data size of a book entry in a catalog file.
  */
-#define EB_SIZE_EB_CATALOG		40
-#define EB_SIZE_EPWING_CATALOG		164
+#define EB_SIZE_EB_CATALOG     40
+#define EB_SIZE_EPWING_CATALOG 164
 
 /*
  * Maximum number of search titles.
  */
-#define EB_MAX_SEARCH_TITLES		14
+#define EB_MAX_SEARCH_TITLES        14
 
 /*
  * File names.
  */
-#define EB_FILE_NAME_START		"start"
-#define EB_FILE_NAME_HONMON		"honmon"
-#define EB_FILE_NAME_FUROKU		"furoku"
-#define EB_FILE_NAME_APPENDIX		"appendix"
+#define EB_FILE_NAME_START    "start"
+#define EB_FILE_NAME_HONMON   "honmon"
+#define EB_FILE_NAME_FUROKU   "furoku"
+#define EB_FILE_NAME_APPENDIX "appendix"
 
 /*
  * Directory names.
  */
-#define EB_DIRECTORY_NAME_DATA		"data"
-#define EB_DIRECTORY_NAME_GAIJI		"gaiji"
-#define EB_DIRECTORY_NAME_STREAM	"stream"
-#define EB_DIRECTORY_NAME_MOVIE		"movie"
+#define EB_DIRECTORY_NAME_DATA   "data"
+#define EB_DIRECTORY_NAME_GAIJI  "gaiji"
+#define EB_DIRECTORY_NAME_STREAM "stream"
+#define EB_DIRECTORY_NAME_MOVIE  "movie"
 
 /*
  * Search word types.
  */
-#define EB_WORD_ALPHABET		0
-#define EB_WORD_KANA			1
-#define EB_WORD_OTHER			2
-#define EB_WORD_INVALID			-1
+#define EB_WORD_ALPHABET 0
+#define EB_WORD_KANA     1
+#define EB_WORD_OTHER    2
+#define EB_WORD_INVALID  -1
 
 /*
  * Index Style flags.
  */
-#define EB_INDEX_STYLE_CONVERT		0
-#define EB_INDEX_STYLE_ASIS		1
-#define EB_INDEX_STYLE_REVERSED_CONVERT	2
-#define EB_INDEX_STYLE_DELETE		2
+#define EB_INDEX_STYLE_CONVERT          0
+#define EB_INDEX_STYLE_ASIS             1
+#define EB_INDEX_STYLE_REVERSED_CONVERT 2
+#define EB_INDEX_STYLE_DELETE           2
 
 /*
  * Text content currently read.
  */
-#define EB_TEXT_MAIN_TEXT		1
-#define EB_TEXT_HEADING			2
-#define EB_TEXT_RAWTEXT			3
-#define EB_TEXT_OPTIONAL_TEXT		4
-#define EB_TEXT_SEEKED			0
-#define EB_TEXT_INVALID			-1
+#define EB_TEXT_MAIN_TEXT     1
+#define EB_TEXT_HEADING       2
+#define EB_TEXT_RAWTEXT       3
+#define EB_TEXT_OPTIONAL_TEXT 4
+#define EB_TEXT_SEEKED        0
+#define EB_TEXT_INVALID       -1
 
 /*
  * Search method currently processed.
  */
-#define EB_SEARCH_EXACTWORD		0
-#define EB_SEARCH_WORD			1
-#define EB_SEARCH_ENDWORD		2
-#define EB_SEARCH_KEYWORD		3
-#define EB_SEARCH_MULTI			4
-#define EB_SEARCH_CROSS			5
-#define EB_SEARCH_ALL			6
-#define EB_SEARCH_NONE			-1
+#define EB_SEARCH_EXACTWORD 0
+#define EB_SEARCH_WORD      1
+#define EB_SEARCH_ENDWORD   2
+#define EB_SEARCH_KEYWORD   3
+#define EB_SEARCH_MULTI     4
+#define EB_SEARCH_CROSS     5
+#define EB_SEARCH_ALL       6
+#define EB_SEARCH_NONE      -1
 
 /*
  * Arrangement style of entries in a search index page.
  */
-#define EB_ARRANGE_FIXED		0
-#define EB_ARRANGE_VARIABLE		1
-#define EB_ARRANGE_INVALID		-1
+#define EB_ARRANGE_FIXED    0
+#define EB_ARRANGE_VARIABLE 1
+#define EB_ARRANGE_INVALID  -1
 
 /*
  * Binary data types.
  */
-#define EB_BINARY_MONO_GRAPHIC		0
-#define EB_BINARY_COLOR_GRAPHIC		1
-#define EB_BINARY_WAVE			2
-#define EB_BINARY_MPEG			3
-#define EB_BINARY_GRAY_GRAPHIC		4
-#define EB_BINARY_INVALID		-1
+#define EB_BINARY_MONO_GRAPHIC  0
+#define EB_BINARY_COLOR_GRAPHIC 1
+#define EB_BINARY_WAVE          2
+#define EB_BINARY_MPEG          3
+#define EB_BINARY_GRAY_GRAPHIC  4
+#define EB_BINARY_INVALID       -1
 
 /*
  * Text-stop status.
  */
-#define EB_TEXT_STATUS_CONTINUED	0
-#define EB_TEXT_STATUS_SOFT_STOP	1
-#define EB_TEXT_STATUS_HARD_STOP	2
+#define EB_TEXT_STATUS_CONTINUED 0
+#define EB_TEXT_STATUS_SOFT_STOP 1
+#define EB_TEXT_STATUS_HARD_STOP 2
 
 /*
  * The maximum index depth of search indexes.
  */
-#define EB_MAX_INDEX_DEPTH		6
+#define EB_MAX_INDEX_DEPTH 6
 
 /*
  * The maximum length of path name relative to top directory of a CD-ROM
@@ -146,14 +137,14 @@
  *     "subdir01/subdir02/filename.ebz;1"
  */
 #define EB_MAX_RELATIVE_PATH_LENGTH \
-	(EB_MAX_DIRECTORY_NAME_LENGTH + 1 \
-	+ EB_MAX_DIRECTORY_NAME_LENGTH + 1 \
-	+ EB_MAX_FILE_NAME_LENGTH)
+    (EB_MAX_DIRECTORY_NAME_LENGTH + 1 \
+    + EB_MAX_DIRECTORY_NAME_LENGTH + 1 \
+    + EB_MAX_FILE_NAME_LENGTH)
 
 /*
  * The environment variable name to enable/disable debug messages.
  */
-#define EB_DEBUG_ENVIRONMENT_VARIABLE	"EB_DEBUG"
+#define EB_DEBUG_ENVIRONMENT_VARIABLE "EB_DEBUG"
 
 /*
  * Trace log macro.
@@ -186,7 +177,7 @@
  * Test whether `off_t' represents a large integer.
  */
 #define off_t_is_large \
-	((((off_t) 1 << 41) + ((off_t) 1 << 40) + 1) % 9999991 == 7852006)
+    ((((off_t) 1 << 41) + ((off_t) 1 << 40) + 1) % 9999991 == 7852006)
 
 /*
  * External variable declarations.
@@ -259,19 +250,6 @@ void eb_initialize_default_hookset(void);
 /* jacode.c */
 void eb_jisx0208_to_euc(char *out_string, const char *in_string);
 void eb_sjis_to_euc(char *out_string, const char *in_string);
-
-/* lock.c */
-#ifdef ENABLE_PTHREAD
-void eb_initialize_lock(EB_Lock *lock);
-void eb_finalize_lock(EB_Lock *lock);
-void eb_lock(EB_Lock *lock);
-void eb_unlock(EB_Lock *lock);
-#else /* not ENABLE_PTHREAD */
-#define eb_lock(x)
-#define eb_unlock(x)
-#define eb_initialize_lock(x)
-#define eb_finalize_lock(x)
-#endif /* not ENABLE_PTHREAD */
 
 /* log.c */
 void eb_initialize_log(void);

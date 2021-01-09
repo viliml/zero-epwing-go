@@ -29,10 +29,6 @@
 #ifndef EB_BOOKLIST_H
 #define EB_BOOKLIST_H
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 #include "eb.h"
 
 /*
@@ -48,9 +44,5 @@ EB_Error_Code eb_booklist_book_name(EB_BookList *booklist, int book_index,
 EB_Error_Code eb_booklist_book_title(EB_BookList *booklist, int book_index,
     char **book_title);
 
-
-#ifdef __cplusplus
-}
-#endif
 
 #endif /* not EB_BOOKLIST_H */

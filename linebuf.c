@@ -80,7 +80,7 @@ void
 bind_file_to_line_buffer(Line_Buffer *line_buffer, int file)
 {
     if (line_buffer->file < 0)
-	initialize_line_buffer(line_buffer);
+    initialize_line_buffer(line_buffer);
     line_buffer->file = file;
 }
 
@@ -148,9 +148,9 @@ read_line_buffer(Line_Buffer *line_buffer, char *line, size_t max_line_length)
      * Return -1 if no file is bound, or if `max_line_length' is 0.
      */
     if (line_buffer->file < 0)
-	return -1;
+    return -1;
     if (max_line_length == 0)
-	return -1;
+    return -1;
 
     /*
      * Read a file until newline is appeared.
@@ -159,93 +159,93 @@ read_line_buffer(Line_Buffer *line_buffer, char *line, size_t max_line_length)
     line_p = line;
 
     for (;;) {
-	if (0 < line_buffer->cache_length) {
-	    /*
-	     * Find a newline in the cache data.
-	     */
-	    if (max_line_length - line_length < line_buffer->cache_length)
-		search_length = max_line_length - line_length;
-	    else
-		search_length = line_buffer->cache_length;
+    if (0 < line_buffer->cache_length) {
+        /*
+         * Find a newline in the cache data.
+         */
+        if (max_line_length - line_length < line_buffer->cache_length)
+        search_length = max_line_length - line_length;
+        else
+        search_length = line_buffer->cache_length;
 
-	    newline = (char *)memchr(line_buffer->buffer, '\n', search_length);
+        newline = (char *)memchr(line_buffer->buffer, '\n', search_length);
 
-	    /*
-	     * Append cache data in front of the newline to `line'.
-	     */
-	    if (newline != NULL)
-		additional_length = newline - line_buffer->buffer + 1;
-	    else
-		additional_length = search_length;
-	    memcpy(line_p, line_buffer->buffer, additional_length);
-	    line_p += additional_length;
-	    line_length += additional_length;
-	    line_buffer->cache_length -= additional_length;
+        /*
+         * Append cache data in front of the newline to `line'.
+         */
+        if (newline != NULL)
+        additional_length = newline - line_buffer->buffer + 1;
+        else
+        additional_length = search_length;
+        memcpy(line_p, line_buffer->buffer, additional_length);
+        line_p += additional_length;
+        line_length += additional_length;
+        line_buffer->cache_length -= additional_length;
 
-	    /*
-	     * If cache data not copied to `line' are remained in the
-	     * buffer, we move them to the beginning of the buffer.
-	     */
-	    memmove(line_buffer->buffer,
-		line_buffer->buffer + additional_length,
-		line_buffer->cache_length);
+        /*
+         * If cache data not copied to `line' are remained in the
+         * buffer, we move them to the beginning of the buffer.
+         */
+        memmove(line_buffer->buffer,
+        line_buffer->buffer + additional_length,
+        line_buffer->cache_length);
 
-	    if (newline != NULL)
-		break;
-	}
+        if (newline != NULL)
+        break;
+    }
 
-	/*
-	 * Check for the length of the current line.  Return if the
-	 * line is too long.
-	 *
-	 * Note that the following conditional expression can be
-	 * substituted to (line_buffer->cache_length != 0), because
-	 * remained cache data mean that the line is too long.
-	 */
-	if (max_line_length <= line_length)
-	    return line_length;
+    /*
+     * Check for the length of the current line.  Return if the
+     * line is too long.
+     *
+     * Note that the following conditional expression can be
+     * substituted to (line_buffer->cache_length != 0), because
+     * remained cache data mean that the line is too long.
+     */
+    if (max_line_length <= line_length)
+        return line_length;
 
-	/*
-	 * Call select().
-	 */
-	errno = 0;
-	FD_ZERO(&fdset);
-	FD_SET(line_buffer->file, &fdset);
+    /*
+     * Call select().
+     */
+    errno = 0;
+    FD_ZERO(&fdset);
+    FD_SET(line_buffer->file, &fdset);
 
-	if (line_buffer->timeout == 0) {
-	    select_result = select(line_buffer->file + 1, &fdset, NULL, NULL,
-		NULL);
-	} else {
-	    timeval.tv_sec = line_buffer->timeout;
-	    timeval.tv_usec = 0;
-	    select_result = select(line_buffer->file + 1, &fdset, NULL, NULL,
-		&timeval);
-	}
-	if (select_result < 0) {
-	    if (errno == EINTR)
-		continue;
-	    return -1;
-	} else if (select_result == 0) {
-	    return -1;
-	}
+    if (line_buffer->timeout == 0) {
+        select_result = select(line_buffer->file + 1, &fdset, NULL, NULL,
+        NULL);
+    } else {
+        timeval.tv_sec = line_buffer->timeout;
+        timeval.tv_usec = 0;
+        select_result = select(line_buffer->file + 1, &fdset, NULL, NULL,
+        &timeval);
+    }
+    if (select_result < 0) {
+        if (errno == EINTR)
+        continue;
+        return -1;
+    } else if (select_result == 0) {
+        return -1;
+    }
 
-	/*
-	 * Read from a file.  (No cache data are remaind.)
-	 */
-	errno = 0;
-	read_result = recv(line_buffer->file, line_buffer->buffer,
-	    LINEBUF_BUFFER_SIZE, 0);
-	if (read_result < 0) {
-	    if (errno == EINTR)
-		continue;
-	    return -1;
-	} else if (read_result == 0) {
-	    if (line_length == 0) {
-		return -1;
-	    }
-	    return line_length;
-	}
-	line_buffer->cache_length += read_result;
+    /*
+     * Read from a file.  (No cache data are remaind.)
+     */
+    errno = 0;
+    read_result = recv(line_buffer->file, line_buffer->buffer,
+        LINEBUF_BUFFER_SIZE, 0);
+    if (read_result < 0) {
+        if (errno == EINTR)
+        continue;
+        return -1;
+    } else if (read_result == 0) {
+        if (line_length == 0) {
+        return -1;
+        }
+        return line_length;
+    }
+    line_buffer->cache_length += read_result;
     }
 
     /*
@@ -259,9 +259,9 @@ read_line_buffer(Line_Buffer *line_buffer, char *line, size_t max_line_length)
      * If the line is end with `\r\n', remove not only `\n' but `\r'.
      */
     if (0 < line_length && *(line_p - 1) == '\r') {
-	line_p--;
-	*line_p = '\0';
-	line_length--;
+    line_p--;
+    *line_p = '\0';
+    line_length--;
     }
 
     return line_length;
@@ -293,13 +293,13 @@ binary_read_line_buffer(Line_Buffer *line_buffer, char *stream,
      * Return -1 if no file is bound.
      */
     if (line_buffer->file < 0)
-	return -1;
+    return -1;
 
     /*
      * Return 0 if `stream_length' is 0.
      */
     if (stream_length == 0)
-	return 0;
+    return 0;
 
     /*
      * Test whether cache data are left in `line_buffer->buffer'.
@@ -309,17 +309,17 @@ binary_read_line_buffer(Line_Buffer *line_buffer, char *stream,
     done_length = 0;
 
     if (0 < line_buffer->cache_length) {
-	if (stream_length <= line_buffer->cache_length)
-	    done_length = stream_length;
-	else
-	    done_length = line_buffer->cache_length;
+    if (stream_length <= line_buffer->cache_length)
+        done_length = stream_length;
+    else
+        done_length = line_buffer->cache_length;
 
-	memcpy(stream_p, line_buffer->buffer, done_length);
-	stream_p += done_length;
-	line_buffer->cache_length -= done_length;
-	memmove(line_buffer->buffer,
-	    line_buffer->buffer + done_length,
-	    line_buffer->cache_length);
+    memcpy(stream_p, line_buffer->buffer, done_length);
+    stream_p += done_length;
+    line_buffer->cache_length -= done_length;
+    memmove(line_buffer->buffer,
+        line_buffer->buffer + done_length,
+        line_buffer->cache_length);
     }
 
     /*
@@ -327,48 +327,48 @@ binary_read_line_buffer(Line_Buffer *line_buffer, char *stream,
      * reached to `stream_length'.
      */
     while (done_length < stream_length) {
-	/*
-	 * Call select().
-	 */
-	errno = 0;
-	FD_ZERO(&fdset);
-	FD_SET(line_buffer->file, &fdset);
+    /*
+     * Call select().
+     */
+    errno = 0;
+    FD_ZERO(&fdset);
+    FD_SET(line_buffer->file, &fdset);
 
-	if (line_buffer->timeout == 0) {
-	    select_result = select(line_buffer->file + 1, NULL, &fdset, NULL,
-		NULL);
-	} else {
-	    timeval.tv_sec = line_buffer->timeout;
-	    timeval.tv_usec = 0;
-	    select_result = select(line_buffer->file + 1, NULL, &fdset, NULL,
-		&timeval);
-	}
-	if (select_result < 0) {
-	    if (errno == EINTR)
-		continue;
-	    return -1;
-	} else if (select_result == 0) {
-	    return -1;
-	}
+    if (line_buffer->timeout == 0) {
+        select_result = select(line_buffer->file + 1, NULL, &fdset, NULL,
+        NULL);
+    } else {
+        timeval.tv_sec = line_buffer->timeout;
+        timeval.tv_usec = 0;
+        select_result = select(line_buffer->file + 1, NULL, &fdset, NULL,
+        &timeval);
+    }
+    if (select_result < 0) {
+        if (errno == EINTR)
+        continue;
+        return -1;
+    } else if (select_result == 0) {
+        return -1;
+    }
 
-	/*
-	 * Read from a file.
-	 */
-	errno = 0;
-	read_result = recv(line_buffer->file, stream_p,
-	    stream_length - done_length, 0);
-	if (read_result < 0) {
-	    if (errno == EINTR)
-		continue;
-	    return read_result;
-	} else if (read_result == 0) {
-	    if (done_length == 0) {
-		return -1;
-	    }
-	    return done_length;
-	}
-	stream_p += read_result;
-	done_length += read_result;
+    /*
+     * Read from a file.
+     */
+    errno = 0;
+    read_result = recv(line_buffer->file, stream_p,
+        stream_length - done_length, 0);
+    if (read_result < 0) {
+        if (errno == EINTR)
+        continue;
+        return read_result;
+    } else if (read_result == 0) {
+        if (done_length == 0) {
+        return -1;
+        }
+        return done_length;
+    }
+    stream_p += read_result;
+    done_length += read_result;
     }
 
     return stream_length;
@@ -394,12 +394,12 @@ skip_line_buffer(Line_Buffer *line_buffer)
      * Read data until the end of the line is found.
      */
     for (;;) {
-	line_length = read_line_buffer(line_buffer, line_buffer->buffer,
-	    LINEBUF_BUFFER_SIZE);
-	if (line_length < 0)
-	    return -1;
-	if (line_length < LINEBUF_BUFFER_SIZE)
-	    break;
+    line_length = read_line_buffer(line_buffer, line_buffer->buffer,
+        LINEBUF_BUFFER_SIZE);
+    if (line_length < 0)
+        return -1;
+    if (line_length < LINEBUF_BUFFER_SIZE)
+        break;
     }
 
     return 0;

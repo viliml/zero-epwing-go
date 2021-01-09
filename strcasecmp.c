@@ -44,21 +44,21 @@ eb_strcasecmp(const char *string1, const char *string2)
     int c1, c2;
 
     while (*string1_p != '\0') {
-	if ('a' <= *string1_p && *string1_p <= 'z')
-	    c1 = *string1_p - ('a' - 'A');
-	else
-	    c1 = *string1_p;
+    if ('a' <= *string1_p && *string1_p <= 'z')
+        c1 = *string1_p - ('a' - 'A');
+    else
+        c1 = *string1_p;
 
-	if ('a' <= *string2_p && *string2_p <= 'z')
-	    c2 = *string2_p - ('a' - 'A');
-	else
-	    c2 = *string2_p;
+    if ('a' <= *string2_p && *string2_p <= 'z')
+        c2 = *string2_p - ('a' - 'A');
+    else
+        c2 = *string2_p;
 
-	if (c1 != c2)
-	    return c1 - c2;
+    if (c1 != c2)
+        return c1 - c2;
 
-	string1_p++;
-	string2_p++;
+    string1_p++;
+    string2_p++;
     }
 
     return -(*string2_p);
@@ -78,27 +78,27 @@ eb_strncasecmp(const char *string1, const char *string2, size_t n)
     int c1, c2;
 
     if (i <= 0)
-	return 0;
+    return 0;
 
     while (*string1_p != '\0') {
-	if ('a' <= *string1_p && *string1_p <= 'z')
-	    c1 = *string1_p - ('a' - 'A');
-	else
-	    c1 = *string1_p;
+    if ('a' <= *string1_p && *string1_p <= 'z')
+        c1 = *string1_p - ('a' - 'A');
+    else
+        c1 = *string1_p;
 
-	if ('a' <= *string2_p && *string2_p <= 'z')
-	    c2 = *string2_p - ('a' - 'A');
-	else
-	    c2 = *string2_p;
+    if ('a' <= *string2_p && *string2_p <= 'z')
+        c2 = *string2_p - ('a' - 'A');
+    else
+        c2 = *string2_p;
 
-	if (c1 != c2)
-	    return c1 - c2;
+    if (c1 != c2)
+        return c1 - c2;
 
-	string1_p++;
-	string2_p++;
-	i--;
-	if (i <= 0)
-	    return 0;
+    string1_p++;
+    string2_p++;
+    i--;
+    if (i <= 0)
+        return 0;
     }
 
     return -(*string2_p);

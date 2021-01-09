@@ -29,10 +29,6 @@
 #ifndef EB_EB_H
 #define EB_EB_H
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 #include "defs.h"
 
 #include <stdarg.h>
@@ -145,13 +141,5 @@ int eb_have_all_search(EB_Book *book);
 EB_Error_Code eb_search_all_alphabet(EB_Book* book);
 EB_Error_Code eb_search_all_kana(EB_Book* book);
 EB_Error_Code eb_search_all_asis(EB_Book* book);
-
-/* for backward compatibility */
-#define eb_suspend eb_unset_subbook
-#define eb_initialize_all_subbooks eb_load_all_subbooks
-
-#ifdef __cplusplus
-}
-#endif
 
 #endif /* not EB_EB_H */

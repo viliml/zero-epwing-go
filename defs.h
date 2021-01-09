@@ -29,150 +29,138 @@
 #ifndef EB_DEFS_H
 #define EB_DEFS_H
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 #include <sys/types.h>
 #include <limits.h>
 
 #include "zio.h"
 
-#include <pthread.h>
-
 /*
  * Disc code
  */
-#define EB_DISC_EB			0
-#define EB_DISC_EPWING			1
-#define EB_DISC_INVALID			-1
+#define EB_DISC_EB      0
+#define EB_DISC_EPWING  1
+#define EB_DISC_INVALID -1
 
 /*
  * Character codes.
  */
-#define EB_CHARCODE_ISO8859_1		1
-#define EB_CHARCODE_JISX0208		2
-#define EB_CHARCODE_JISX0208_GB2312	3
-#define EB_CHARCODE_INVALID		-1
+#define EB_CHARCODE_ISO8859_1       1
+#define EB_CHARCODE_JISX0208        2
+#define EB_CHARCODE_JISX0208_GB2312 3
+#define EB_CHARCODE_INVALID         -1
 
 /*
  * Special book ID for cache to represent "no cache data for any book".
  */
-#define EB_BOOK_NONE			-1
+#define EB_BOOK_NONE -1
 
 /*
  * Special disc code, subbook code, multi search ID, and multi search
  * entry ID, for representing error state.
  */
-#define EB_SUBBOOK_INVALID		-1
-#define EB_MULTI_INVALID		-1
+#define EB_SUBBOOK_INVALID -1
+#define EB_MULTI_INVALID   -1
 
 /*
  * Size of a page (The term `page' means `block' in JIS X 4081).
  */
-#define EB_SIZE_PAGE			2048
+#define EB_SIZE_PAGE 2048
 
 /*
  * Maximum length of a word to be searched.
  */
-#define EB_MAX_WORD_LENGTH             255
+#define EB_MAX_WORD_LENGTH 255
 
 /*
  * Maximum length of an EB* book title.
  */
-#define EB_MAX_EB_TITLE_LENGTH		30
+#define EB_MAX_EB_TITLE_LENGTH 30
 
 /*
  * Maximum length of an EPWING book title.
  */
-#define EB_MAX_EPWING_TITLE_LENGTH	80
+#define EB_MAX_EPWING_TITLE_LENGTH 80
 
 /*
  * Maximum length of a book title.
  */
-#define EB_MAX_TITLE_LENGTH		80
+#define EB_MAX_TITLE_LENGTH 80
 
 /*
  * Maximum length of a word to be searched.
  */
-#if defined(PATH_MAX)
-#define EB_MAX_PATH_LENGTH		PATH_MAX
-#elif defined(MAXPATHLEN)
-#define EB_MAX_PATH_LENGTH		MAXPATHLEN
-#else
-#define EB_MAX_PATH_LENGTH		1024
-#endif
+#define EB_MAX_PATH_LENGTH 1024
 
 /*
  * Maximum length of a directory name.
  */
-#define EB_MAX_DIRECTORY_NAME_LENGTH	8
+#define EB_MAX_DIRECTORY_NAME_LENGTH 8
 
 /*
  * Maximum length of a file name under a certain directory.
  * prefix(8 chars) + '.' + suffix(3 chars) + ';' + digit(1 char)
  */
-#define EB_MAX_FILE_NAME_LENGTH		14
+#define EB_MAX_FILE_NAME_LENGTH 14
 
 /*
  * Maximum length of a label for multi-search entry.
  */
-#define EB_MAX_MULTI_LABEL_LENGTH	30
+#define EB_MAX_MULTI_LABEL_LENGTH 30
 
 /*
  * Maximum length of alternation text string for a private character.
  */
-#define EB_MAX_ALTERNATION_TEXT_LENGTH	31
+#define EB_MAX_ALTERNATION_TEXT_LENGTH 31
 
 /*
  * Maximum length of title for multi search.
  */
-#define EB_MAX_MULTI_TITLE_LENGTH	32
+#define EB_MAX_MULTI_TITLE_LENGTH 32
 
 /*
  * Maximum number of font heights in a subbok.
  */
-#define EB_MAX_FONTS			4
+#define EB_MAX_FONTS 4
 
 /*
  * Maximum number of subbooks in a book.
  */
-#define EB_MAX_SUBBOOKS			50
+#define EB_MAX_SUBBOOKS 50
 
 /*
  * Maximum number of multi-search types in a subbook.
  */
-#define EB_MAX_MULTI_SEARCHES		10
+#define EB_MAX_MULTI_SEARCHES 10
 
 /*
  * Maximum number of entries in a multi-search.
  */
-#define EB_MAX_MULTI_ENTRIES		5
+#define EB_MAX_MULTI_ENTRIES 5
 
 /*
  * Maximum number of entries in a keyword search.
  */
-#define EB_MAX_KEYWORDS			EB_MAX_MULTI_ENTRIES
+#define EB_MAX_KEYWORDS EB_MAX_MULTI_ENTRIES
 
 /*
  * Maximum number of entries in a cross search.
  */
-#define EB_MAX_CROSS_ENTRIES		EB_MAX_MULTI_ENTRIES
+#define EB_MAX_CROSS_ENTRIES EB_MAX_MULTI_ENTRIES
 
 /*
  * Maximum number of characters for alternation cache.
  */
-#define EB_MAX_ALTERNATION_CACHE	16
+#define EB_MAX_ALTERNATION_CACHE 16
 
 /*
  * The number of text hooks.
  */
-#define EB_NUMBER_OF_HOOKS		54
+#define EB_NUMBER_OF_HOOKS 54
 
 /*
  * The number of search contexts required by a book.
  */
-#define EB_NUMBER_OF_SEARCH_CONTEXTS	EB_MAX_MULTI_ENTRIES
+#define EB_NUMBER_OF_SEARCH_CONTEXTS EB_MAX_MULTI_ENTRIES
 
 /*
  * Types for various codes.
@@ -193,11 +181,11 @@ typedef int EB_Text_Status_Code;
 typedef int EB_Multi_Search_Code;
 typedef int EB_Hook_Code;
 typedef int EB_Binary_Code;
+typedef int EB_Multi_Entry_Code;
 
 /*
  * Typedef for Structures.
  */
-typedef struct EB_Lock_Struct              EB_Lock;
 typedef struct EB_Position_Struct          EB_Position;
 typedef struct EB_Alternation_Cache_Struct EB_Alternation_Cache;
 typedef struct EB_Appendix_Subbook_Struct  EB_Appendix_Subbook;
@@ -215,26 +203,6 @@ typedef struct EB_Hook_Struct              EB_Hook;
 typedef struct EB_Hookset_Struct           EB_Hookset;
 typedef struct EB_BookList_Entry           EB_BookList_Entry;
 typedef struct EB_BookList                 EB_BookList;
-
-/*
- * Pthreads lock.
- */
-struct EB_Lock_Struct {
-    /*
-     * Lock count.  (For emulating recursive lock).
-     */
-    int lock_count;
-
-    /*
-     * Mutex for `lock_count'.
-     */
-    pthread_mutex_t lock_count_mutex;
-
-    /*
-     * Mutex for struct entity.
-     */
-    pthread_mutex_t entity_mutex;
-};
 
 /*
  * A pair of page and offset.
@@ -369,11 +337,6 @@ struct EB_Appendix_Struct {
      * Current subbook.
      */
     EB_Appendix_Subbook *subbook_current;
-
-    /*
-     * Lock.
-     */
-    EB_Lock lock;
 
     /*
      * Cache table for alternation text.
@@ -616,7 +579,7 @@ struct EB_Subbook_Struct {
  * It must be greater than 44, size of WAVE sound header.
  * It must be greater than 118, size of BMP header + info + 16 rgbquads.
  */
-#define EB_SIZE_BINARY_CACHE_BUFFER	128
+#define EB_SIZE_BINARY_CACHE_BUFFER 128
 
 /*
  * Context parameters for binary data.
@@ -771,11 +734,11 @@ struct EB_Search_Context_Struct {
      * Function which compares word to search and pattern in an index page.
      */
     int (*compare_pre)(const char *word, const char *pattern,
-	size_t length);
+    size_t length);
     int (*compare_single)(const char *word, const char *pattern,
-	size_t length);
+    size_t length);
     int (*compare_group)(const char *word, const char *pattern,
-	size_t length);
+    size_t length);
 
     /*
      * Result of comparison by `compare'.
@@ -896,11 +859,6 @@ struct EB_Book_Struct {
      * Context parameters for text reading.
      */
     EB_Search_Context search_contexts[EB_NUMBER_OF_SEARCH_CONTEXTS];
-
-    /*
-     * Lock.
-     */
-    EB_Lock lock;
 };
 
 /*
@@ -932,8 +890,8 @@ struct EB_Hook_Struct {
      * Hook function for the hook code `code'.
      */
     EB_Error_Code (*function)(EB_Book *book, EB_Appendix *appendix,
-	void *container, EB_Hook_Code hook_code, int argc,
-	const unsigned int *argv);
+    void *container, EB_Hook_Code hook_code, int argc,
+    const unsigned int *argv);
 };
 
 /*
@@ -944,11 +902,6 @@ struct EB_Hookset_Struct {
      * List of hooks.
      */
     EB_Hook hooks[EB_NUMBER_OF_HOOKS];
-
-    /*
-     * Lock.
-     */
-    EB_Lock lock;
 };
 
 /*
@@ -989,18 +942,6 @@ struct EB_BookList {
      * Book entries.
      */
     EB_BookList_Entry *entries;
-
-    /*
-     * Lock.
-     */
-    EB_Lock lock;
 };
-
-/* for backward compatibility */
-#define EB_Multi_Entry_Code int
-
-#ifdef __cplusplus
-}
-#endif
 
 #endif /* not EB_DEFS_H */

@@ -48,27 +48,27 @@ eb_match_word(const char *word, const char *pattern, size_t length)
     int result;
 
     LOG(("in: eb_match_word(word=%s, pattern=%s)",
-	eb_quoted_stream(word, EB_MAX_WORD_LENGTH),
-	eb_quoted_stream(pattern, length)));
+    eb_quoted_stream(word, EB_MAX_WORD_LENGTH),
+    eb_quoted_stream(pattern, length)));
 
     for (;;) {
-	if (length <= i) {
-	    result = *word_p;
-	    break;
-	}
-	if (*word_p == '\0') {
-	    result = 0;
-	    break;
-	}
+    if (length <= i) {
+        result = *word_p;
+        break;
+    }
+    if (*word_p == '\0') {
+        result = 0;
+        break;
+    }
 
-	if (*word_p != *pattern_p) {
-	    result = *word_p - *pattern_p;
-	    break;
-	}
+    if (*word_p != *pattern_p) {
+        result = *word_p - *pattern_p;
+        break;
+    }
 
-	word_p++;
-	pattern_p++;
-	i++;
+    word_p++;
+    pattern_p++;
+    i++;
     }
 
     LOG(("out: eb_match_word() = %d", result));
@@ -94,27 +94,27 @@ eb_pre_match_word(const char *word, const char *pattern, size_t length)
     int result;
 
     LOG(("in: eb_pre_match_word(word=%s, pattern=%s)",
-	eb_quoted_stream(word, EB_MAX_WORD_LENGTH),
-	eb_quoted_stream(pattern, length)));
+    eb_quoted_stream(word, EB_MAX_WORD_LENGTH),
+    eb_quoted_stream(pattern, length)));
 
     for (;;) {
-	if (length <= i) {
-	    result = 0;
-	    break;
-	}
-	if (*word_p == '\0') {
-	    result = 0;
-	    break;
-	}
+    if (length <= i) {
+        result = 0;
+        break;
+    }
+    if (*word_p == '\0') {
+        result = 0;
+        break;
+    }
 
-	if (*word_p != *pattern_p) {
-	    result = *word_p - *pattern_p;
-	    break;
-	}
+    if (*word_p != *pattern_p) {
+        result = *word_p - *pattern_p;
+        break;
+    }
 
-	word_p++;
-	pattern_p++;
-	i++;
+    word_p++;
+    pattern_p++;
+    i++;
     }
 
     LOG(("out: eb_pre_match_word() = %d", result));
@@ -140,31 +140,31 @@ eb_exact_match_word_jis(const char *word, const char *pattern, size_t length)
     int result;
 
     LOG(("in: eb_exact_match_word_jis(word=%s, pattern=%s)",
-	eb_quoted_stream(word, EB_MAX_WORD_LENGTH),
-	eb_quoted_stream(pattern, length)));
+    eb_quoted_stream(word, EB_MAX_WORD_LENGTH),
+    eb_quoted_stream(pattern, length)));
 
     for (;;) {
-	if (length <= i) {
-	    result = *word_p;
-	    break;
-	}
-	if (*word_p == '\0') {
-	    /* ignore spaces in the tail of the pattern */
-	    while (i < length && *pattern_p == '\0') {
-		pattern_p++;
-		i++;
-	    }
-	    result = (i - length);
-	    break;
-	}
-	if (*word_p != *pattern_p) {
-	    result = *word_p - *pattern_p;
-	    break;
-	}
+    if (length <= i) {
+        result = *word_p;
+        break;
+    }
+    if (*word_p == '\0') {
+        /* ignore spaces in the tail of the pattern */
+        while (i < length && *pattern_p == '\0') {
+        pattern_p++;
+        i++;
+        }
+        result = (i - length);
+        break;
+    }
+    if (*word_p != *pattern_p) {
+        result = *word_p - *pattern_p;
+        break;
+    }
 
-	word_p++;
-	pattern_p++;
-	i++;
+    word_p++;
+    pattern_p++;
+    i++;
     }
 
     LOG(("out: eb_exact_match_word_jis() = %d", result));
@@ -191,31 +191,31 @@ eb_exact_pre_match_word_jis(const char *word, const char *pattern,
     int result;
 
     LOG(("in: eb_exact_pre_match_word_jis(word=%s, pattern=%s)",
-	eb_quoted_stream(word, EB_MAX_WORD_LENGTH),
-	eb_quoted_stream(pattern, length)));
+    eb_quoted_stream(word, EB_MAX_WORD_LENGTH),
+    eb_quoted_stream(pattern, length)));
 
     for (;;) {
-	if (length <= i) {
-	    result = 0;
-	    break;
-	}
-	if (*word_p == '\0') {
-	    /* ignore spaces in the tail of the pattern */
-	    while (i < length && *pattern_p == '\0') {
-		pattern_p++;
-		i++;
-	    }
-	    result = (i - length);
-	    break;
-	}
-	if (*word_p != *pattern_p) {
-	    result = *word_p - *pattern_p;
-	    break;
-	}
+    if (length <= i) {
+        result = 0;
+        break;
+    }
+    if (*word_p == '\0') {
+        /* ignore spaces in the tail of the pattern */
+        while (i < length && *pattern_p == '\0') {
+        pattern_p++;
+        i++;
+        }
+        result = (i - length);
+        break;
+    }
+    if (*word_p != *pattern_p) {
+        result = *word_p - *pattern_p;
+        break;
+    }
 
-	word_p++;
-	pattern_p++;
-	i++;
+    word_p++;
+    pattern_p++;
+    i++;
     }
 
     LOG(("out: eb_exact_pre_match_word_jis() = %d", result));
@@ -241,31 +241,31 @@ eb_exact_match_word_latin(const char *word, const char *pattern, size_t length)
     int result;
 
     LOG(("in: eb_exact_match_word_latin(word=%s, pattern=%s)",
-	eb_quoted_stream(word, EB_MAX_WORD_LENGTH),
-	eb_quoted_stream(pattern, length)));
+    eb_quoted_stream(word, EB_MAX_WORD_LENGTH),
+    eb_quoted_stream(pattern, length)));
 
     for (;;) {
-	if (length <= i) {
-	    result = *word_p;
-	    break;
-	}
-	if (*word_p == '\0') {
-	    /* ignore spaces in the tail of the pattern */
-	    while (i < length && (*pattern_p == ' ' || *pattern_p == '\0')) {
-		pattern_p++;
-		i++;
-	    }
-	    result = (i - length);
-	    break;
-	}
-	if (*word_p != *pattern_p) {
-	    result = *word_p - *pattern_p;
-	    break;
-	}
+    if (length <= i) {
+        result = *word_p;
+        break;
+    }
+    if (*word_p == '\0') {
+        /* ignore spaces in the tail of the pattern */
+        while (i < length && (*pattern_p == ' ' || *pattern_p == '\0')) {
+        pattern_p++;
+        i++;
+        }
+        result = (i - length);
+        break;
+    }
+    if (*word_p != *pattern_p) {
+        result = *word_p - *pattern_p;
+        break;
+    }
 
-	word_p++;
-	pattern_p++;
-	i++;
+    word_p++;
+    pattern_p++;
+    i++;
     }
 
     LOG(("out: eb_exact_match_word_latin() = %d", result));
@@ -292,31 +292,31 @@ eb_exact_pre_match_word_latin(const char *word, const char *pattern,
     int result;
 
     LOG(("in: eb_exact_pre_match_word_latin(word=%s, pattern=%s)",
-	eb_quoted_stream(word, EB_MAX_WORD_LENGTH),
-	eb_quoted_stream(pattern, length)));
+    eb_quoted_stream(word, EB_MAX_WORD_LENGTH),
+    eb_quoted_stream(pattern, length)));
 
     for (;;) {
-	if (length <= i) {
-	    result = 0;
-	    break;
-	}
-	if (*word_p == '\0') {
-	    /* ignore spaces in the tail of the pattern */
-	    while (i < length && (*pattern_p == ' ' || *pattern_p == '\0')) {
-		pattern_p++;
-		i++;
-	    }
-	    result = (i - length);
-	    break;
-	}
-	if (*word_p != *pattern_p) {
-	    result = *word_p - *pattern_p;
-	    break;
-	}
+    if (length <= i) {
+        result = 0;
+        break;
+    }
+    if (*word_p == '\0') {
+        /* ignore spaces in the tail of the pattern */
+        while (i < length && (*pattern_p == ' ' || *pattern_p == '\0')) {
+        pattern_p++;
+        i++;
+        }
+        result = (i - length);
+        break;
+    }
+    if (*word_p != *pattern_p) {
+        result = *word_p - *pattern_p;
+        break;
+    }
 
-	word_p++;
-	pattern_p++;
-	i++;
+    word_p++;
+    pattern_p++;
+    i++;
     }
 
     LOG(("out: eb_exact_pre_match_word_latin() = %d", result));
@@ -346,42 +346,42 @@ eb_match_word_kana_group(const char *word, const char *pattern, size_t length)
     int result;
 
     LOG(("in: eb_match_word_kana_group(word=%s, pattern=%s)",
-	eb_quoted_stream(word, EB_MAX_WORD_LENGTH),
-	eb_quoted_stream(pattern, length)));
+    eb_quoted_stream(word, EB_MAX_WORD_LENGTH),
+    eb_quoted_stream(pattern, length)));
 
     for (;;) {
-	if (length <= i) {
-	    result = *word_p;
-	    break;
-	}
-	if (*word_p == '\0') {
-	    result = 0;
-	    break;
-	}
-	if (length <= i + 1 || *(word_p + 1) == '\0') {
-	    result = *word_p - *pattern_p;
-	    break;
-	}
+    if (length <= i) {
+        result = *word_p;
+        break;
+    }
+    if (*word_p == '\0') {
+        result = 0;
+        break;
+    }
+    if (length <= i + 1 || *(word_p + 1) == '\0') {
+        result = *word_p - *pattern_p;
+        break;
+    }
 
-	wc0 = *word_p;
-	wc1 = *(word_p + 1);
-	pc0 = *pattern_p;
-	pc1 = *(pattern_p + 1);
+    wc0 = *word_p;
+    wc1 = *(word_p + 1);
+    pc0 = *pattern_p;
+    pc1 = *(pattern_p + 1);
 
-	if ((wc0 == 0x24 || wc0 == 0x25) && (pc0 == 0x24 || pc0 == 0x25)) {
-	    if (wc1 != pc1) {
-		result = ((wc0 << 8) + wc1) - ((pc0 << 8) + pc1);
-		break;
-	    }
-	} else {
-	    if (wc0 != pc0 || wc1 != pc1) {
-		result = ((wc0 << 8) + wc1) - ((pc0 << 8) + pc1);
-		break;
-	    }
-	}
-	word_p += 2;
-	pattern_p += 2;
-	i += 2;
+    if ((wc0 == 0x24 || wc0 == 0x25) && (pc0 == 0x24 || pc0 == 0x25)) {
+        if (wc1 != pc1) {
+        result = ((wc0 << 8) + wc1) - ((pc0 << 8) + pc1);
+        break;
+        }
+    } else {
+        if (wc0 != pc0 || wc1 != pc1) {
+        result = ((wc0 << 8) + wc1) - ((pc0 << 8) + pc1);
+        break;
+        }
+    }
+    word_p += 2;
+    pattern_p += 2;
+    i += 2;
     }
 
     LOG(("out: eb_match_word_kana_group() = %d", result));
@@ -411,42 +411,42 @@ eb_match_word_kana_single(const char *word, const char *pattern, size_t length)
     int result;
 
     LOG(("in: eb_match_word_kana_single(word=%s, pattern=%s)",
-	eb_quoted_stream(word, EB_MAX_WORD_LENGTH),
-	eb_quoted_stream(pattern, length)));
+    eb_quoted_stream(word, EB_MAX_WORD_LENGTH),
+    eb_quoted_stream(pattern, length)));
 
     for (;;) {
-	if (length <= i) {
-	    result = *word_p;
-	    break;
-	}
-	if (*word_p == '\0') {
-	    result = 0;
-	    break;
-	}
-	if (length <= i + 1 || *(word_p + 1) == '\0') {
-	    result = *word_p - *pattern_p;
-	    break;
-	}
+    if (length <= i) {
+        result = *word_p;
+        break;
+    }
+    if (*word_p == '\0') {
+        result = 0;
+        break;
+    }
+    if (length <= i + 1 || *(word_p + 1) == '\0') {
+        result = *word_p - *pattern_p;
+        break;
+    }
 
-	wc0 = *word_p;
-	wc1 = *(word_p + 1);
-	pc0 = *pattern_p;
-	pc1 = *(pattern_p + 1);
+    wc0 = *word_p;
+    wc1 = *(word_p + 1);
+    pc0 = *pattern_p;
+    pc1 = *(pattern_p + 1);
 
-	if ((wc0 == 0x24 || wc0 == 0x25) && (pc0 == 0x24 || pc0 == 0x25)) {
-	    if (wc1 != pc1) {
-		result = wc1 - pc1;
-		break;
-	    }
-	} else {
-	    if (wc0 != pc0 || wc1 != pc1) {
-		result = ((wc0 << 8) + wc1) - ((pc0 << 8) + pc1);
-		break;
-	    }
-	}
-	word_p += 2;
-	pattern_p += 2;
-	i += 2;
+    if ((wc0 == 0x24 || wc0 == 0x25) && (pc0 == 0x24 || pc0 == 0x25)) {
+        if (wc1 != pc1) {
+        result = wc1 - pc1;
+        break;
+        }
+    } else {
+        if (wc0 != pc0 || wc1 != pc1) {
+        result = ((wc0 << 8) + wc1) - ((pc0 << 8) + pc1);
+        break;
+        }
+    }
+    word_p += 2;
+    pattern_p += 2;
+    i += 2;
     }
 
     LOG(("out: eb_match_word_kana_single() = %d", result));
@@ -476,41 +476,41 @@ eb_exact_match_word_kana_group(const char *word, const char *pattern,
     int result;
 
     LOG(("in: eb_exact_match_word_kana_group(word=%s, pattern=%s)",
-	eb_quoted_stream(word, EB_MAX_WORD_LENGTH),
-	eb_quoted_stream(pattern, length)));
+    eb_quoted_stream(word, EB_MAX_WORD_LENGTH),
+    eb_quoted_stream(pattern, length)));
 
     for (;;) {
-	if (length <= i) {
-	    result = *word_p;
-	    break;
-	}
-	if (*word_p == '\0') {
-	    result = - *pattern_p;
-	    break;
-	}
-	if (length <= i + 1 || *(word_p + 1) == '\0') {
-	    result = *word_p - *pattern_p;
-	    break;
-	}
-	wc0 = *word_p;
-	wc1 = *(word_p + 1);
-	pc0 = *pattern_p;
-	pc1 = *(pattern_p + 1);
+    if (length <= i) {
+        result = *word_p;
+        break;
+    }
+    if (*word_p == '\0') {
+        result = - *pattern_p;
+        break;
+    }
+    if (length <= i + 1 || *(word_p + 1) == '\0') {
+        result = *word_p - *pattern_p;
+        break;
+    }
+    wc0 = *word_p;
+    wc1 = *(word_p + 1);
+    pc0 = *pattern_p;
+    pc1 = *(pattern_p + 1);
 
-	if ((wc0 == 0x24 || wc0 == 0x25) && (pc0 == 0x24 || pc0 == 0x25)) {
-	    if (wc1 != pc1) {
-		result = ((wc0 << 8) + wc1) - ((pc0 << 8) + pc1);
-		break;
-	    }
-	} else {
-	    if (wc0 != pc0 || wc1 != pc1) {
-		result = ((wc0 << 8) + wc1) - ((pc0 << 8) + pc1);
-		break;
-	    }
-	}
-	word_p += 2;
-	pattern_p += 2;
-	i += 2;
+    if ((wc0 == 0x24 || wc0 == 0x25) && (pc0 == 0x24 || pc0 == 0x25)) {
+        if (wc1 != pc1) {
+        result = ((wc0 << 8) + wc1) - ((pc0 << 8) + pc1);
+        break;
+        }
+    } else {
+        if (wc0 != pc0 || wc1 != pc1) {
+        result = ((wc0 << 8) + wc1) - ((pc0 << 8) + pc1);
+        break;
+        }
+    }
+    word_p += 2;
+    pattern_p += 2;
+    i += 2;
     }
 
     LOG(("out: eb_exact_match_word_kana_group() = %d", result));
@@ -541,41 +541,41 @@ eb_exact_match_word_kana_single(const char *word, const char *pattern,
     int result;
 
     LOG(("in: eb_exact_match_word_kana_single(word=%s, pattern=%s)",
-	eb_quoted_stream(word, EB_MAX_WORD_LENGTH),
-	eb_quoted_stream(pattern, length)));
+    eb_quoted_stream(word, EB_MAX_WORD_LENGTH),
+    eb_quoted_stream(pattern, length)));
 
     for (;;) {
-	if (length <= i) {
-	    result = *word_p;
-	    break;
-	}
-	if (*word_p == '\0') {
-	    result = - *pattern_p;
-	    break;
-	}
-	if (length <= i + 1 || *(word_p + 1) == '\0') {
-	    result = *word_p - *pattern_p;
-	    break;
-	}
-	wc0 = *word_p;
-	wc1 = *(word_p + 1);
-	pc0 = *pattern_p;
-	pc1 = *(pattern_p + 1);
+    if (length <= i) {
+        result = *word_p;
+        break;
+    }
+    if (*word_p == '\0') {
+        result = - *pattern_p;
+        break;
+    }
+    if (length <= i + 1 || *(word_p + 1) == '\0') {
+        result = *word_p - *pattern_p;
+        break;
+    }
+    wc0 = *word_p;
+    wc1 = *(word_p + 1);
+    pc0 = *pattern_p;
+    pc1 = *(pattern_p + 1);
 
-	if ((wc0 == 0x24 || wc0 == 0x25) && (pc0 == 0x24 || pc0 == 0x25)) {
-	    if (wc1 != pc1) {
-		result = wc1 - pc1;
-		break;
-	    }
-	} else {
-	    if (wc0 != pc0 || wc1 != pc1) {
-		result = ((wc0 << 8) + wc1) - ((pc0 << 8) + pc1);
-		break;
-	    }
-	}
-	word_p += 2;
-	pattern_p += 2;
-	i += 2;
+    if ((wc0 == 0x24 || wc0 == 0x25) && (pc0 == 0x24 || pc0 == 0x25)) {
+        if (wc1 != pc1) {
+        result = wc1 - pc1;
+        break;
+        }
+    } else {
+        if (wc0 != pc0 || wc1 != pc1) {
+        result = ((wc0 << 8) + wc1) - ((pc0 << 8) + pc1);
+        break;
+        }
+    }
+    word_p += 2;
+    pattern_p += 2;
+    i += 2;
     }
 
     LOG(("out: eb_exact_match_word_kana_single() = %d", result));

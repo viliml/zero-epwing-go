@@ -43,7 +43,7 @@ static EB_Error_Code eb_narrow_character_text_latin(EB_Appendix *appendix,
 /*
  * Hash macro for cache data.
  */
-#define EB_HASH_ALT_CACHE(c)	((c) & 0x0f)
+#define EB_HASH_ALT_CACHE(c)    ((c) & 0x0f)
 
 
 /*
@@ -53,20 +53,18 @@ static EB_Error_Code eb_narrow_character_text_latin(EB_Appendix *appendix,
 int
 eb_have_narrow_alt(EB_Appendix *appendix)
 {
-    eb_lock(&appendix->lock);
     LOG(("in: eb_have_narrow_alt(appendix=%d)", (int)appendix->code));
 
     /*
      * Current subbook must have been set.
      */
     if (appendix->subbook_current == NULL)
-	goto failed;
+    goto failed;
 
     if (appendix->subbook_current->narrow_page == 0)
-	goto failed;
+    goto failed;
 
     LOG(("out: eb_have_narrow_alt() = %d", 1));
-    eb_unlock(&appendix->lock);
 
     return 1;
 
@@ -75,7 +73,6 @@ eb_have_narrow_alt(EB_Appendix *appendix)
      */
   failed:
     LOG(("out: eb_have_narrow_alt() = %d", 0));
-    eb_unlock(&appendix->lock);
     return 0;
 }
 
@@ -89,27 +86,25 @@ eb_narrow_alt_start(EB_Appendix *appendix, int *start)
 {
     EB_Error_Code error_code;
 
-    eb_lock(&appendix->lock);
     LOG(("in: eb_narrow_alt_start(appendix=%d)", (int)appendix->code));
 
     /*
      * Current subbook must have been set.
      */
     if (appendix->subbook_current == NULL) {
-	error_code = EB_ERR_NO_CUR_APPSUB;
-	goto failed;
+    error_code = EB_ERR_NO_CUR_APPSUB;
+    goto failed;
     }
 
     if (appendix->subbook_current->narrow_page == 0) {
-	error_code = EB_ERR_NO_ALT;
-	goto failed;
+    error_code = EB_ERR_NO_ALT;
+    goto failed;
     }
 
     *start = appendix->subbook_current->narrow_start;
 
     LOG(("out: eb_narrow_alt_start(start=%d) = %s", *start,
-	eb_error_string(EB_SUCCESS)));
-    eb_unlock(&appendix->lock);
+    eb_error_string(EB_SUCCESS)));
 
     return EB_SUCCESS;
 
@@ -119,7 +114,6 @@ eb_narrow_alt_start(EB_Appendix *appendix, int *start)
   failed:
     *start = -1;
     LOG(("out: eb_narrow_alt_start() = %s", eb_error_string(error_code)));
-    eb_unlock(&appendix->lock);
     return error_code;
 }
 
@@ -133,27 +127,25 @@ eb_narrow_alt_end(EB_Appendix *appendix, int *end)
 {
     EB_Error_Code error_code;
 
-    eb_lock(&appendix->lock);
     LOG(("in: eb_narrow_alt_end(appendix=%d)", (int)appendix->code));
 
     /*
      * Current subbook must have been set.
      */
     if (appendix->subbook_current == NULL) {
-	error_code = EB_ERR_NO_CUR_APPSUB;
-	goto failed;
+    error_code = EB_ERR_NO_CUR_APPSUB;
+    goto failed;
     }
 
     if (appendix->subbook_current->narrow_page == 0) {
-	error_code = EB_ERR_NO_ALT;
-	goto failed;
+    error_code = EB_ERR_NO_ALT;
+    goto failed;
     }
 
     *end = appendix->subbook_current->narrow_end;
 
     LOG(("out: eb_narrow_alt_end(end=%d) = %s", *end,
-	eb_error_string(EB_SUCCESS)));
-    eb_unlock(&appendix->lock);
+    eb_error_string(EB_SUCCESS)));
 
     return EB_SUCCESS;
 
@@ -163,7 +155,6 @@ eb_narrow_alt_end(EB_Appendix *appendix, int *end)
   failed:
     *end = -1;
     LOG(("out: eb_narrow_alt_end() = %s", eb_error_string(error_code)));
-    eb_unlock(&appendix->lock);
     return error_code;
 }
 
@@ -177,39 +168,37 @@ eb_narrow_alt_character_text(EB_Appendix *appendix, int character_number,
 {
     EB_Error_Code error_code;
 
-    eb_lock(&appendix->lock);
     LOG(("in: eb_narrow_alt_character_text(appendix=%d, character_number=%d)",
-	(int)appendix->code, character_number));
+    (int)appendix->code, character_number));
 
     /*
      * Current subbook must have been set.
      */
     if (appendix->subbook_current == NULL) {
-	error_code = EB_ERR_NO_CUR_APPSUB;
-	goto failed;
+    error_code = EB_ERR_NO_CUR_APPSUB;
+    goto failed;
     }
 
     /*
      * The narrow font must exist in the current subbook.
      */
     if (appendix->subbook_current->narrow_page == 0) {
-	error_code = EB_ERR_NO_ALT;
-	goto failed;
+    error_code = EB_ERR_NO_ALT;
+    goto failed;
     }
 
     if (appendix->subbook_current->character_code == EB_CHARCODE_ISO8859_1) {
-	error_code = eb_narrow_character_text_latin(appendix,
-	    character_number, text);
+    error_code = eb_narrow_character_text_latin(appendix,
+        character_number, text);
     } else {
-	error_code = eb_narrow_character_text_jis(appendix, character_number,
-	    text);
+    error_code = eb_narrow_character_text_jis(appendix, character_number,
+        text);
     }
     if (error_code != EB_SUCCESS)
-	goto failed;
+    goto failed;
 
     LOG(("out: eb_narrow_alt_character_text(text=%s) = %s",
-	eb_quoted_string(text), eb_error_string(EB_SUCCESS)));
-    eb_unlock(&appendix->lock);
+    eb_quoted_string(text), eb_error_string(EB_SUCCESS)));
 
     return EB_SUCCESS;
 
@@ -219,8 +208,7 @@ eb_narrow_alt_character_text(EB_Appendix *appendix, int character_number,
   failed:
     *text = '\0';
     LOG(("out: eb_narrow_alt_character_text() = %s",
-	eb_error_string(error_code)));
-    eb_unlock(&appendix->lock);
+    eb_error_string(error_code)));
     return error_code;
 }
 
@@ -240,7 +228,7 @@ eb_narrow_character_text_jis(EB_Appendix *appendix, int character_number,
 
     LOG(("in: eb_narrow_alt_character_text_jis(appendix=%d, \
 character_number=%d)",
-	(int)appendix->code, character_number));
+    (int)appendix->code, character_number));
 
     start = appendix->subbook_current->narrow_start;
     end = appendix->subbook_current->narrow_end;
@@ -252,44 +240,44 @@ character_number=%d)",
      * in the case.
      */
     if (character_number < start
-	|| end < character_number
-	|| (character_number & 0xff) < 0x21
-	|| 0x7e < (character_number & 0xff)) {
-	error_code = EB_ERR_NO_SUCH_CHAR_TEXT;
-	goto failed;
+    || end < character_number
+    || (character_number & 0xff) < 0x21
+    || 0x7e < (character_number & 0xff)) {
+    error_code = EB_ERR_NO_SUCH_CHAR_TEXT;
+    goto failed;
     }
 
     /*
      * Calculate the location of alternation data.
      */
     location
-	= (appendix->subbook_current->narrow_page - 1) * EB_SIZE_PAGE
-	+ (((character_number >> 8) - (start >> 8)) * 0x5e
-	    + (character_number & 0xff) - (start & 0xff))
-	* (EB_MAX_ALTERNATION_TEXT_LENGTH + 1);
+    = (appendix->subbook_current->narrow_page - 1) * EB_SIZE_PAGE
+    + (((character_number >> 8) - (start >> 8)) * 0x5e
+        + (character_number & 0xff) - (start & 0xff))
+    * (EB_MAX_ALTERNATION_TEXT_LENGTH + 1);
 
     /*
      * Check for the cache data.
      */
     cachep = appendix->narrow_cache + EB_HASH_ALT_CACHE(character_number);
     if (cachep->character_number == character_number) {
-	memcpy(text, cachep->text, EB_MAX_ALTERNATION_TEXT_LENGTH + 1);
-	goto succeeded;
+    memcpy(text, cachep->text, EB_MAX_ALTERNATION_TEXT_LENGTH + 1);
+    goto succeeded;
     }
 
     /*
      * Read the alternation data.
      */
     if (zio_lseek(&appendix->subbook_current->zio, location, SEEK_SET) < 0) {
-	error_code = EB_ERR_FAIL_SEEK_APP;
-	goto failed;
+    error_code = EB_ERR_FAIL_SEEK_APP;
+    goto failed;
     }
     cachep->character_number = -1;
     if (zio_read(&appendix->subbook_current->zio, cachep->text,
-	EB_MAX_ALTERNATION_TEXT_LENGTH + 1)
-	!= EB_MAX_ALTERNATION_TEXT_LENGTH + 1) {
-	error_code = EB_ERR_FAIL_READ_APP;
-	goto failed;
+    EB_MAX_ALTERNATION_TEXT_LENGTH + 1)
+    != EB_MAX_ALTERNATION_TEXT_LENGTH + 1) {
+    error_code = EB_ERR_FAIL_READ_APP;
+    goto failed;
     }
 
     /*
@@ -301,7 +289,7 @@ character_number=%d)",
 
   succeeded:
     LOG(("out: eb_narrow_alt_character_text_jis(text=%s) = %s",
-	eb_quoted_string(text), eb_error_string(EB_SUCCESS)));
+    eb_quoted_string(text), eb_error_string(EB_SUCCESS)));
     return EB_SUCCESS;
 
     /*
@@ -310,7 +298,7 @@ character_number=%d)",
   failed:
     *text = '\0';
     LOG(("out: eb_narrow_alt_character_text_jis() = %s",
-	eb_error_string(error_code)));
+    eb_error_string(error_code)));
     return error_code;
 }
 
@@ -330,7 +318,7 @@ eb_narrow_character_text_latin(EB_Appendix *appendix, int character_number,
 
     LOG(("in: eb_narrow_alt_character_text_latin(appendix=%d, \
 character_number=%d)",
-	(int)appendix->code, character_number));
+    (int)appendix->code, character_number));
 
     start = appendix->subbook_current->narrow_start;
     end = appendix->subbook_current->narrow_end;
@@ -342,44 +330,44 @@ character_number=%d)",
      * in the case.
      */
     if (character_number < start
-	|| end < character_number
-	|| (character_number & 0xff) < 0x01
-	|| 0xfe < (character_number & 0xff)) {
-	error_code = EB_ERR_NO_SUCH_CHAR_TEXT;
-	goto failed;
+    || end < character_number
+    || (character_number & 0xff) < 0x01
+    || 0xfe < (character_number & 0xff)) {
+    error_code = EB_ERR_NO_SUCH_CHAR_TEXT;
+    goto failed;
     }
 
     /*
      * Calculate the location of alternation data.
      */
     location
-	= (appendix->subbook_current->narrow_page - 1) * EB_SIZE_PAGE
-	+ (((character_number >> 8) - (start >> 8)) * 0xfe
-	    + (character_number & 0xff) - (start & 0xff))
-	* (EB_MAX_ALTERNATION_TEXT_LENGTH + 1);
+    = (appendix->subbook_current->narrow_page - 1) * EB_SIZE_PAGE
+    + (((character_number >> 8) - (start >> 8)) * 0xfe
+        + (character_number & 0xff) - (start & 0xff))
+    * (EB_MAX_ALTERNATION_TEXT_LENGTH + 1);
 
     /*
      * Check for the cache data.
      */
     cache_p = appendix->narrow_cache + EB_HASH_ALT_CACHE(character_number);
     if (cache_p->character_number == character_number) {
-	memcpy(text, cache_p->text, EB_MAX_ALTERNATION_TEXT_LENGTH + 1);
-	goto succeeded;
+    memcpy(text, cache_p->text, EB_MAX_ALTERNATION_TEXT_LENGTH + 1);
+    goto succeeded;
     }
 
     /*
      * Read the alternation data.
      */
     if (zio_lseek(&appendix->subbook_current->zio, location, SEEK_SET) < 0) {
-	error_code = EB_ERR_FAIL_SEEK_APP;
-	goto failed;
+    error_code = EB_ERR_FAIL_SEEK_APP;
+    goto failed;
     }
     cache_p->character_number = -1;
     if (zio_read(&appendix->subbook_current->zio, cache_p->text,
-	EB_MAX_ALTERNATION_TEXT_LENGTH + 1)
-	!= EB_MAX_ALTERNATION_TEXT_LENGTH + 1) {
-	error_code = EB_ERR_FAIL_READ_APP;
-	goto failed;
+    EB_MAX_ALTERNATION_TEXT_LENGTH + 1)
+    != EB_MAX_ALTERNATION_TEXT_LENGTH + 1) {
+    error_code = EB_ERR_FAIL_READ_APP;
+    goto failed;
     }
 
     /*
@@ -391,7 +379,7 @@ character_number=%d)",
 
   succeeded:
     LOG(("out: eb_narrow_alt_character_text_latin(text=%s) = %s",
-	eb_quoted_string(text), eb_error_string(EB_SUCCESS)));
+    eb_quoted_string(text), eb_error_string(EB_SUCCESS)));
     return EB_SUCCESS;
 
     /*
@@ -400,7 +388,7 @@ character_number=%d)",
   failed:
     *text = '\0';
     LOG(("out: eb_narrow_alt_character_text_latin() = %s",
-	eb_error_string(error_code)));
+    eb_error_string(error_code)));
     return error_code;
 }
 
@@ -418,89 +406,87 @@ eb_forward_narrow_alt_character(EB_Appendix *appendix, int n,
     int i;
 
     if (n < 0) {
-	return eb_backward_narrow_alt_character(appendix, -n,
-	    character_number);
+    return eb_backward_narrow_alt_character(appendix, -n,
+        character_number);
     }
 
-    eb_lock(&appendix->lock);
     LOG(("in: eb_forward_narrow_alt_character(appendix=%d, n=%d, \
 character_number=%d)",
-	(int)appendix->code, n, *character_number));
+    (int)appendix->code, n, *character_number));
 
     /*
      * Current subbook must have been set.
      */
     if (appendix->subbook_current == NULL) {
-	error_code = EB_ERR_NO_CUR_APPSUB;
-	goto failed;
+    error_code = EB_ERR_NO_CUR_APPSUB;
+    goto failed;
     }
 
     /*
      * The narrow font must exist in the current subbook.
      */
     if (appendix->subbook_current->narrow_page == 0) {
-	error_code = EB_ERR_NO_ALT;
-	goto failed;
+    error_code = EB_ERR_NO_ALT;
+    goto failed;
     }
 
     start = appendix->subbook_current->narrow_start;
     end = appendix->subbook_current->narrow_end;
 
     if (appendix->subbook_current->character_code == EB_CHARCODE_ISO8859_1) {
-	/*
-	 * Check for `*character_number'. (ISO 8859 1)
-	 */
-	if (*character_number < start
-	    || end < *character_number
-	    || (*character_number & 0xff) < 0x01
-	    || 0xfe < (*character_number & 0xff)) {
-	    error_code = EB_ERR_NO_SUCH_CHAR_TEXT;
-	    goto failed;
-	}
+    /*
+     * Check for `*character_number'. (ISO 8859 1)
+     */
+    if (*character_number < start
+        || end < *character_number
+        || (*character_number & 0xff) < 0x01
+        || 0xfe < (*character_number & 0xff)) {
+        error_code = EB_ERR_NO_SUCH_CHAR_TEXT;
+        goto failed;
+    }
 
-	/*
-	 * Get character number. (ISO 8859 1)
-	 */
-	for (i = 0; i < n; i++) {
-	    if (0xfe <= (*character_number & 0xff))
-		*character_number += 3;
-	    else
-		*character_number += 1;
-	    if (end < *character_number) {
-		error_code = EB_ERR_NO_SUCH_CHAR_TEXT;
-		goto failed;
-	    }
-	}
+    /*
+     * Get character number. (ISO 8859 1)
+     */
+    for (i = 0; i < n; i++) {
+        if (0xfe <= (*character_number & 0xff))
+        *character_number += 3;
+        else
+        *character_number += 1;
+        if (end < *character_number) {
+        error_code = EB_ERR_NO_SUCH_CHAR_TEXT;
+        goto failed;
+        }
+    }
     } else {
-	/*
-	 * Check for `*character_number'. (JIS X 0208)
-	 */
-	if (*character_number < start
-	    || end < *character_number
-	    || (*character_number & 0xff) < 0x21
-	    || 0x7e < (*character_number & 0xff)) {
-	    error_code = EB_ERR_NO_SUCH_CHAR_TEXT;
-	    goto failed;
-	}
+    /*
+     * Check for `*character_number'. (JIS X 0208)
+     */
+    if (*character_number < start
+        || end < *character_number
+        || (*character_number & 0xff) < 0x21
+        || 0x7e < (*character_number & 0xff)) {
+        error_code = EB_ERR_NO_SUCH_CHAR_TEXT;
+        goto failed;
+    }
 
-	/*
-	 * Get character number. (JIS X 0208)
-	 */
-	for (i = 0; i < n; i++) {
-	    if (0x7e <= (*character_number & 0xff))
-		*character_number += 0xa3;
-	    else
-		*character_number += 1;
-	    if (end < *character_number) {
-		error_code = EB_ERR_NO_SUCH_CHAR_TEXT;
-		goto failed;
-	    }
-	}
+    /*
+     * Get character number. (JIS X 0208)
+     */
+    for (i = 0; i < n; i++) {
+        if (0x7e <= (*character_number & 0xff))
+        *character_number += 0xa3;
+        else
+        *character_number += 1;
+        if (end < *character_number) {
+        error_code = EB_ERR_NO_SUCH_CHAR_TEXT;
+        goto failed;
+        }
+    }
     }
 
     LOG(("out: eb_forkward_narrow_alt_character(character_number=%d) = %s",
-	*character_number, eb_error_string(EB_SUCCESS)));
-    eb_unlock(&appendix->lock);
+    *character_number, eb_error_string(EB_SUCCESS)));
 
     return EB_SUCCESS;
 
@@ -510,8 +496,7 @@ character_number=%d)",
   failed:
     *character_number = -1;
     LOG(("out: eb_forward_narrow_alt_character() = %s",
-	eb_error_string(error_code)));
-    eb_unlock(&appendix->lock);
+    eb_error_string(error_code)));
     return error_code;
 }
 
@@ -529,88 +514,86 @@ eb_backward_narrow_alt_character(EB_Appendix *appendix, int n,
     int i;
 
     if (n < 0) {
-	return eb_forward_narrow_alt_character(appendix, -n, character_number);
+    return eb_forward_narrow_alt_character(appendix, -n, character_number);
     }
 
-    eb_lock(&appendix->lock);
     LOG(("in: eb_backward_narrow_alt_character(appendix=%d, n=%d, \
 character_number=%d)",
-	(int)appendix->code, n, *character_number));
+    (int)appendix->code, n, *character_number));
 
     /*
      * Current subbook must have been set.
      */
     if (appendix->subbook_current == NULL) {
-	error_code = EB_ERR_NO_CUR_APPSUB;
-	goto failed;
+    error_code = EB_ERR_NO_CUR_APPSUB;
+    goto failed;
     }
 
     /*
      * The narrow font must exist in the current subbook.
      */
     if (appendix->subbook_current->narrow_page == 0) {
-	error_code = EB_ERR_NO_ALT;
-	goto failed;
+    error_code = EB_ERR_NO_ALT;
+    goto failed;
     }
 
     start = appendix->subbook_current->narrow_start;
     end = appendix->subbook_current->narrow_end;
 
     if (appendix->subbook_current->character_code == EB_CHARCODE_ISO8859_1) {
-	/*
-	 * Check for `*character_number'. (ISO 8859 1)
-	 */
-	if (*character_number < start
-	    || end < *character_number
-	    || (*character_number & 0xff) < 0x01
-	    || 0xfe < (*character_number & 0xff)) {
-	    error_code = EB_ERR_NO_SUCH_CHAR_TEXT;
-	    goto failed;
-	}
+    /*
+     * Check for `*character_number'. (ISO 8859 1)
+     */
+    if (*character_number < start
+        || end < *character_number
+        || (*character_number & 0xff) < 0x01
+        || 0xfe < (*character_number & 0xff)) {
+        error_code = EB_ERR_NO_SUCH_CHAR_TEXT;
+        goto failed;
+    }
 
-	/*
-	 * Get character number. (ISO 8859 1)
-	 */
-	for (i = 0; i < n; i++) {
-	    if ((*character_number & 0xff) <= 0x01)
-		*character_number -= 3;
-	    else
-		*character_number -= 1;
-	    if (*character_number < start) {
-		error_code = EB_ERR_NO_SUCH_CHAR_TEXT;
-		goto failed;
-	    }
-	}
+    /*
+     * Get character number. (ISO 8859 1)
+     */
+    for (i = 0; i < n; i++) {
+        if ((*character_number & 0xff) <= 0x01)
+        *character_number -= 3;
+        else
+        *character_number -= 1;
+        if (*character_number < start) {
+        error_code = EB_ERR_NO_SUCH_CHAR_TEXT;
+        goto failed;
+        }
+    }
     } else {
-	/*
-	 * Check for `*character_number'. (JIS X 0208)
-	 */
-	if (*character_number < start
-	    || end < *character_number
-	    || (*character_number & 0xff) < 0x21
-	    || 0x7e < (*character_number & 0xff)) {
-	    error_code = EB_ERR_NO_SUCH_CHAR_TEXT;
-	    goto failed;
-	}
+    /*
+     * Check for `*character_number'. (JIS X 0208)
+     */
+    if (*character_number < start
+        || end < *character_number
+        || (*character_number & 0xff) < 0x21
+        || 0x7e < (*character_number & 0xff)) {
+        error_code = EB_ERR_NO_SUCH_CHAR_TEXT;
+        goto failed;
+    }
 
-	/*
-	 * Get character number. (JIS X 0208)
-	 */
-	for (i = 0; i < n; i++) {
-	    if ((*character_number & 0xff) <= 0x21)
-		*character_number -= 0xa3;
-	    else
-		*character_number -= 1;
-	    if (*character_number < start) {
-		error_code = EB_ERR_NO_SUCH_CHAR_TEXT;
-		goto failed;
-	    }
-	}
+    /*
+     * Get character number. (JIS X 0208)
+     */
+    for (i = 0; i < n; i++) {
+        if ((*character_number & 0xff) <= 0x21)
+        *character_number -= 0xa3;
+        else
+        *character_number -= 1;
+        if (*character_number < start) {
+        error_code = EB_ERR_NO_SUCH_CHAR_TEXT;
+        goto failed;
+        }
+    }
     }
 
     LOG(("out: eb_backward_narrow_alt_character(character_number=%d) = %s",
-	*character_number, eb_error_string(EB_SUCCESS)));
-    eb_unlock(&appendix->lock);
+    *character_number, eb_error_string(EB_SUCCESS)));
 
     return EB_SUCCESS;
 
@@ -620,7 +603,6 @@ character_number=%d)",
   failed:
     *character_number = -1;
     LOG(("out: eb_backward_narrow_alt_character() = %s",
-	eb_error_string(error_code)));
-    eb_unlock(&appendix->lock);
+    eb_error_string(error_code)));
     return error_code;
 }

@@ -29,10 +29,6 @@
 #ifndef EB_APPENDIX_H
 #define EB_APPENDIX_H
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 #include "eb.h"
 
 /*
@@ -84,13 +80,5 @@ EB_Error_Code eb_forward_wide_alt_character(EB_Appendix *appendix, int n,
     int *character_number);
 EB_Error_Code eb_backward_wide_alt_character(EB_Appendix *appendix, int n,
     int *character_number);
-
-/* for backward compatibility */
-#define eb_suspend_appendix eb_unset_appendix_subbook
-#define eb_initialize_all_appendix_subbooks eb_load_all_appendix_subbooks
-
-#ifdef __cplusplus
-}
-#endif
 
 #endif /* not EB_APPENDIX_H */

@@ -34,16 +34,16 @@
 /*
  * Buffer size of `Line_Buffer' struct.
  */
-#define LINEBUF_BUFFER_SIZE	256
+#define LINEBUF_BUFFER_SIZE 256
 
 /*
  * Line buffer manager.
  */
 typedef struct {
-    int file;				/* file descriptor */
-    int timeout;			/* idle timeout interval */
-    size_t cache_length;		/* length of cache data */
-    char buffer[LINEBUF_BUFFER_SIZE];	/* buffer */
+    int file;               /* file descriptor */
+    int timeout;            /* idle timeout interval */
+    size_t cache_length;        /* length of cache data */
+    char buffer[LINEBUF_BUFFER_SIZE];   /* buffer */
 } Line_Buffer;
 
 

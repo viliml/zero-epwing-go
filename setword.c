@@ -73,17 +73,17 @@ eb_set_word(EB_Book *book, const char *input_word, char *word,
     const EB_Search *search;
 
     LOG(("in: eb_set_word(book=%d, input_word=%s)", (int)book->code,
-	eb_quoted_string(input_word)));
+    eb_quoted_string(input_word)));
 
     /*
      * Make a fixed word and a canonicalized word from `input_word'.
      */
     if (book->character_code == EB_CHARCODE_ISO8859_1)
-	error_code = eb_convert_latin(book, input_word, word, word_code);
+    error_code = eb_convert_latin(book, input_word, word, word_code);
     else
-	error_code = eb_convert_euc_jp(book, input_word, word, word_code);
+    error_code = eb_convert_euc_jp(book, input_word, word, word_code);
     if (error_code != EB_SUCCESS)
-	goto failed;
+    goto failed;
     strcpy(canonicalized_word, word);
 
     /*
@@ -91,39 +91,39 @@ eb_set_word(EB_Book *book, const char *input_word, char *word,
      */
     switch (*word_code) {
     case EB_WORD_ALPHABET:
-	if (book->subbook_current->word_alphabet.start_page != 0)
-	    search = &book->subbook_current->word_alphabet;
-	else if (book->subbook_current->word_asis.start_page != 0)
-	    search = &book->subbook_current->word_asis;
-	else {
-	    error_code = EB_ERR_NO_SUCH_SEARCH;
-	    goto failed;
-	}
-	break;
+    if (book->subbook_current->word_alphabet.start_page != 0)
+        search = &book->subbook_current->word_alphabet;
+    else if (book->subbook_current->word_asis.start_page != 0)
+        search = &book->subbook_current->word_asis;
+    else {
+        error_code = EB_ERR_NO_SUCH_SEARCH;
+        goto failed;
+    }
+    break;
 
     case EB_WORD_KANA:
-	if (book->subbook_current->word_kana.start_page != 0)
-	    search = &book->subbook_current->word_kana;
-	else if (book->subbook_current->word_asis.start_page != 0)
-	    search = &book->subbook_current->word_asis;
-	else {
-	    error_code = EB_ERR_NO_SUCH_SEARCH;
-	    goto failed;
-	}
-	break;
+    if (book->subbook_current->word_kana.start_page != 0)
+        search = &book->subbook_current->word_kana;
+    else if (book->subbook_current->word_asis.start_page != 0)
+        search = &book->subbook_current->word_asis;
+    else {
+        error_code = EB_ERR_NO_SUCH_SEARCH;
+        goto failed;
+    }
+    break;
 
     case EB_WORD_OTHER:
-	if (book->subbook_current->word_asis.start_page != 0)
-	    search = &book->subbook_current->word_asis;
-	else {
-	    error_code = EB_ERR_NO_SUCH_SEARCH;
-	    goto failed;
-	}
-	break;
+    if (book->subbook_current->word_asis.start_page != 0)
+        search = &book->subbook_current->word_asis;
+    else {
+        error_code = EB_ERR_NO_SUCH_SEARCH;
+        goto failed;
+    }
+    break;
 
     default:
-	error_code = EB_ERR_NO_SUCH_SEARCH;
-	goto failed;
+    error_code = EB_ERR_NO_SUCH_SEARCH;
+    goto failed;
     }
 
     /*
@@ -132,8 +132,8 @@ eb_set_word(EB_Book *book, const char *input_word, char *word,
     eb_fix_word(book, search, word, canonicalized_word);
 
     LOG(("out: eb_set_word(word=%s, canonicalized_word=%s, word_code=%d) = %s",
-	eb_quoted_string(word), eb_quoted_string(canonicalized_word),
-	(int)*word_code, eb_error_string(EB_SUCCESS)));
+    eb_quoted_string(word), eb_quoted_string(canonicalized_word),
+    (int)*word_code, eb_error_string(EB_SUCCESS)));
 
     return EB_SUCCESS;
 
@@ -164,17 +164,17 @@ eb_set_endword(EB_Book *book, const char *input_word, char *word,
     const EB_Search *search;
 
     LOG(("in: eb_set_endword(book=%d, input_word=%s)", (int)book->code,
-	eb_quoted_string(input_word)));
+    eb_quoted_string(input_word)));
 
     /*
      * Make a fixed word and a canonicalized word from `input_word'.
      */
     if (book->character_code == EB_CHARCODE_ISO8859_1)
-	error_code = eb_convert_latin(book, input_word, word, word_code);
+    error_code = eb_convert_latin(book, input_word, word, word_code);
     else
-	error_code = eb_convert_euc_jp(book, input_word, word, word_code);
+    error_code = eb_convert_euc_jp(book, input_word, word, word_code);
     if (error_code != EB_SUCCESS)
-	goto failed;
+    goto failed;
     strcpy(canonicalized_word, word);
 
     /*
@@ -182,39 +182,39 @@ eb_set_endword(EB_Book *book, const char *input_word, char *word,
      */
     switch (*word_code) {
     case EB_WORD_ALPHABET:
-	if (book->subbook_current->endword_alphabet.start_page != 0)
-	    search = &book->subbook_current->endword_alphabet;
-	else if (book->subbook_current->endword_asis.start_page != 0)
-	    search = &book->subbook_current->endword_asis;
-	else {
-	    error_code = EB_ERR_NO_SUCH_SEARCH;
-	    goto failed;
-	}
-	break;
+    if (book->subbook_current->endword_alphabet.start_page != 0)
+        search = &book->subbook_current->endword_alphabet;
+    else if (book->subbook_current->endword_asis.start_page != 0)
+        search = &book->subbook_current->endword_asis;
+    else {
+        error_code = EB_ERR_NO_SUCH_SEARCH;
+        goto failed;
+    }
+    break;
 
     case EB_WORD_KANA:
-	if (book->subbook_current->endword_kana.start_page != 0)
-	    search = &book->subbook_current->endword_kana;
-	else if (book->subbook_current->endword_asis.start_page != 0)
-	    search = &book->subbook_current->endword_asis;
-	else {
-	    error_code = EB_ERR_NO_SUCH_SEARCH;
-	    goto failed;
-	}
-	break;
+    if (book->subbook_current->endword_kana.start_page != 0)
+        search = &book->subbook_current->endword_kana;
+    else if (book->subbook_current->endword_asis.start_page != 0)
+        search = &book->subbook_current->endword_asis;
+    else {
+        error_code = EB_ERR_NO_SUCH_SEARCH;
+        goto failed;
+    }
+    break;
 
     case EB_WORD_OTHER:
-	if (book->subbook_current->endword_asis.start_page != 0)
-	    search = &book->subbook_current->endword_asis;
-	else {
-	    error_code = EB_ERR_NO_SUCH_SEARCH;
-	    goto failed;
-	}
-	break;
+    if (book->subbook_current->endword_asis.start_page != 0)
+        search = &book->subbook_current->endword_asis;
+    else {
+        error_code = EB_ERR_NO_SUCH_SEARCH;
+        goto failed;
+    }
+    break;
 
     default:
-	error_code = EB_ERR_NO_SUCH_SEARCH;
-	goto failed;
+    error_code = EB_ERR_NO_SUCH_SEARCH;
+    goto failed;
     }
 
     /*
@@ -226,17 +226,17 @@ eb_set_endword(EB_Book *book, const char *input_word, char *word,
      * Reverse the word.
      */
     if (book->character_code == EB_CHARCODE_ISO8859_1) {
-	eb_reverse_word_latin(word);
-	eb_reverse_word_latin(canonicalized_word);
+    eb_reverse_word_latin(word);
+    eb_reverse_word_latin(canonicalized_word);
     } else {
-	eb_reverse_word_jis(word);
-	eb_reverse_word_jis(canonicalized_word);
+    eb_reverse_word_jis(word);
+    eb_reverse_word_jis(canonicalized_word);
     }
 
     LOG(("out: eb_set_endword(word=%s, canonicalized_word=%s, word_code=%d) \
 = %s",
-	eb_quoted_string(word), eb_quoted_string(canonicalized_word),
-	(int)*word_code, eb_error_string(EB_SUCCESS)));
+    eb_quoted_string(word), eb_quoted_string(canonicalized_word),
+    (int)*word_code, eb_error_string(EB_SUCCESS)));
 
     return EB_SUCCESS;
 
@@ -267,29 +267,29 @@ eb_set_keyword(EB_Book *book, const char *input_word, char *word,
     EB_Error_Code error_code;
 
     LOG(("in: eb_set_keyword(book=%d, input_word=%s)", (int)book->code,
-	eb_quoted_string(input_word)));
+    eb_quoted_string(input_word)));
 
     /*
      * Make a fixed word and a canonicalized word from `input_word'.
      */
     if (book->character_code == EB_CHARCODE_ISO8859_1)
-	error_code = eb_convert_latin(book, input_word, word, word_code);
+    error_code = eb_convert_latin(book, input_word, word, word_code);
     else
-	error_code = eb_convert_euc_jp(book, input_word, word, word_code);
+    error_code = eb_convert_euc_jp(book, input_word, word, word_code);
     if (error_code != EB_SUCCESS)
-	goto failed;
+    goto failed;
     strcpy(canonicalized_word, word);
 
     /*
      * Fix the word.
      */
     eb_fix_word(book, &book->subbook_current->keyword, word,
-	canonicalized_word);
+    canonicalized_word);
 
     LOG(("out: eb_set_keyword(word=%s, canonicalized_word=%s, word_code=%d) \
 = %s",
-	eb_quoted_string(word), eb_quoted_string(canonicalized_word),
-	(int)*word_code, eb_error_string(EB_SUCCESS)));
+    eb_quoted_string(word), eb_quoted_string(canonicalized_word),
+    (int)*word_code, eb_error_string(EB_SUCCESS)));
 
     return EB_SUCCESS;
 
@@ -321,17 +321,17 @@ eb_set_multiword(EB_Book *book, EB_Multi_Search_Code multi_id,
     EB_Search *search;
 
     LOG(("in: eb_set_multiword(book=%d, input_word=%s)", (int)book->code,
-	eb_quoted_string(input_word)));
+    eb_quoted_string(input_word)));
 
     /*
      * Make a fixed word and a canonicalized word from `input_word'.
      */
     if (book->character_code == EB_CHARCODE_ISO8859_1)
-	error_code = eb_convert_latin(book, input_word, word, word_code);
+    error_code = eb_convert_latin(book, input_word, word, word_code);
     else
-	error_code = eb_convert_euc_jp(book, input_word, word, word_code);
+    error_code = eb_convert_euc_jp(book, input_word, word, word_code);
     if (error_code != EB_SUCCESS)
-	goto failed;
+    goto failed;
     strcpy(canonicalized_word, word);
 
     /*
@@ -342,8 +342,8 @@ eb_set_multiword(EB_Book *book, EB_Multi_Search_Code multi_id,
 
     LOG(("out: eb_set_multiword(word=%s, canonicalized_word=%s, word_code=%d) \
 = %s",
-	eb_quoted_string(word), eb_quoted_string(canonicalized_word),
-	(int)*word_code, eb_error_string(EB_SUCCESS)));
+    eb_quoted_string(word), eb_quoted_string(canonicalized_word),
+    (int)*word_code, eb_error_string(EB_SUCCESS)));
 
     return EB_SUCCESS;
 
@@ -368,60 +368,60 @@ eb_fix_word(EB_Book *book, const EB_Search *search, char *word,
     char *canonicalized_word)
 {
     LOG(("in: eb_fix_word(book=%d, word=%s, canonicalized_word=%s)",
-	(int)book->code, eb_quoted_string(word),
-	eb_quoted_string(canonicalized_word)));
+    (int)book->code, eb_quoted_string(word),
+    eb_quoted_string(canonicalized_word)));
 
     if (search->index_id == 0xa1 && search->candidates_page != 0)
-	return;
+    return;
 
     if (book->character_code == EB_CHARCODE_ISO8859_1) {
-	if (search->space == EB_INDEX_STYLE_DELETE)
-	    eb_delete_spaces_latin(canonicalized_word);
+    if (search->space == EB_INDEX_STYLE_DELETE)
+        eb_delete_spaces_latin(canonicalized_word);
 
-	if (search->lower == EB_INDEX_STYLE_CONVERT)
-	    eb_convert_lower_latin(canonicalized_word);
+    if (search->lower == EB_INDEX_STYLE_CONVERT)
+        eb_convert_lower_latin(canonicalized_word);
 
     } else {
-	if (search->space == EB_INDEX_STYLE_DELETE)
-	    eb_delete_spaces_jis(canonicalized_word);
+    if (search->space == EB_INDEX_STYLE_DELETE)
+        eb_delete_spaces_jis(canonicalized_word);
 
-	if (search->katakana == EB_INDEX_STYLE_CONVERT)
-	    eb_convert_katakana_jis(canonicalized_word);
-	else if (search->katakana == EB_INDEX_STYLE_REVERSED_CONVERT)
-	    eb_convert_hiragana_jis(canonicalized_word);
+    if (search->katakana == EB_INDEX_STYLE_CONVERT)
+        eb_convert_katakana_jis(canonicalized_word);
+    else if (search->katakana == EB_INDEX_STYLE_REVERSED_CONVERT)
+        eb_convert_hiragana_jis(canonicalized_word);
 
-	if (search->lower == EB_INDEX_STYLE_CONVERT)
-	    eb_convert_lower_jis(canonicalized_word);
+    if (search->lower == EB_INDEX_STYLE_CONVERT)
+        eb_convert_lower_jis(canonicalized_word);
 
-	if (search->mark == EB_INDEX_STYLE_DELETE)
-	    eb_delete_marks_jis(canonicalized_word);
+    if (search->mark == EB_INDEX_STYLE_DELETE)
+        eb_delete_marks_jis(canonicalized_word);
 
-	if (search->long_vowel == EB_INDEX_STYLE_CONVERT)
-	    eb_convert_long_vowels_jis(canonicalized_word);
-	else if (search->long_vowel == EB_INDEX_STYLE_DELETE)
-	    eb_delete_long_vowels_jis(canonicalized_word);
+    if (search->long_vowel == EB_INDEX_STYLE_CONVERT)
+        eb_convert_long_vowels_jis(canonicalized_word);
+    else if (search->long_vowel == EB_INDEX_STYLE_DELETE)
+        eb_delete_long_vowels_jis(canonicalized_word);
 
-	if (search->double_consonant == EB_INDEX_STYLE_CONVERT)
-	    eb_convert_double_consonants_jis(canonicalized_word);
+    if (search->double_consonant == EB_INDEX_STYLE_CONVERT)
+        eb_convert_double_consonants_jis(canonicalized_word);
 
-	if (search->contracted_sound == EB_INDEX_STYLE_CONVERT)
-	    eb_convert_contracted_sounds_jis(canonicalized_word);
+    if (search->contracted_sound == EB_INDEX_STYLE_CONVERT)
+        eb_convert_contracted_sounds_jis(canonicalized_word);
 
-	if (search->small_vowel == EB_INDEX_STYLE_CONVERT)
-	    eb_convert_small_vowels_jis(canonicalized_word);
+    if (search->small_vowel == EB_INDEX_STYLE_CONVERT)
+        eb_convert_small_vowels_jis(canonicalized_word);
 
-	if (search->voiced_consonant == EB_INDEX_STYLE_CONVERT)
-	    eb_convert_voiced_consonants_jis(canonicalized_word);
+    if (search->voiced_consonant == EB_INDEX_STYLE_CONVERT)
+        eb_convert_voiced_consonants_jis(canonicalized_word);
 
-	if (search->p_sound == EB_INDEX_STYLE_CONVERT)
-	    eb_convert_p_sounds_jis(canonicalized_word);
+    if (search->p_sound == EB_INDEX_STYLE_CONVERT)
+        eb_convert_p_sounds_jis(canonicalized_word);
     }
 
     if (search->index_id != 0x70 && search->index_id != 0x90)
-	strcpy(word, canonicalized_word);
+    strcpy(word, canonicalized_word);
 
     LOG(("out: eb_fix_word(word=%s, canonicalized_word=%s)",
-	eb_quoted_string(word), eb_quoted_string(canonicalized_word)));
+    eb_quoted_string(word), eb_quoted_string(canonicalized_word)));
 }
 
 
@@ -443,63 +443,63 @@ eb_convert_latin(EB_Book *book, const char *input_word, char *word,
     int word_length = 0;
 
     LOG(("in: eb_convert_latin(book=%d, input_word=%s)", (int)book->code,
-	eb_quoted_string(input_word)));
+    eb_quoted_string(input_word)));
 
     /*
      * Find the tail of `input_word'.
      */
     tail = (const unsigned char *) input_word + strlen(input_word) - 1;
     while ((const unsigned char *)input_word <= tail
-	&& (*tail == ' ' || *tail == '\t'))
-	tail--;
+    && (*tail == ' ' || *tail == '\t'))
+    tail--;
     tail++;
 
     /*
      * Ignore spaces and tabs in the beginning of `input_word'.
      */
     while (*inp == ' ' || *inp == '\t')
-	inp++;
+    inp++;
 
     while (inp < tail) {
-	/*
-	 * Check for the length of the word.
-	 * If exceeds, return with an error code.
-	 */
-	if (EB_MAX_WORD_LENGTH < word_length + 1) {
-	    error_code = EB_ERR_TOO_LONG_WORD;
-	    goto failed;
-	}
+    /*
+     * Check for the length of the word.
+     * If exceeds, return with an error code.
+     */
+    if (EB_MAX_WORD_LENGTH < word_length + 1) {
+        error_code = EB_ERR_TOO_LONG_WORD;
+        goto failed;
+    }
 
-	c1 = *inp++;
+    c1 = *inp++;
 
-	/*
-	 * Tabs are translated to spaces.
-	 */
-	if (c1 == '\t')
-	    c1 = ' ';
+    /*
+     * Tabs are translated to spaces.
+     */
+    if (c1 == '\t')
+        c1 = ' ';
 
-	*wp++ = c1;
+    *wp++ = c1;
 
-	/*
-	 * Skip successive spaces and tabs.
-	 */
-	if (c1 == ' ') {
-	    while (*inp == '\t' || *inp == ' ')
-		inp++;
-	}
+    /*
+     * Skip successive spaces and tabs.
+     */
+    if (c1 == ' ') {
+        while (*inp == '\t' || *inp == ' ')
+        inp++;
+    }
 
-	word_length++;
+    word_length++;
     }
     *wp = '\0';
 
     if (word_length == 0) {
-	error_code = EB_ERR_EMPTY_WORD;
-	goto failed;
+    error_code = EB_ERR_EMPTY_WORD;
+    goto failed;
     }
     *word_code = EB_WORD_ALPHABET;
 
     LOG(("out: eb_convert_latin(word=%s, word_code=%d) = %s",
-	eb_quoted_string(word), (int)*word_code, eb_error_string(EB_SUCCESS)));
+    eb_quoted_string(word), (int)*word_code, eb_error_string(EB_SUCCESS)));
 
     return EB_SUCCESS;
 
@@ -578,19 +578,19 @@ eb_convert_euc_jp(EB_Book *book, const char *input_word, char *word,
     int word_length = 0;
 
     LOG(("in: eb_convert_euc_jp(book=%d, input_word=%s)", (int)book->code,
-	eb_quoted_string(input_word)));
+    eb_quoted_string(input_word)));
 
     /*
      * Find the tail of `input_word'.
      */
     tail = (const unsigned char *) input_word + strlen(input_word) - 1;
     for (;;) {
-	if (inp < tail && (*tail == ' ' || *tail == '\t'))
-	    tail--;
-	else if (inp < tail - 1 && *tail == 0xa1 && *(tail - 1) == 0xa1)
-	    tail -= 2;
-	else
-	    break;
+    if (inp < tail && (*tail == ' ' || *tail == '\t'))
+        tail--;
+    else if (inp < tail - 1 && *tail == 0xa1 && *(tail - 1) == 0xa1)
+        tail -= 2;
+    else
+        break;
     }
     tail++;
 
@@ -598,99 +598,99 @@ eb_convert_euc_jp(EB_Book *book, const char *input_word, char *word,
      * Ignore spaces and tabs in the beginning of `input_word'.
      */
     for (;;) {
-	if (*inp == ' ' || *inp == '\t')
-	    inp++;
-	else if (*inp == 0xa1 && *(inp + 1) == 0xa1)
-	    inp += 2;
-	else
-	    break;
+    if (*inp == ' ' || *inp == '\t')
+        inp++;
+    else if (*inp == 0xa1 && *(inp + 1) == 0xa1)
+        inp += 2;
+    else
+        break;
     }
 
     while (inp < tail) {
-	/*
-	 * Check for the length of the word.
-	 * If exceeds, return with an error code.
-	 */
-	if (EB_MAX_WORD_LENGTH < word_length + 2) {
-	    error_code = EB_ERR_TOO_LONG_WORD;
-	    goto failed;
-	}
+    /*
+     * Check for the length of the word.
+     * If exceeds, return with an error code.
+     */
+    if (EB_MAX_WORD_LENGTH < word_length + 2) {
+        error_code = EB_ERR_TOO_LONG_WORD;
+        goto failed;
+    }
 
-	/*
-	 * Tabs are translated to spaces.
-	 */
-	c1 = *inp++;
-	if (c1 == '\t')
-	    c1 = ' ';
+    /*
+     * Tabs are translated to spaces.
+     */
+    c1 = *inp++;
+    if (c1 == '\t')
+        c1 = ' ';
 
-	if (0x20 <= c1 && c1 <= 0x7e) {
-	    /*
-	     * `c1' is a character in ASCII.
-	     */
-	    unsigned int c = jisx0208_table[c1 - 0x20];
-	    c1 = c >> 8;
-	    c2 = c & 0xff;
-	} else if (0xa1 <= c1 && c1 <= 0xfe) {
-	    /*
-	     * `c1' is a character in JIS X 0208, or local character.
-	     */
-	    c2 = *inp++;
+    if (0x20 <= c1 && c1 <= 0x7e) {
+        /*
+         * `c1' is a character in ASCII.
+         */
+        unsigned int c = jisx0208_table[c1 - 0x20];
+        c1 = c >> 8;
+        c2 = c & 0xff;
+    } else if (0xa1 <= c1 && c1 <= 0xfe) {
+        /*
+         * `c1' is a character in JIS X 0208, or local character.
+         */
+        c2 = *inp++;
 
-	    if (0xa1 <= c2 && c2 <= 0xfe) {
-		c1 &= 0x7f;
-		c2 &= 0x7f;
-	    } else if (c2 < 0x20 || 0x7e < c2) {
-		error_code = EB_ERR_BAD_WORD;
-		goto failed;
-	    }
-	} else if (c1 == 0x8e) {
-	    /*
-	     * `c1' is SS2.
-	     */
-	    if (c2 < 0xa1 || 0xdf < c2) {
-		error_code = EB_ERR_BAD_WORD;
-		goto failed;
-	    }
-	    c2 = jisx0201_table[c2 - 0xa0];
-	    c1 = 0x25;
-	} else {
-	    error_code = EB_ERR_BAD_WORD;
-	    goto failed;
-	}
+        if (0xa1 <= c2 && c2 <= 0xfe) {
+        c1 &= 0x7f;
+        c2 &= 0x7f;
+        } else if (c2 < 0x20 || 0x7e < c2) {
+        error_code = EB_ERR_BAD_WORD;
+        goto failed;
+        }
+    } else if (c1 == 0x8e) {
+        /*
+         * `c1' is SS2.
+         */
+        if (c2 < 0xa1 || 0xdf < c2) {
+        error_code = EB_ERR_BAD_WORD;
+        goto failed;
+        }
+        c2 = jisx0201_table[c2 - 0xa0];
+        c1 = 0x25;
+    } else {
+        error_code = EB_ERR_BAD_WORD;
+        goto failed;
+    }
 
-	/*
-	 * The following characters are recognized as alphabet.
-	 *   2330 - 2339: `0' .. `9'
-	 *   2341 - 235a: `A' .. `Z'
-	 *   2361 - 237a: `a' .. `z' (convert to upper cases)
-	 */
-	*wp++ = c1;
-	*wp++ = c2;
+    /*
+     * The following characters are recognized as alphabet.
+     *   2330 - 2339: `0' .. `9'
+     *   2341 - 235a: `A' .. `Z'
+     *   2361 - 237a: `a' .. `z' (convert to upper cases)
+     */
+    *wp++ = c1;
+    *wp++ = c2;
 
-	if (c1 == 0x23)
-	    alphabet_count++;
-	else if (c1 == 0x24 || c1 == 0x25)
-	    kana_count++;
-	else if (c1 != 0x21)
-	    kanji_count++;
+    if (c1 == 0x23)
+        alphabet_count++;
+    else if (c1 == 0x24 || c1 == 0x25)
+        kana_count++;
+    else if (c1 != 0x21)
+        kanji_count++;
 
-	word_length += 2;
+    word_length += 2;
     }
     *wp = '\0';
 
     if (word_length == 0) {
-	error_code = EB_ERR_EMPTY_WORD;
-	goto failed;
+    error_code = EB_ERR_EMPTY_WORD;
+    goto failed;
     }
     if (alphabet_count == 0 && kana_count != 0 && kanji_count == 0)
-	*word_code = EB_WORD_KANA;
+    *word_code = EB_WORD_KANA;
     else if (alphabet_count != 0 && kana_count == 0 && kanji_count == 0)
-	*word_code = EB_WORD_ALPHABET;
+    *word_code = EB_WORD_ALPHABET;
     else
-	*word_code = EB_WORD_OTHER;
+    *word_code = EB_WORD_OTHER;
 
     LOG(("out: eb_convert_euc_jp(word=%s, word_code=%d) = %s",
-	eb_quoted_string(word), (int)*word_code, eb_error_string(EB_SUCCESS)));
+    eb_quoted_string(word), (int)*word_code, eb_error_string(EB_SUCCESS)));
 
     return EB_SUCCESS;
 
@@ -717,16 +717,16 @@ eb_convert_katakana_jis(char *word)
     LOG(("in: eb_convert_katakana_jis(word=%s)", eb_quoted_string(word)));
 
     while (*wp != '\0' && *(wp + 1) != '\0') {
-	c1 = *wp;
-	c2 = *(wp + 1);
+    c1 = *wp;
+    c2 = *(wp + 1);
 
-	if (c1 == 0x25 && 0x21 <= c2 && c2 <= 0x76) {
-	    /*
-	     * This is a KATAKANA.  Convert to corresponding HIRAGANA.
-	     */
-	    *wp = 0x24;
-	}
-	wp += 2;
+    if (c1 == 0x25 && 0x21 <= c2 && c2 <= 0x76) {
+        /*
+         * This is a KATAKANA.  Convert to corresponding HIRAGANA.
+         */
+        *wp = 0x24;
+    }
+    wp += 2;
     }
     *wp = '\0';
 
@@ -746,16 +746,16 @@ eb_convert_hiragana_jis(char *word)
     LOG(("in: eb_convert_hiragana_jis(word=%s)", eb_quoted_string(word)));
 
     while (*wp != '\0' && *(wp + 1) != '\0') {
-	c1 = *wp;
-	c2 = *(wp + 1);
+    c1 = *wp;
+    c2 = *(wp + 1);
 
-	if (c1 == 0x24 && 0x21 <= c2 && c2 <= 0x76) {
-	    /*
-	     * This is a HIRAGANA.  Convert to corresponding KATAKANA.
-	     */
-	    *wp = 0x25;
-	}
-	wp += 2;
+    if (c1 == 0x24 && 0x21 <= c2 && c2 <= 0x76) {
+        /*
+         * This is a HIRAGANA.  Convert to corresponding KATAKANA.
+         */
+        *wp = 0x25;
+    }
+    wp += 2;
     }
     *wp = '\0';
 
@@ -774,14 +774,14 @@ eb_convert_lower_latin(char *word)
     LOG(("in: eb_convert_lower_latin(word=%s)", eb_quoted_string(word)));
 
     while (*wp != '\0') {
-	if (('a' <= *wp && *wp <= 'z')
-	    || (0xe0 <= *wp && *wp <= 0xf6) || (0xf8 <= *wp && *wp <= 0xfe)) {
-	    /*
-	     * This is a lower case letter.  Convert to upper case.
-	     */
-	    *wp -= 0x20;
-	}
-	wp++;
+    if (('a' <= *wp && *wp <= 'z')
+        || (0xe0 <= *wp && *wp <= 0xf6) || (0xf8 <= *wp && *wp <= 0xfe)) {
+        /*
+         * This is a lower case letter.  Convert to upper case.
+         */
+        *wp -= 0x20;
+    }
+    wp++;
     }
     *wp = '\0';
 
@@ -801,16 +801,16 @@ eb_convert_lower_jis(char *word)
     LOG(("in: eb_convert_lower_jis(word=%s)", eb_quoted_string(word)));
 
     while (*wp != '\0' && *(wp + 1) != '\0') {
-	c1 = *wp;
-	c2 = *(wp + 1);
+    c1 = *wp;
+    c2 = *(wp + 1);
 
-	if (c1 == 0x23 && 0x61 <= c2 && c2 <= 0x7a) {
-	    /*
-	     * This is a lower case letter.  Convert to upper case.
-	     */
-	    *(wp + 1) = c2 - 0x20;
-	}
-	wp += 2;
+    if (c1 == 0x23 && 0x61 <= c2 && c2 <= 0x7a) {
+        /*
+         * This is a lower case letter.  Convert to upper case.
+         */
+        *(wp + 1) = c2 - 0x20;
+    }
+    wp += 2;
     }
     *wp = '\0';
 
@@ -831,19 +831,19 @@ eb_delete_marks_jis(char *word)
     LOG(("in: eb_delete_marks_jis(word=%s)", eb_quoted_string(word)));
 
     while (*in_wp != '\0' && *(in_wp + 1) != '\0') {
-	c1 = *in_wp;
-	c2 = *(in_wp + 1);
+    c1 = *in_wp;
+    c2 = *(in_wp + 1);
 
-	if (c1 != 0x21
-	    || (c2 != 0x26 && c2 != 0x3e && c2 != 0x47 && c2 != 0x5d)) {
-	    /*
-	     * This is not a character to be deleted.
-	     */
-	    *out_wp = c1;
-	    *(out_wp + 1) = c2;
-	    out_wp += 2;
-	}
-	in_wp += 2;
+    if (c1 != 0x21
+        || (c2 != 0x26 && c2 != 0x3e && c2 != 0x47 && c2 != 0x5d)) {
+        /*
+         * This is not a character to be deleted.
+         */
+        *out_wp = c1;
+        *(out_wp + 1) = c2;
+        out_wp += 2;
+    }
+    in_wp += 2;
     }
     *out_wp = '\0';
 
@@ -855,49 +855,49 @@ eb_delete_marks_jis(char *word)
  * The table is used to convert long vowel marks.
  */
 static const char long_vowel_table[] = {
-    0x22, /* a(21) -> A(22) */		0x22, /* A(22) -> A(22) */
-    0x24, /* i(23) -> I(24) */		0x24, /* I(24) -> I(24) */
-    0x26, /* u(25) -> U(26) */		0x26, /* U(26) -> U(26) */
-    0x28, /* e(27) -> E(28) */		0x28, /* E(28) -> E(28) */
-    0x2a, /* o(29) -> O(2a) */		0x2a, /* O(2a) -> O(2a) */
-    0x22, /* KA(2b) -> A(22) */		0x22, /* GA(2c) -> A(22) */
-    0x24, /* KI(2d) -> I(24) */		0x24, /* GI(2e) -> I(24) */
-    0x26, /* KU(2f) -> U(26) */		0x26, /* GU(30) -> U(26) */
-    0x28, /* KE(31) -> E(28) */		0x28, /* GE(32) -> E(28) */
-    0x2a, /* KO(33) -> O(2a) */		0x2a, /* GO(34) -> O(2a) */
-    0x22, /* SA(35) -> A(22) */		0x22, /* ZA(36) -> A(22) */
-    0x24, /* SI(37) -> I(24) */		0x24, /* ZI(38) -> I(24) */
-    0x26, /* SU(39) -> U(26) */		0x26, /* ZU(3a) -> U(26) */
-    0x28, /* SE(3b) -> E(28) */		0x28, /* ZE(3c) -> E(28) */
-    0x2a, /* SO(3d) -> O(2a) */		0x2a, /* ZO(3e) -> O(2a) */
-    0x22, /* TA(3f) -> A(22) */		0x22, /* DA(40) -> A(22) */
-    0x24, /* TI(41) -> I(24) */		0x24, /* DI(42) -> I(24) */
-    0x26, /* tu(43) -> U(26) */		0x26, /* TU(44) -> U(26) */
-    0x26, /* DU(45) -> U(26) */		0x28, /* TE(46) -> E(28) */
-    0x28, /* DE(47) -> E(28) */		0x2a, /* TO(48) -> O(2a) */
-    0x2a, /* DO(49) -> O(2a) */		0x22, /* NA(4a) -> A(22) */
-    0x24, /* NI(4b) -> I(24) */		0x26, /* NU(4c) -> U(26) */
-    0x28, /* NE(4d) -> E(28) */		0x2a, /* NO(4e) -> O(2a) */
-    0x22, /* HA(4f) -> A(22) */		0x22, /* BA(50) -> A(22) */
-    0x22, /* PA(51) -> A(22) */		0x24, /* HI(52) -> I(24) */
-    0x24, /* BI(53) -> I(24) */		0x24, /* PI(54) -> I(24) */
-    0x26, /* HU(55) -> U(26) */		0x26, /* BU(56) -> U(26) */
-    0x26, /* PU(57) -> U(26) */		0x28, /* HE(58) -> E(28) */
-    0x28, /* BE(59) -> E(28) */		0x28, /* PE(5a) -> E(28) */
-    0x2a, /* HO(5b) -> O(2a) */		0x2a, /* BO(5c) -> O(2a) */
-    0x2a, /* PO(5d) -> O(2a) */		0x22, /* MA(5e) -> A(22) */
-    0x24, /* MI(5f) -> I(24) */		0x26, /* MU(60) -> U(26) */
-    0x28, /* ME(61) -> E(28) */		0x2a, /* MO(62) -> O(2a) */
-    0x22, /* ya(63) -> A(22) */		0x22, /* YA(64) -> A(22) */
-    0x26, /* yu(65) -> U(26) */		0x26, /* YU(66) -> U(26) */
-    0x2a, /* yo(67) -> O(2a) */		0x2a, /* YO(68) -> O(2a) */
-    0x22, /* RA(69) -> A(22) */		0x24, /* RI(6a) -> I(24) */
-    0x26, /* RU(6b) -> U(26) */		0x28, /* RE(6c) -> E(28) */
-    0x2a, /* RO(6d) -> O(2a) */		0x22, /* wa(6e) -> A(22) */
-    0x22, /* WA(6f) -> A(22) */		0x24, /* WI(70) -> I(24) */
-    0x28, /* WE(71) -> E(28) */		0x2a, /* WO(72) -> O(2a) */
-    0x73, /* N (73) -> N(73) */		0x26, /* VU(74) -> U(26) */
-    0x22, /* ka(75) -> A(22) */		0x28  /* ke(76) -> E(28) */
+    0x22, /* a(21) -> A(22) */      0x22, /* A(22) -> A(22) */
+    0x24, /* i(23) -> I(24) */      0x24, /* I(24) -> I(24) */
+    0x26, /* u(25) -> U(26) */      0x26, /* U(26) -> U(26) */
+    0x28, /* e(27) -> E(28) */      0x28, /* E(28) -> E(28) */
+    0x2a, /* o(29) -> O(2a) */      0x2a, /* O(2a) -> O(2a) */
+    0x22, /* KA(2b) -> A(22) */     0x22, /* GA(2c) -> A(22) */
+    0x24, /* KI(2d) -> I(24) */     0x24, /* GI(2e) -> I(24) */
+    0x26, /* KU(2f) -> U(26) */     0x26, /* GU(30) -> U(26) */
+    0x28, /* KE(31) -> E(28) */     0x28, /* GE(32) -> E(28) */
+    0x2a, /* KO(33) -> O(2a) */     0x2a, /* GO(34) -> O(2a) */
+    0x22, /* SA(35) -> A(22) */     0x22, /* ZA(36) -> A(22) */
+    0x24, /* SI(37) -> I(24) */     0x24, /* ZI(38) -> I(24) */
+    0x26, /* SU(39) -> U(26) */     0x26, /* ZU(3a) -> U(26) */
+    0x28, /* SE(3b) -> E(28) */     0x28, /* ZE(3c) -> E(28) */
+    0x2a, /* SO(3d) -> O(2a) */     0x2a, /* ZO(3e) -> O(2a) */
+    0x22, /* TA(3f) -> A(22) */     0x22, /* DA(40) -> A(22) */
+    0x24, /* TI(41) -> I(24) */     0x24, /* DI(42) -> I(24) */
+    0x26, /* tu(43) -> U(26) */     0x26, /* TU(44) -> U(26) */
+    0x26, /* DU(45) -> U(26) */     0x28, /* TE(46) -> E(28) */
+    0x28, /* DE(47) -> E(28) */     0x2a, /* TO(48) -> O(2a) */
+    0x2a, /* DO(49) -> O(2a) */     0x22, /* NA(4a) -> A(22) */
+    0x24, /* NI(4b) -> I(24) */     0x26, /* NU(4c) -> U(26) */
+    0x28, /* NE(4d) -> E(28) */     0x2a, /* NO(4e) -> O(2a) */
+    0x22, /* HA(4f) -> A(22) */     0x22, /* BA(50) -> A(22) */
+    0x22, /* PA(51) -> A(22) */     0x24, /* HI(52) -> I(24) */
+    0x24, /* BI(53) -> I(24) */     0x24, /* PI(54) -> I(24) */
+    0x26, /* HU(55) -> U(26) */     0x26, /* BU(56) -> U(26) */
+    0x26, /* PU(57) -> U(26) */     0x28, /* HE(58) -> E(28) */
+    0x28, /* BE(59) -> E(28) */     0x28, /* PE(5a) -> E(28) */
+    0x2a, /* HO(5b) -> O(2a) */     0x2a, /* BO(5c) -> O(2a) */
+    0x2a, /* PO(5d) -> O(2a) */     0x22, /* MA(5e) -> A(22) */
+    0x24, /* MI(5f) -> I(24) */     0x26, /* MU(60) -> U(26) */
+    0x28, /* ME(61) -> E(28) */     0x2a, /* MO(62) -> O(2a) */
+    0x22, /* ya(63) -> A(22) */     0x22, /* YA(64) -> A(22) */
+    0x26, /* yu(65) -> U(26) */     0x26, /* YU(66) -> U(26) */
+    0x2a, /* yo(67) -> O(2a) */     0x2a, /* YO(68) -> O(2a) */
+    0x22, /* RA(69) -> A(22) */     0x24, /* RI(6a) -> I(24) */
+    0x26, /* RU(6b) -> U(26) */     0x28, /* RE(6c) -> E(28) */
+    0x2a, /* RO(6d) -> O(2a) */     0x22, /* wa(6e) -> A(22) */
+    0x22, /* WA(6f) -> A(22) */     0x24, /* WI(70) -> I(24) */
+    0x28, /* WE(71) -> E(28) */     0x2a, /* WO(72) -> O(2a) */
+    0x73, /* N (73) -> N(73) */     0x26, /* VU(74) -> U(26) */
+    0x22, /* ka(75) -> A(22) */     0x28  /* ke(76) -> E(28) */
 };
 
 
@@ -914,25 +914,25 @@ eb_convert_long_vowels_jis(char *word)
     LOG(("in: eb_convert_long_vowels_jis(word=%s)", eb_quoted_string(word)));
 
     while (*wp != '\0' && *(wp + 1) != '\0') {
-	c1 = *wp;
-	c2 = *(wp + 1);
+    c1 = *wp;
+    c2 = *(wp + 1);
 
-	if (c1 == 0x21 && c2 == 0x3c) {
-	    /*
-	     * The is a long vowel mark.
-	     * Convert to a vowel of the prev_ KANA character.
-	     * If prev_ character is not KANA, the conversion is
-	     * not done.
-	     */
-	    if ((previous_c1 == 0x24 || previous_c1 == 0x25)
-		&& 0x21 <= previous_c2 && previous_c2 <= 0x76) {
-		*wp = previous_c1;
-		*(wp + 1) = long_vowel_table[previous_c2 - 0x21];
-	    }
-	}
-	previous_c1 = c1;
-	previous_c2 = c2;
-	wp += 2;
+    if (c1 == 0x21 && c2 == 0x3c) {
+        /*
+         * The is a long vowel mark.
+         * Convert to a vowel of the prev_ KANA character.
+         * If prev_ character is not KANA, the conversion is
+         * not done.
+         */
+        if ((previous_c1 == 0x24 || previous_c1 == 0x25)
+        && 0x21 <= previous_c2 && previous_c2 <= 0x76) {
+        *wp = previous_c1;
+        *(wp + 1) = long_vowel_table[previous_c2 - 0x21];
+        }
+    }
+    previous_c1 = c1;
+    previous_c2 = c2;
+    wp += 2;
     }
     *wp = '\0';
 
@@ -953,18 +953,18 @@ eb_delete_long_vowels_jis(char *word)
     LOG(("in: eb_delete_long_vowels_jis(word=%s)", eb_quoted_string(word)));
 
     while (*in_wp != '\0' && *(in_wp + 1) != '\0') {
-	c1 = *in_wp;
-	c2 = *(in_wp + 1);
+    c1 = *in_wp;
+    c2 = *(in_wp + 1);
 
-	if (c1 != 0x21 || c2 != 0x3c) {
-	    /*
-	     * The is not a long vowel mark.
-	     */
-	    *out_wp = c1;
-	    *(out_wp + 1) = c2;
-	    out_wp += 2;
-	}
-	in_wp += 2;
+    if (c1 != 0x21 || c2 != 0x3c) {
+        /*
+         * The is not a long vowel mark.
+         */
+        *out_wp = c1;
+        *(out_wp + 1) = c2;
+        out_wp += 2;
+    }
+    in_wp += 2;
     }
     *out_wp = '\0';
 
@@ -982,20 +982,20 @@ eb_convert_double_consonants_jis(char *word)
     unsigned char c1, c2;
 
     LOG(("in: eb_convert_double_consonants_jis(word=%s)",
-	eb_quoted_string(word)));
+    eb_quoted_string(word)));
 
     while (*wp != '\0' && *(wp + 1) != '\0') {
-	c1 = *wp;
-	c2 = *(wp + 1);
+    c1 = *wp;
+    c2 = *(wp + 1);
 
-	if ((c1 == 0x24 || c1 == 0x25) && c2 == 0x43) {
-	    /*
-	     * This is a double sound mark.  Convert to the corresponding
-	     * sound mark.
-	     */
-	    *(wp + 1) = c2 + 1;
-	}
-	wp += 2;
+    if ((c1 == 0x24 || c1 == 0x25) && c2 == 0x43) {
+        /*
+         * This is a double sound mark.  Convert to the corresponding
+         * sound mark.
+         */
+        *(wp + 1) = c2 + 1;
+    }
+    wp += 2;
     }
     *wp = '\0';
 
@@ -1015,26 +1015,26 @@ eb_convert_contracted_sounds_jis(char *word)
     unsigned char c1, c2;
 
     LOG(("in: eb_convert_contracted_sounds_jis(word=%s)",
-	eb_quoted_string(word)));
+    eb_quoted_string(word)));
 
     while (*wp != '\0' && *(wp + 1) != '\0') {
-	c1 = *wp;
-	c2 = *(wp + 1);
+    c1 = *wp;
+    c2 = *(wp + 1);
 
-	if (c1 == 0x24 || c1 == 0x25) {
-	    /*
-	     * This is HIRAGANA or KANAKANA.
-	     * If this is a contracted sound mark, convert to the
-	     * corresponding uncontracted sound mark.
-	     */
-	    if (c2 == 0x63 || c2 == 0x65 || c2 == 0x67 || c2 == 0x6e)
-		*(wp + 1) = c2 + 1;
-	    else if (c2 == 0x75)
-		*(wp + 1) = 0x2b;
-	    else if (c2 == 0x76)
-		*(wp + 1) = 0x31;
-	}
-	wp += 2;
+    if (c1 == 0x24 || c1 == 0x25) {
+        /*
+         * This is HIRAGANA or KANAKANA.
+         * If this is a contracted sound mark, convert to the
+         * corresponding uncontracted sound mark.
+         */
+        if (c2 == 0x63 || c2 == 0x65 || c2 == 0x67 || c2 == 0x6e)
+        *(wp + 1) = c2 + 1;
+        else if (c2 == 0x75)
+        *(wp + 1) = 0x2b;
+        else if (c2 == 0x76)
+        *(wp + 1) = 0x31;
+    }
+    wp += 2;
     }
     *wp = '\0';
 
@@ -1055,19 +1055,19 @@ eb_convert_small_vowels_jis(char *word)
     LOG(("in: eb_convert_small_vowels_jis(word=%s)", eb_quoted_string(word)));
 
     while (*wp != '\0' && *(wp + 1) != '\0') {
-	c1 = *wp;
-	c2 = *(wp + 1);
+    c1 = *wp;
+    c2 = *(wp + 1);
 
-	if (c1 == 0x24 || c1 == 0x25) {
-	    /*
-	     * This is HIRAGANA or KANAKANA.
-	     * If this is a small vowel mark, convert to a normal vowel.
-	     */
-	    if (c2 == 0x21 || c2 == 0x23 || c2 == 0x25 || c2 == 0x27
-		|| c2 == 0x29)
-		*(wp + 1) = c2 + 1;
-	}
-	wp += 2;
+    if (c1 == 0x24 || c1 == 0x25) {
+        /*
+         * This is HIRAGANA or KANAKANA.
+         * If this is a small vowel mark, convert to a normal vowel.
+         */
+        if (c2 == 0x21 || c2 == 0x23 || c2 == 0x25 || c2 == 0x27
+        || c2 == 0x29)
+        *(wp + 1) = c2 + 1;
+    }
+    wp += 2;
     }
     *wp = '\0';
 
@@ -1079,49 +1079,49 @@ eb_convert_small_vowels_jis(char *word)
  * The table is used to convert voiced consonant marks.
  */
 static const char voiced_consonant_table[] = {
-    0x21, /* a(21) -> a(22) */		0x22, /* A(22) -> A(22) */
-    0x23, /* i(23) -> i(24) */		0x24, /* I(24) -> I(24) */
-    0x25, /* u(25) -> u(26) */		0x26, /* U(26) -> U(26) */
-    0x27, /* e(27) -> e(28) */		0x28, /* E(28) -> E(28) */
-    0x29, /* o(29) -> o(2a) */		0x2a, /* O(2a) -> O(2a) */
-    0x2b, /* KA(2b) -> KA(2b) */	0x2b, /* GA(2c) -> KA(2b) */
-    0x2d, /* KI(2d) -> KI(2d) */	0x2d, /* GI(2e) -> KI(2d) */
-    0x2f, /* KU(2f) -> KU(2f) */	0x2f, /* GU(30) -> KU(2f) */
-    0x31, /* KE(31) -> KE(31) */	0x31, /* GE(32) -> KE(31) */
-    0x33, /* KO(33) -> KO(33) */	0x33, /* GO(34) -> KO(33) */
-    0x35, /* SA(35) -> SA(35) */	0x35, /* ZA(36) -> SA(35) */
-    0x37, /* SI(37) -> SI(37) */	0x37, /* ZI(38) -> SI(37) */
-    0x39, /* SU(39) -> SU(39) */	0x39, /* ZU(3a) -> SU(39) */
-    0x3b, /* SE(3b) -> SE(3b) */	0x3b, /* ZE(3c) -> SE(3b) */
-    0x3d, /* SO(3d) -> SO(3d) */	0x3d, /* ZO(3e) -> SO(3d) */
-    0x3f, /* TA(3f) -> TA(3f) */	0x3f, /* DA(40) -> TA(3f) */
-    0x41, /* TI(41) -> TI(41) */	0x41, /* DI(42) -> TI(41) */
-    0x43, /* tu(43) -> TU(43) */	0x44, /* TU(44) -> TU(44) */
-    0x44, /* DU(45) -> TU(44) */	0x46, /* TE(46) -> TE(46) */
-    0x46, /* DE(47) -> TE(46) */	0x48, /* TO(48) -> TO(48) */
-    0x48, /* DO(49) -> TO(48) */	0x4a, /* NA(4a) -> NA(4a) */
-    0x4b, /* NI(4b) -> NI(4b) */	0x4c, /* NU(4c) -> NU(4c) */
-    0x4d, /* NE(4d) -> NE(4d) */	0x4e, /* NO(4e) -> NO(4e) */
-    0x4f, /* HA(4f) -> HA(4f) */	0x4f, /* BA(50) -> HA(4f) */
-    0x51, /* PA(51) -> PA(51) */	0x52, /* HI(52) -> HI(52) */
-    0x52, /* BI(53) -> HI(52) */	0x54, /* PI(54) -> PU(54) */
-    0x55, /* HU(55) -> HU(55) */	0x55, /* BU(56) -> HU(55) */
-    0x57, /* PU(57) -> PU(57) */	0x58, /* HE(58) -> HE(58) */
-    0x58, /* BE(59) -> HE(58) */	0x5a, /* PE(5a) -> PE(5a) */
-    0x5b, /* HO(5b) -> HO(5b) */	0x5b, /* BO(5c) -> HO(5b) */
-    0x5d, /* PO(5d) -> PO(5d) */	0x5e, /* MA(5e) -> MA(5e) */
-    0x5f, /* MI(5f) -> MI(5f) */	0x60, /* MU(60) -> MU(60) */
-    0x61, /* ME(61) -> ME(61) */	0x62, /* MO(62) -> MO(62) */
-    0x64, /* ya(63) -> ya(63) */	0x64, /* YA(64) -> YA(64) */
-    0x66, /* yu(65) -> yu(65) */	0x66, /* YU(66) -> YU(66) */
-    0x68, /* yo(67) -> yo(67) */	0x68, /* YO(68) -> YO(68) */
-    0x69, /* RA(69) -> TA(69) */	0x6a, /* RI(6a) -> RI(6a) */
-    0x6b, /* RU(6b) -> RU(6b) */	0x6c, /* RE(6c) -> RE(6c) */
-    0x6d, /* RO(6d) -> RO(6d) */	0x6e, /* wa(6e) -> wa(6e) */
-    0x6f, /* WA(6f) -> WA(6f) */	0x70, /* WI(70) -> WI(70) */
-    0x71, /* WE(71) -> WE(71) */	0x72, /* WO(72) -> WO(72) */
-    0x73, /* N(73) -> N(73) */		0x26, /* VU(74) -> U(26) */
-    0x75, /* ka(75) -> ka(75) */	0x76  /* ke(76) -> ke(76) */
+    0x21, /* a(21) -> a(22) */      0x22, /* A(22) -> A(22) */
+    0x23, /* i(23) -> i(24) */      0x24, /* I(24) -> I(24) */
+    0x25, /* u(25) -> u(26) */      0x26, /* U(26) -> U(26) */
+    0x27, /* e(27) -> e(28) */      0x28, /* E(28) -> E(28) */
+    0x29, /* o(29) -> o(2a) */      0x2a, /* O(2a) -> O(2a) */
+    0x2b, /* KA(2b) -> KA(2b) */    0x2b, /* GA(2c) -> KA(2b) */
+    0x2d, /* KI(2d) -> KI(2d) */    0x2d, /* GI(2e) -> KI(2d) */
+    0x2f, /* KU(2f) -> KU(2f) */    0x2f, /* GU(30) -> KU(2f) */
+    0x31, /* KE(31) -> KE(31) */    0x31, /* GE(32) -> KE(31) */
+    0x33, /* KO(33) -> KO(33) */    0x33, /* GO(34) -> KO(33) */
+    0x35, /* SA(35) -> SA(35) */    0x35, /* ZA(36) -> SA(35) */
+    0x37, /* SI(37) -> SI(37) */    0x37, /* ZI(38) -> SI(37) */
+    0x39, /* SU(39) -> SU(39) */    0x39, /* ZU(3a) -> SU(39) */
+    0x3b, /* SE(3b) -> SE(3b) */    0x3b, /* ZE(3c) -> SE(3b) */
+    0x3d, /* SO(3d) -> SO(3d) */    0x3d, /* ZO(3e) -> SO(3d) */
+    0x3f, /* TA(3f) -> TA(3f) */    0x3f, /* DA(40) -> TA(3f) */
+    0x41, /* TI(41) -> TI(41) */    0x41, /* DI(42) -> TI(41) */
+    0x43, /* tu(43) -> TU(43) */    0x44, /* TU(44) -> TU(44) */
+    0x44, /* DU(45) -> TU(44) */    0x46, /* TE(46) -> TE(46) */
+    0x46, /* DE(47) -> TE(46) */    0x48, /* TO(48) -> TO(48) */
+    0x48, /* DO(49) -> TO(48) */    0x4a, /* NA(4a) -> NA(4a) */
+    0x4b, /* NI(4b) -> NI(4b) */    0x4c, /* NU(4c) -> NU(4c) */
+    0x4d, /* NE(4d) -> NE(4d) */    0x4e, /* NO(4e) -> NO(4e) */
+    0x4f, /* HA(4f) -> HA(4f) */    0x4f, /* BA(50) -> HA(4f) */
+    0x51, /* PA(51) -> PA(51) */    0x52, /* HI(52) -> HI(52) */
+    0x52, /* BI(53) -> HI(52) */    0x54, /* PI(54) -> PU(54) */
+    0x55, /* HU(55) -> HU(55) */    0x55, /* BU(56) -> HU(55) */
+    0x57, /* PU(57) -> PU(57) */    0x58, /* HE(58) -> HE(58) */
+    0x58, /* BE(59) -> HE(58) */    0x5a, /* PE(5a) -> PE(5a) */
+    0x5b, /* HO(5b) -> HO(5b) */    0x5b, /* BO(5c) -> HO(5b) */
+    0x5d, /* PO(5d) -> PO(5d) */    0x5e, /* MA(5e) -> MA(5e) */
+    0x5f, /* MI(5f) -> MI(5f) */    0x60, /* MU(60) -> MU(60) */
+    0x61, /* ME(61) -> ME(61) */    0x62, /* MO(62) -> MO(62) */
+    0x64, /* ya(63) -> ya(63) */    0x64, /* YA(64) -> YA(64) */
+    0x66, /* yu(65) -> yu(65) */    0x66, /* YU(66) -> YU(66) */
+    0x68, /* yo(67) -> yo(67) */    0x68, /* YO(68) -> YO(68) */
+    0x69, /* RA(69) -> TA(69) */    0x6a, /* RI(6a) -> RI(6a) */
+    0x6b, /* RU(6b) -> RU(6b) */    0x6c, /* RE(6c) -> RE(6c) */
+    0x6d, /* RO(6d) -> RO(6d) */    0x6e, /* wa(6e) -> wa(6e) */
+    0x6f, /* WA(6f) -> WA(6f) */    0x70, /* WI(70) -> WI(70) */
+    0x71, /* WE(71) -> WE(71) */    0x72, /* WO(72) -> WO(72) */
+    0x73, /* N(73) -> N(73) */      0x26, /* VU(74) -> U(26) */
+    0x75, /* ka(75) -> ka(75) */    0x76  /* ke(76) -> ke(76) */
 };
 
 /*
@@ -1135,20 +1135,20 @@ eb_convert_voiced_consonants_jis(char *word)
     unsigned char c1, c2;
 
     LOG(("in: eb_convert_voiced_consonants_jis(word=%s)",
-	eb_quoted_string(word)));
+    eb_quoted_string(word)));
 
     while (*wp != '\0' && *(wp + 1) != '\0') {
-	c1 = *wp;
-	c2 = *(wp + 1);
+    c1 = *wp;
+    c2 = *(wp + 1);
 
-	if ((c1 == 0x24 || c1 == 0x25) && 0x21 <= c2 && c2 <= 0x76) {
-	    /*
-	     * This is a voiced constonat mark.  Convert to the
-	     * corresponding unvoiced constonant mark.
-	     */
-	    *(wp + 1) = voiced_consonant_table[c2 - 0x21];
-	}
-	wp += 2;
+    if ((c1 == 0x24 || c1 == 0x25) && 0x21 <= c2 && c2 <= 0x76) {
+        /*
+         * This is a voiced constonat mark.  Convert to the
+         * corresponding unvoiced constonant mark.
+         */
+        *(wp + 1) = voiced_consonant_table[c2 - 0x21];
+    }
+    wp += 2;
     }
     *wp = '\0';
 
@@ -1169,20 +1169,20 @@ eb_convert_p_sounds_jis(char *word)
     LOG(("in: eb_convert_p_sounds_jis(word=%s)", eb_quoted_string(word)));
 
     while (*wp != '\0' && *(wp + 1) != '\0') {
-	c1 = *wp;
-	c2 = *(wp + 1);
+    c1 = *wp;
+    c2 = *(wp + 1);
 
-	if (c1 == 0x24 || c1 == 0x25) {
-	    /*
-	     * This is HIRAGANA or KANAKANA.
-	     * If this is a p-sound mark, convert to the corresponding
-	     * unvoiced consonant mark.
-	     */
-	    if (c2 == 0x51 || c2 == 0x54 || c2 == 0x57 || c2 == 0x5a
-		|| c2 == 0x5d)
-		*(wp + 1) = c2 - 2;
-	}
-	wp += 2;
+    if (c1 == 0x24 || c1 == 0x25) {
+        /*
+         * This is HIRAGANA or KANAKANA.
+         * If this is a p-sound mark, convert to the corresponding
+         * unvoiced consonant mark.
+         */
+        if (c2 == 0x51 || c2 == 0x54 || c2 == 0x57 || c2 == 0x5a
+        || c2 == 0x5d)
+        *(wp + 1) = c2 - 2;
+    }
+    wp += 2;
     }
     *wp = '\0';
 
@@ -1202,14 +1202,14 @@ eb_delete_spaces_latin(char *word)
     LOG(("in: eb_delete_space_latin(word=%s)", eb_quoted_string(word)));
 
     while (*in_wp != '\0') {
-	if (*in_wp != ' ') {
-	    /*
-	     * This is not a space character of ISO 8859 1.
-	     */
-	    *out_wp = *in_wp;
-	    out_wp++;
-	}
-	in_wp++;
+    if (*in_wp != ' ') {
+        /*
+         * This is not a space character of ISO 8859 1.
+         */
+        *out_wp = *in_wp;
+        out_wp++;
+    }
+    in_wp++;
     }
     *out_wp = '\0';
 
@@ -1230,18 +1230,18 @@ eb_delete_spaces_jis(char *word)
     LOG(("in: eb_delete_space_jis(word=%s)", eb_quoted_string(word)));
 
     while (*in_wp != '\0' && *(in_wp + 1) != '\0') {
-	c1 = *in_wp;
-	c2 = *(in_wp + 1);
+    c1 = *in_wp;
+    c2 = *(in_wp + 1);
 
-	if (c1 != 0x21 || c2 != 0x21) {
-	    /*
-	     * This is not a space character of JIS X 0208.
-	     */
-	    *out_wp = c1;
-	    *(out_wp + 1) = c2;
-	    out_wp += 2;
-	}
-	in_wp += 2;
+    if (c1 != 0x21 || c2 != 0x21) {
+        /*
+         * This is not a space character of JIS X 0208.
+         */
+        *out_wp = c1;
+        *(out_wp + 1) = c2;
+        out_wp += 2;
+    }
+    in_wp += 2;
     }
     *out_wp = '\0';
 
@@ -1266,11 +1266,11 @@ eb_reverse_word_latin(char *word)
 
     word_length = strlen(word);
     if (word_length == 0)
-	return;
+    return;
     for (p1 = word, p2 = word + word_length - 1; p1 < p2; p1++, p2--) {
-	c = *p1;
-	*p1 = *p2;
-	*p2 = c;
+    c = *p1;
+    *p1 = *p2;
+    *p2 = c;
     }
 
     LOG(("out: eb_reverse_word_latin()"));
@@ -1294,16 +1294,16 @@ eb_reverse_word_jis(char *word)
 
     word_length = strlen(word);
     if (word_length % 2 == 1) {
-	*(word + word_length - 1) = '\0';
-	word_length--;
+    *(word + word_length - 1) = '\0';
+    word_length--;
     }
     for (p1 = word, p2 = word + word_length - 2; p1 < p2; p1 += 2, p2 -= 2) {
-	c = *p1;
-	*p1 = *p2;
-	*p2 = c;
-	c = *(p1 + 1);
-	*(p1 + 1) = *(p2 + 1);
-	*(p2 + 1) = c;
+    c = *p1;
+    *p1 = *p2;
+    *p2 = c;
+    c = *(p1 + 1);
+    *(p1 + 1) = *(p2 + 1);
+    *(p2 + 1) = c;
     }
 
     LOG(("out: eb_reverse_word_jis()"));

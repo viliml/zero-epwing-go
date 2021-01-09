@@ -63,20 +63,19 @@ eb_initialize_hookset(EB_Hookset *hookset)
 
     LOG(("in: eb_initialize_hookset()"));
 
-    eb_initialize_lock(&hookset->lock);
 
     for (i = 0; i < EB_NUMBER_OF_HOOKS; i++) {
-	hookset->hooks[i].code = i;
-	hookset->hooks[i].function = NULL;
+    hookset->hooks[i].code = i;
+    hookset->hooks[i].function = NULL;
     }
     hookset->hooks[EB_HOOK_NARROW_JISX0208].function
-	= eb_hook_euc_to_ascii;
+    = eb_hook_euc_to_ascii;
     hookset->hooks[EB_HOOK_NARROW_FONT].function
-	= eb_hook_narrow_character_text;
+    = eb_hook_narrow_character_text;
     hookset->hooks[EB_HOOK_WIDE_FONT].function
-	= eb_hook_wide_character_text;
+    = eb_hook_wide_character_text;
     hookset->hooks[EB_HOOK_NEWLINE].function
-	= eb_hook_newline;
+    = eb_hook_newline;
 
     LOG(("out: eb_initialize_hookset()"));
 }
@@ -93,10 +92,9 @@ eb_finalize_hookset(EB_Hookset *hookset)
     LOG(("in: eb_finalize_hookset()"));
 
     for (i = 0; i < EB_NUMBER_OF_HOOKS; i++) {
-	hookset->hooks[i].code = i;
-	hookset->hooks[i].function = NULL;
+    hookset->hooks[i].code = i;
+    hookset->hooks[i].function = NULL;
     }
-    eb_finalize_lock(&hookset->lock);
 
     LOG(("out: eb_finalize_hookset()"));
 }
@@ -110,20 +108,18 @@ eb_set_hook(EB_Hookset *hookset, const EB_Hook *hook)
 {
     EB_Error_Code error_code;
 
-    eb_lock(&hookset->lock);
     LOG(("in: eb_set_hook(hook=%d)", (int)hook->code));
 
     /*
      * Set a hook.
      */
     if (hook->code < 0 || EB_NUMBER_OF_HOOKS <= hook->code) {
-	error_code = EB_ERR_NO_SUCH_HOOK;
-	goto failed;
+    error_code = EB_ERR_NO_SUCH_HOOK;
+    goto failed;
     }
     hookset->hooks[hook->code].function = hook->function;
 
     LOG(("out: eb_set_hook() = %s", eb_error_string(EB_SUCCESS)));
-    eb_unlock(&hookset->lock);
 
     return EB_SUCCESS;
 
@@ -132,7 +128,6 @@ eb_set_hook(EB_Hookset *hookset, const EB_Hook *hook)
      */
   failed:
     LOG(("out: eb_set_hook() = %s", eb_error_string(error_code)));
-    eb_unlock(&hookset->lock);
     return error_code;
 }
 
@@ -146,30 +141,28 @@ eb_set_hooks(EB_Hookset *hookset, const EB_Hook *hook)
     EB_Error_Code error_code;
     const EB_Hook *h;
 
-    eb_lock(&hookset->lock);
     LOG(("in: eb_set_hooks(hooks=[below])"));
 
     if (eb_log_flag) {
-	for (h = hook; h->code != EB_HOOK_NULL; h++)
-	    LOG(("    hook=%d", h->code));
+    for (h = hook; h->code != EB_HOOK_NULL; h++)
+        LOG(("    hook=%d", h->code));
     }
 
     /*
      * Set hooks.
      */
     for (h = hook; h->code != EB_HOOK_NULL; h++) {
-	if (h->code < 0 || EB_NUMBER_OF_HOOKS <= h->code) {
-	    error_code = EB_ERR_NO_SUCH_HOOK;
-	    goto failed;
-	}
-	hookset->hooks[h->code].function = h->function;
+    if (h->code < 0 || EB_NUMBER_OF_HOOKS <= h->code) {
+        error_code = EB_ERR_NO_SUCH_HOOK;
+        goto failed;
+    }
+    hookset->hooks[h->code].function = h->function;
     }
 
     /*
      * Unlock the hookset.
      */
     LOG(("out: eb_set_hooks() = %s", eb_error_string(EB_SUCCESS)));
-    eb_unlock(&hookset->lock);
 
     return EB_SUCCESS;
 
@@ -178,7 +171,6 @@ eb_set_hooks(EB_Hookset *hookset, const EB_Hook *hook)
      */
   failed:
     LOG(("out: eb_set_hooks() = %s", eb_error_string(error_code)));
-    eb_unlock(&hookset->lock);
     return error_code;
 }
 
@@ -186,8 +178,8 @@ eb_set_hooks(EB_Hookset *hookset, const EB_Hook *hook)
 /*
  * EUC JP to ASCII conversion table.
  */
-#define EUC_TO_ASCII_TABLE_START	0xa0
-#define EUC_TO_ASCII_TABLE_END		0xff
+#define EUC_TO_ASCII_TABLE_START    0xa0
+#define EUC_TO_ASCII_TABLE_END      0xff
 
 static const unsigned char euc_a1_to_ascii_table[] = {
     0x00, 0x20, 0x00, 0x00, 0x2c, 0x2e, 0x00, 0x3a,     /* 0xa0 */
@@ -234,18 +226,18 @@ eb_hook_euc_to_ascii(EB_Book *book, EB_Appendix *appendix, void *container,
     in_code2 = argv[0] & 0xff;
 
     if (in_code2 < EUC_TO_ASCII_TABLE_START
-	|| EUC_TO_ASCII_TABLE_END < in_code2) {
-	out_code = 0;
+    || EUC_TO_ASCII_TABLE_END < in_code2) {
+    out_code = 0;
     } else if (in_code1 == 0xa1) {
-	out_code = euc_a1_to_ascii_table[in_code2 - EUC_TO_ASCII_TABLE_START];
+    out_code = euc_a1_to_ascii_table[in_code2 - EUC_TO_ASCII_TABLE_START];
     } else if (in_code1 == 0xa3) {
-	out_code = euc_a3_to_ascii_table[in_code2 - EUC_TO_ASCII_TABLE_START];
+    out_code = euc_a3_to_ascii_table[in_code2 - EUC_TO_ASCII_TABLE_START];
     }
 
     if (out_code == 0)
-	eb_write_text_byte2(book, in_code1, in_code2);
+    eb_write_text_byte2(book, in_code1, in_code2);
     else
-	eb_write_text_byte1(book, out_code);
+    eb_write_text_byte1(book, out_code);
 
     return EB_SUCCESS;
 }
@@ -262,11 +254,11 @@ eb_hook_narrow_character_text(EB_Book *book, EB_Appendix *appendix,
     char alt_text[EB_MAX_ALTERNATION_TEXT_LENGTH + 1];
 
     if (appendix == NULL
-	|| eb_narrow_alt_character_text(appendix, (int)argv[0], alt_text)
-	!= EB_SUCCESS) {
-	eb_write_text_string(book, "<?>");
+    || eb_narrow_alt_character_text(appendix, (int)argv[0], alt_text)
+    != EB_SUCCESS) {
+    eb_write_text_string(book, "<?>");
     } else {
-	eb_write_text_string(book, alt_text);
+    eb_write_text_string(book, alt_text);
     }
 
     return EB_SUCCESS;
@@ -284,11 +276,11 @@ eb_hook_wide_character_text(EB_Book *book, EB_Appendix *appendix,
     char alt_text[EB_MAX_ALTERNATION_TEXT_LENGTH + 1];
 
     if (appendix == NULL
-	|| eb_wide_alt_character_text(appendix, (int)argv[0], alt_text)
-	!= EB_SUCCESS) {
-	eb_write_text_string(book, "<?>");
+    || eb_wide_alt_character_text(appendix, (int)argv[0], alt_text)
+    != EB_SUCCESS) {
+    eb_write_text_string(book, "<?>");
     } else {
-	eb_write_text_string(book, alt_text);
+    eb_write_text_string(book, alt_text);
     }
 
     return EB_SUCCESS;

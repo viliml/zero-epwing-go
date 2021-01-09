@@ -56,23 +56,23 @@ eb_narrow_font_xbm_size(EB_Font_Code height, size_t *size)
     switch (height) {
     case EB_FONT_16:
         *size = EB_SIZE_NARROW_FONT_16_XBM;
-	break;
+    break;
     case EB_FONT_24:
         *size = EB_SIZE_NARROW_FONT_24_XBM;
-	break;
+    break;
     case EB_FONT_30:
         *size = EB_SIZE_NARROW_FONT_30_XBM;
-	break;
+    break;
     case EB_FONT_48:
         *size = EB_SIZE_NARROW_FONT_48_XBM;
-	break;
+    break;
     default:
-	error_code = EB_ERR_NO_SUCH_FONT;
-	goto failed;
+    error_code = EB_ERR_NO_SUCH_FONT;
+    goto failed;
     }
 
     LOG(("out: eb_narrow_font_xbm_size(size=%ld) = %s", (long)*size,
-	eb_error_string(EB_SUCCESS)));
+    eb_error_string(EB_SUCCESS)));
 
     return EB_SUCCESS;
 
@@ -100,23 +100,23 @@ eb_narrow_font_xpm_size(EB_Font_Code height, size_t *size)
     switch (height) {
     case EB_FONT_16:
         *size = EB_SIZE_NARROW_FONT_16_XPM;
-	break;
+    break;
     case EB_FONT_24:
         *size = EB_SIZE_NARROW_FONT_24_XPM;
-	break;
+    break;
     case EB_FONT_30:
         *size = EB_SIZE_NARROW_FONT_30_XPM;
-	break;
+    break;
     case EB_FONT_48:
         *size = EB_SIZE_NARROW_FONT_48_XPM;
-	break;
+    break;
     default:
-	error_code = EB_ERR_NO_SUCH_FONT;
-	goto failed;
+    error_code = EB_ERR_NO_SUCH_FONT;
+    goto failed;
     }
 
     LOG(("out: eb_narrow_font_xpm_size(size=%ld) = %s", (long)*size,
-	eb_error_string(EB_SUCCESS)));
+    eb_error_string(EB_SUCCESS)));
 
     return EB_SUCCESS;
 
@@ -144,22 +144,22 @@ eb_narrow_font_gif_size(EB_Font_Code height, size_t *size)
     switch (height) {
     case EB_FONT_16:
         *size = EB_SIZE_NARROW_FONT_16_GIF;
-	break;
+    break;
     case EB_FONT_24:
         *size = EB_SIZE_NARROW_FONT_24_GIF;
-	break;
+    break;
     case EB_FONT_30:
         *size = EB_SIZE_NARROW_FONT_30_GIF;
-	break;
+    break;
     case EB_FONT_48:
         *size = EB_SIZE_NARROW_FONT_48_GIF;
     default:
-	error_code = EB_ERR_NO_SUCH_FONT;
-	goto failed;
+    error_code = EB_ERR_NO_SUCH_FONT;
+    goto failed;
     }
 
     LOG(("out: eb_narrow_font_gif_size(size=%ld) = %s", (long)*size,
-	eb_error_string(EB_SUCCESS)));
+    eb_error_string(EB_SUCCESS)));
 
     return EB_SUCCESS;
 
@@ -187,23 +187,23 @@ eb_narrow_font_bmp_size(EB_Font_Code height, size_t *size)
     switch (height) {
     case EB_FONT_16:
         *size = EB_SIZE_NARROW_FONT_16_BMP;
-	break;
+    break;
     case EB_FONT_24:
         *size = EB_SIZE_NARROW_FONT_24_BMP;
-	break;
+    break;
     case EB_FONT_30:
         *size = EB_SIZE_NARROW_FONT_30_BMP;
-	break;
+    break;
     case EB_FONT_48:
         *size = EB_SIZE_NARROW_FONT_48_BMP;
-	break;
+    break;
     default:
-	error_code = EB_ERR_NO_SUCH_FONT;
-	goto failed;
+    error_code = EB_ERR_NO_SUCH_FONT;
+    goto failed;
     }
 
     LOG(("out: eb_narrow_font_bmp_size(size=%ld) = %s", (long)*size,
-	eb_error_string(EB_SUCCESS)));
+    eb_error_string(EB_SUCCESS)));
 
     return EB_SUCCESS;
 
@@ -231,22 +231,22 @@ eb_narrow_font_png_size(EB_Font_Code height, size_t *size)
     switch (height) {
     case EB_FONT_16:
         *size = EB_SIZE_NARROW_FONT_16_PNG;
-	break;
+    break;
     case EB_FONT_24:
         *size = EB_SIZE_NARROW_FONT_24_PNG;
-	break;
+    break;
     case EB_FONT_30:
         *size = EB_SIZE_NARROW_FONT_30_PNG;
-	break;
+    break;
     case EB_FONT_48:
         *size = EB_SIZE_NARROW_FONT_48_PNG;
     default:
-	error_code = EB_ERR_NO_SUCH_FONT;
-	goto failed;
+    error_code = EB_ERR_NO_SUCH_FONT;
+    goto failed;
     }
 
     LOG(("out: eb_narrow_font_png_size(size=%ld) = %s", (long)*size,
-	eb_error_string(EB_SUCCESS)));
+    eb_error_string(EB_SUCCESS)));
 
     return EB_SUCCESS;
 
@@ -274,23 +274,23 @@ eb_wide_font_xbm_size(EB_Font_Code height, size_t *size)
     switch (height) {
     case EB_FONT_16:
         *size = EB_SIZE_WIDE_FONT_16_XBM;
-	break;
+    break;
     case EB_FONT_24:
         *size = EB_SIZE_WIDE_FONT_24_XBM;
-	break;
+    break;
     case EB_FONT_30:
         *size = EB_SIZE_WIDE_FONT_30_XBM;
-	break;
+    break;
     case EB_FONT_48:
         *size = EB_SIZE_WIDE_FONT_48_XBM;
-	break;
+    break;
     default:
-	error_code = EB_ERR_NO_SUCH_FONT;
-	goto failed;
+    error_code = EB_ERR_NO_SUCH_FONT;
+    goto failed;
     }
 
     LOG(("out: eb_wide_font_xbm_size(size=%ld) = %s", (long)*size,
-	eb_error_string(EB_SUCCESS)));
+    eb_error_string(EB_SUCCESS)));
 
     return EB_SUCCESS;
 
@@ -318,23 +318,23 @@ eb_wide_font_xpm_size(EB_Font_Code height, size_t *size)
     switch (height) {
     case EB_FONT_16:
         *size = EB_SIZE_WIDE_FONT_16_XPM;
-	break;
+    break;
     case EB_FONT_24:
         *size = EB_SIZE_WIDE_FONT_24_XPM;
-	break;
+    break;
     case EB_FONT_30:
         *size = EB_SIZE_WIDE_FONT_30_XPM;
-	break;
+    break;
     case EB_FONT_48:
         *size = EB_SIZE_WIDE_FONT_48_XPM;
-	break;
+    break;
     default:
-	error_code = EB_ERR_NO_SUCH_FONT;
-	goto failed;
+    error_code = EB_ERR_NO_SUCH_FONT;
+    goto failed;
     }
 
     LOG(("out: eb_wide_font_xpm_size(size=%ld) = %s", (long)*size,
-	eb_error_string(EB_SUCCESS)));
+    eb_error_string(EB_SUCCESS)));
 
     return EB_SUCCESS;
 
@@ -362,23 +362,23 @@ eb_wide_font_gif_size(EB_Font_Code height, size_t *size)
     switch (height) {
     case EB_FONT_16:
         *size = EB_SIZE_WIDE_FONT_16_GIF;
-	break;
+    break;
     case EB_FONT_24:
         *size = EB_SIZE_WIDE_FONT_24_GIF;
-	break;
+    break;
     case EB_FONT_30:
         *size = EB_SIZE_WIDE_FONT_30_GIF;
-	break;
+    break;
     case EB_FONT_48:
         *size = EB_SIZE_WIDE_FONT_48_GIF;
-	break;
+    break;
     default:
-	error_code = EB_ERR_NO_SUCH_FONT;
-	goto failed;
+    error_code = EB_ERR_NO_SUCH_FONT;
+    goto failed;
     }
 
     LOG(("out: eb_wide_font_gif_size(size=%ld) = %s", (long)*size,
-	eb_error_string(EB_SUCCESS)));
+    eb_error_string(EB_SUCCESS)));
 
     return EB_SUCCESS;
 
@@ -406,23 +406,23 @@ eb_wide_font_bmp_size(EB_Font_Code height, size_t *size)
     switch (height) {
     case EB_FONT_16:
         *size = EB_SIZE_WIDE_FONT_16_BMP;
-	break;
+    break;
     case EB_FONT_24:
         *size = EB_SIZE_WIDE_FONT_24_BMP;
-	break;
+    break;
     case EB_FONT_30:
         *size = EB_SIZE_WIDE_FONT_30_BMP;
-	break;
+    break;
     case EB_FONT_48:
         *size = EB_SIZE_WIDE_FONT_48_BMP;
-	break;
+    break;
     default:
-	error_code = EB_ERR_NO_SUCH_FONT;
-	goto failed;
+    error_code = EB_ERR_NO_SUCH_FONT;
+    goto failed;
     }
 
     LOG(("out: eb_wide_font_bmp_size(size=%ld) = %s", (long)*size,
-	eb_error_string(EB_SUCCESS)));
+    eb_error_string(EB_SUCCESS)));
 
     return EB_SUCCESS;
 
@@ -450,23 +450,23 @@ eb_wide_font_png_size(EB_Font_Code height, size_t *size)
     switch (height) {
     case EB_FONT_16:
         *size = EB_SIZE_WIDE_FONT_16_PNG;
-	break;
+    break;
     case EB_FONT_24:
         *size = EB_SIZE_WIDE_FONT_24_PNG;
-	break;
+    break;
     case EB_FONT_30:
         *size = EB_SIZE_WIDE_FONT_30_PNG;
-	break;
+    break;
     case EB_FONT_48:
         *size = EB_SIZE_WIDE_FONT_48_PNG;
-	break;
+    break;
     default:
-	error_code = EB_ERR_NO_SUCH_FONT;
-	goto failed;
+    error_code = EB_ERR_NO_SUCH_FONT;
+    goto failed;
     }
 
     LOG(("out: eb_wide_font_png_size(size=%ld) = %s", (long)*size,
-	eb_error_string(EB_SUCCESS)));
+    eb_error_string(EB_SUCCESS)));
 
     return EB_SUCCESS;
 
@@ -483,12 +483,12 @@ eb_wide_font_png_size(EB_Font_Code height, size_t *size)
 /*
  * The maximum number of octets in a line in a XBM file.
  */
-#define XBM_MAX_OCTETS_A_LINE		12
+#define XBM_MAX_OCTETS_A_LINE       12
 
 /*
  * The base name of a XBM file.
  */
-#define XBM_BASE_NAME			"default"
+#define XBM_BASE_NAME           "default"
 
 /*
  * Convert a bitmap image to XBM format.
@@ -523,7 +523,7 @@ eb_bitmap_to_xbm(const char *bitmap, int width, int height, char *xbm,
      * Output image data.
      */
     for (i = 0; i < bitmap_size; i++) {
-	hex = 0;
+    hex = 0;
         hex |= (*bitmap_p & 0x80) ? 0x01 : 0x00;
         hex |= (*bitmap_p & 0x40) ? 0x02 : 0x00;
         hex |= (*bitmap_p & 0x20) ? 0x04 : 0x00;
@@ -532,18 +532,18 @@ eb_bitmap_to_xbm(const char *bitmap, int width, int height, char *xbm,
         hex |= (*bitmap_p & 0x04) ? 0x20 : 0x00;
         hex |= (*bitmap_p & 0x02) ? 0x40 : 0x00;
         hex |= (*bitmap_p & 0x01) ? 0x80 : 0x00;
-	bitmap_p++;
+    bitmap_p++;
 
-	if (i % XBM_MAX_OCTETS_A_LINE != 0) {
-	    sprintf(xbm_p, ", 0x%02x", hex);
-	    xbm_p += 6;
-	} else if (i == 0) {
-	    sprintf(xbm_p, "   0x%02x", hex);
-	    xbm_p += 7;
-	} else {
-	    sprintf(xbm_p, ",\n   0x%02x", hex);
-	    xbm_p += 9;
-	}
+    if (i % XBM_MAX_OCTETS_A_LINE != 0) {
+        sprintf(xbm_p, ", 0x%02x", hex);
+        xbm_p += 6;
+    } else if (i == 0) {
+        sprintf(xbm_p, "   0x%02x", hex);
+        xbm_p += 7;
+    } else {
+        sprintf(xbm_p, ",\n   0x%02x", hex);
+        xbm_p += 9;
+    }
     }
 
     /*
@@ -555,7 +555,7 @@ eb_bitmap_to_xbm(const char *bitmap, int width, int height, char *xbm,
     *xbm_length = xbm_p - xbm;
 
     LOG(("out: eb_bitmap_to_xbm(xbm_length=%ld) = %s",
-	(long)(xbm_p - xbm), eb_error_string(EB_SUCCESS)));
+    (long)(xbm_p - xbm), eb_error_string(EB_SUCCESS)));
 
     return EB_SUCCESS;
 }
@@ -564,13 +564,13 @@ eb_bitmap_to_xbm(const char *bitmap, int width, int height, char *xbm,
 /*
  * The base name of a XPM file.
  */
-#define XPM_BASE_NAME		"default"
+#define XPM_BASE_NAME       "default"
 
 /*
  * The foreground and background colors of XPM image.
  */
-#define XPM_FOREGROUND_COLOR		"Black"
-#define XPM_BACKGROUND_COLOR		"None"
+#define XPM_FOREGROUND_COLOR        "Black"
+#define XPM_BACKGROUND_COLOR        "None"
 
 /*
  * Convert a bitmap image to XPM format.
@@ -601,53 +601,53 @@ eb_bitmap_to_xpm(const char *bitmap, int width, int height, char *xpm,
     sprintf(xpm_p, "\"%d %d 2 1\",\n", width, height);
     xpm_p = strchr(xpm_p, '\n') + 1;
 
-    sprintf(xpm_p, "\" 	c %s\",\n", XPM_BACKGROUND_COLOR);
+    sprintf(xpm_p, "\"  c %s\",\n", XPM_BACKGROUND_COLOR);
     xpm_p = strchr(xpm_p, '\n') + 1;
 
-    sprintf(xpm_p, "\". 	c %s\",\n", XPM_FOREGROUND_COLOR);
+    sprintf(xpm_p, "\".     c %s\",\n", XPM_FOREGROUND_COLOR);
     xpm_p = strchr(xpm_p, '\n') + 1;
 
     /*
      * Output image data.
      */
     for (i = 0; i < height; i++) {
-	if (0 < i) {
-	    strcpy(xpm_p, "\",\n\"");
-	    xpm_p += 4;
-	} else {
-	    *xpm_p++ = '\"';
-	}
+    if (0 < i) {
+        strcpy(xpm_p, "\",\n\"");
+        xpm_p += 4;
+    } else {
+        *xpm_p++ = '\"';
+    }
 
-	for (j = 0; j + 7 < width; j += 8, bitmap_p++) {
-	    *xpm_p++ = (*bitmap_p & 0x80) ? '.' : ' ';
-	    *xpm_p++ = (*bitmap_p & 0x40) ? '.' : ' ';
-	    *xpm_p++ = (*bitmap_p & 0x20) ? '.' : ' ';
-	    *xpm_p++ = (*bitmap_p & 0x10) ? '.' : ' ';
-	    *xpm_p++ = (*bitmap_p & 0x08) ? '.' : ' ';
-	    *xpm_p++ = (*bitmap_p & 0x04) ? '.' : ' ';
-	    *xpm_p++ = (*bitmap_p & 0x02) ? '.' : ' ';
-	    *xpm_p++ = (*bitmap_p & 0x01) ? '.' : ' ';
-	}
+    for (j = 0; j + 7 < width; j += 8, bitmap_p++) {
+        *xpm_p++ = (*bitmap_p & 0x80) ? '.' : ' ';
+        *xpm_p++ = (*bitmap_p & 0x40) ? '.' : ' ';
+        *xpm_p++ = (*bitmap_p & 0x20) ? '.' : ' ';
+        *xpm_p++ = (*bitmap_p & 0x10) ? '.' : ' ';
+        *xpm_p++ = (*bitmap_p & 0x08) ? '.' : ' ';
+        *xpm_p++ = (*bitmap_p & 0x04) ? '.' : ' ';
+        *xpm_p++ = (*bitmap_p & 0x02) ? '.' : ' ';
+        *xpm_p++ = (*bitmap_p & 0x01) ? '.' : ' ';
+    }
 
-	if (j < width) {
-	    if (j++ < width)
-		*xpm_p++ = (*bitmap_p & 0x80) ? '.' : ' ';
-	    if (j++ < width)
-		*xpm_p++ = (*bitmap_p & 0x40) ? '.' : ' ';
-	    if (j++ < width)
-		*xpm_p++ = (*bitmap_p & 0x20) ? '.' : ' ';
-	    if (j++ < width)
-		*xpm_p++ = (*bitmap_p & 0x10) ? '.' : ' ';
-	    if (j++ < width)
-		*xpm_p++ = (*bitmap_p & 0x08) ? '.' : ' ';
-	    if (j++ < width)
-		*xpm_p++ = (*bitmap_p & 0x04) ? '.' : ' ';
-	    if (j++ < width)
-		*xpm_p++ = (*bitmap_p & 0x02) ? '.' : ' ';
-	    if (j++ < width)
-		*xpm_p++ = (*bitmap_p & 0x01) ? '.' : ' ';
-	    bitmap_p++;
-	}
+    if (j < width) {
+        if (j++ < width)
+        *xpm_p++ = (*bitmap_p & 0x80) ? '.' : ' ';
+        if (j++ < width)
+        *xpm_p++ = (*bitmap_p & 0x40) ? '.' : ' ';
+        if (j++ < width)
+        *xpm_p++ = (*bitmap_p & 0x20) ? '.' : ' ';
+        if (j++ < width)
+        *xpm_p++ = (*bitmap_p & 0x10) ? '.' : ' ';
+        if (j++ < width)
+        *xpm_p++ = (*bitmap_p & 0x08) ? '.' : ' ';
+        if (j++ < width)
+        *xpm_p++ = (*bitmap_p & 0x04) ? '.' : ' ';
+        if (j++ < width)
+        *xpm_p++ = (*bitmap_p & 0x02) ? '.' : ' ';
+        if (j++ < width)
+        *xpm_p++ = (*bitmap_p & 0x01) ? '.' : ' ';
+        bitmap_p++;
+    }
     }
 
     /*
@@ -657,10 +657,10 @@ eb_bitmap_to_xpm(const char *bitmap, int width, int height, char *xpm,
     xpm_p += 4;
 
     if (xpm_length != NULL)
-	*xpm_length = xpm_p - xpm;
+    *xpm_length = xpm_p - xpm;
 
     LOG(("out: eb_bitmap_to_xpm(xpm_length=%ld) = %s",
-	(long)(xpm_p - xpm), eb_error_string(EB_SUCCESS)));
+    (long)(xpm_p - xpm), eb_error_string(EB_SUCCESS)));
 
     return EB_SUCCESS;
 }
@@ -669,13 +669,13 @@ eb_bitmap_to_xpm(const char *bitmap, int width, int height, char *xpm,
 /*
  * The Foreground and background colors of GIF image.
  */
-#define GIF_FOREGROUND_COLOR		0x000000
-#define GIF_BACKGROUND_COLOR		0xffffff
+#define GIF_FOREGROUND_COLOR        0x000000
+#define GIF_BACKGROUND_COLOR        0xffffff
 
 /*
  * The preamble of GIF image.
  */
-#define GIF_PREAMBLE_LENGTH	38
+#define GIF_PREAMBLE_LENGTH 38
 
 static const unsigned char gif_preamble[GIF_PREAMBLE_LENGTH] = {
     /*
@@ -786,37 +786,37 @@ eb_bitmap_to_gif(const char *bitmap, int width, int height, char *gif,
      * Output image data.
      */
     for (i = 0;  i < height; i++) {
-	*gif_p++ = (unsigned char)width;
-	for (j = 0; j + 7 < width; j += 8, bitmap_p++) {
-	    *gif_p++ = (*bitmap_p & 0x80) ? 0x81 : 0x80;
-	    *gif_p++ = (*bitmap_p & 0x40) ? 0x81 : 0x80;
-	    *gif_p++ = (*bitmap_p & 0x20) ? 0x81 : 0x80;
-	    *gif_p++ = (*bitmap_p & 0x10) ? 0x81 : 0x80;
-	    *gif_p++ = (*bitmap_p & 0x08) ? 0x81 : 0x80;
-	    *gif_p++ = (*bitmap_p & 0x04) ? 0x81 : 0x80;
-	    *gif_p++ = (*bitmap_p & 0x02) ? 0x81 : 0x80;
-	    *gif_p++ = (*bitmap_p & 0x01) ? 0x81 : 0x80;
-	}
+    *gif_p++ = (unsigned char)width;
+    for (j = 0; j + 7 < width; j += 8, bitmap_p++) {
+        *gif_p++ = (*bitmap_p & 0x80) ? 0x81 : 0x80;
+        *gif_p++ = (*bitmap_p & 0x40) ? 0x81 : 0x80;
+        *gif_p++ = (*bitmap_p & 0x20) ? 0x81 : 0x80;
+        *gif_p++ = (*bitmap_p & 0x10) ? 0x81 : 0x80;
+        *gif_p++ = (*bitmap_p & 0x08) ? 0x81 : 0x80;
+        *gif_p++ = (*bitmap_p & 0x04) ? 0x81 : 0x80;
+        *gif_p++ = (*bitmap_p & 0x02) ? 0x81 : 0x80;
+        *gif_p++ = (*bitmap_p & 0x01) ? 0x81 : 0x80;
+    }
 
-	if (j < width) {
-	    if (j++ < width)
-		*gif_p++ = (*bitmap_p & 0x80) ? 0x81 : 0x80;
-	    if (j++ < width)
-		*gif_p++ = (*bitmap_p & 0x40) ? 0x81 : 0x80;
-	    if (j++ < width)
-		*gif_p++ = (*bitmap_p & 0x20) ? 0x81 : 0x80;
-	    if (j++ < width)
-		*gif_p++ = (*bitmap_p & 0x10) ? 0x81 : 0x80;
-	    if (j++ < width)
-		*gif_p++ = (*bitmap_p & 0x08) ? 0x81 : 0x80;
-	    if (j++ < width)
-		*gif_p++ = (*bitmap_p & 0x04) ? 0x81 : 0x80;
-	    if (j++ < width)
-		*gif_p++ = (*bitmap_p & 0x02) ? 0x81 : 0x80;
-	    if (j++ < width)
-		*gif_p++ = (*bitmap_p & 0x01) ? 0x81 : 0x80;
-	    bitmap_p++;
-	}
+    if (j < width) {
+        if (j++ < width)
+        *gif_p++ = (*bitmap_p & 0x80) ? 0x81 : 0x80;
+        if (j++ < width)
+        *gif_p++ = (*bitmap_p & 0x40) ? 0x81 : 0x80;
+        if (j++ < width)
+        *gif_p++ = (*bitmap_p & 0x20) ? 0x81 : 0x80;
+        if (j++ < width)
+        *gif_p++ = (*bitmap_p & 0x10) ? 0x81 : 0x80;
+        if (j++ < width)
+        *gif_p++ = (*bitmap_p & 0x08) ? 0x81 : 0x80;
+        if (j++ < width)
+        *gif_p++ = (*bitmap_p & 0x04) ? 0x81 : 0x80;
+        if (j++ < width)
+        *gif_p++ = (*bitmap_p & 0x02) ? 0x81 : 0x80;
+        if (j++ < width)
+        *gif_p++ = (*bitmap_p & 0x01) ? 0x81 : 0x80;
+        bitmap_p++;
+    }
     }
 
     /*
@@ -826,10 +826,10 @@ eb_bitmap_to_gif(const char *bitmap, int width, int height, char *gif,
     gif_p += 4;
 
     if (gif_length != NULL)
-	*gif_length = ((char *)gif_p - gif);
+    *gif_length = ((char *)gif_p - gif);
 
     LOG(("out: eb_bitmap_to_gif(gif_length=%ld) = %s",
-	(long)((char *)gif_p - gif), eb_error_string(EB_SUCCESS)));
+    (long)((char *)gif_p - gif), eb_error_string(EB_SUCCESS)));
 
     return EB_SUCCESS;
 }
@@ -838,7 +838,7 @@ eb_bitmap_to_gif(const char *bitmap, int width, int height, char *gif,
 /*
  * The preamble of BMP image.
  */
-#define BMP_PREAMBLE_LENGTH	62
+#define BMP_PREAMBLE_LENGTH 62
 
 static const unsigned char bmp_preamble[] = {
     /* Type. */
@@ -911,15 +911,15 @@ eb_bitmap_to_bmp(const char *bitmap, int width, int height, char *bmp,
     LOG(("in: eb_bitmap_to_bmp(width=%d, height=%d)", width, height));
 
     if (width % 32 == 0)
-	line_pad_length = 0;
+    line_pad_length = 0;
     else if (width % 32 <= 8)
-	line_pad_length = 3;
+    line_pad_length = 3;
     else if (width % 32 <= 16)
-	line_pad_length = 2;
+    line_pad_length = 2;
     else if (width % 32 <= 24)
-	line_pad_length = 1;
+    line_pad_length = 1;
     else
-	line_pad_length = 0;
+    line_pad_length = 0;
 
     data_size = (width / 2 + line_pad_length) * height;
     file_size = data_size + BMP_PREAMBLE_LENGTH;
@@ -953,17 +953,17 @@ eb_bitmap_to_bmp(const char *bitmap, int width, int height, char *bmp,
     bitmap_line_length = (width + 7) / 8;
 
     for (i = height - 1; 0 <= i; i--) {
-	memcpy(bmp_p, bitmap + bitmap_line_length * i, bitmap_line_length);
-	bmp_p += bitmap_line_length;
-	for (j = 0; j < line_pad_length; j++, bmp_p++)
-	    *bmp_p = 0x00;
+    memcpy(bmp_p, bitmap + bitmap_line_length * i, bitmap_line_length);
+    bmp_p += bitmap_line_length;
+    for (j = 0; j < line_pad_length; j++, bmp_p++)
+        *bmp_p = 0x00;
     }
 
     if (bmp_length != NULL)
-	*bmp_length = ((char *)bmp_p - bmp);
+    *bmp_length = ((char *)bmp_p - bmp);
 
     LOG(("out: eb_bitmap_to_bmp(bmp_length=%ld) = %s",
-	(long)((char *)bmp_p - bmp), eb_error_string(EB_SUCCESS)));
+    (long)((char *)bmp_p - bmp), eb_error_string(EB_SUCCESS)));
 
     return EB_SUCCESS;
 }
@@ -972,8 +972,8 @@ eb_bitmap_to_bmp(const char *bitmap, int width, int height, char *bmp,
 /*
  * The Foreground and background colors of PNG image.
  */
-#define PNG_FOREGROUND_COLOR		0x000000
-#define PNG_BACKGROUND_COLOR		0xffffff
+#define PNG_FOREGROUND_COLOR        0x000000
+#define PNG_BACKGROUND_COLOR        0xffffff
 
 /*
  * The preamble of PNG image.
@@ -1120,7 +1120,7 @@ png_crc(const char *buf, size_t len)
     int n;
 
     for (n = 0; n < len; n++)
-	c = png_crc_table[(c ^ *((unsigned char *)buf + n)) & 0xff] ^ (c >> 8);
+    c = png_crc_table[(c ^ *((unsigned char *)buf + n)) & 0xff] ^ (c >> 8);
     return c ^ 0xffffffffL;
 }
 
@@ -1140,7 +1140,7 @@ png_compress(const char *src, int width, int height, char *dest,
     z.opaque = Z_NULL;
     z_result = deflateInit(&z, Z_NO_COMPRESSION);
     if (z_result != Z_OK)
-	return z_result;
+    return z_result;
 
     /*
      * Exactly to say, `z.avail_out' must be:
@@ -1150,33 +1150,33 @@ png_compress(const char *src, int width, int height, char *dest,
     z.next_out = (unsigned char *)dest;
     z.avail_out = (line_size + 1) * height + 12 + 256;
     for (i = 0; i < height - 1; i++) {
-	z.next_in = &byte_zero;
-	z.avail_in = 1;
-	z_result = deflate(&z, Z_NO_FLUSH);
-	if (z_result != Z_OK || z.avail_in != 0)
-	    goto failed;
+    z.next_in = &byte_zero;
+    z.avail_in = 1;
+    z_result = deflate(&z, Z_NO_FLUSH);
+    if (z_result != Z_OK || z.avail_in != 0)
+        goto failed;
 
-	z.next_in = (unsigned char *)src + (line_size * i);
-	z.avail_in = line_size;
-	z_result = deflate(&z, Z_NO_FLUSH);
-	if (z_result != Z_OK || z.avail_in != 0)
-	    goto failed;
+    z.next_in = (unsigned char *)src + (line_size * i);
+    z.avail_in = line_size;
+    z_result = deflate(&z, Z_NO_FLUSH);
+    if (z_result != Z_OK || z.avail_in != 0)
+        goto failed;
     }
 
     z.next_in = &byte_zero;
     z.avail_in = 1;
     z_result = deflate(&z, Z_NO_FLUSH);
     if (z_result != Z_OK || z.avail_in != 0)
-	goto failed;
+    goto failed;
 
     z.next_in = (unsigned char *)src + (line_size * i);
     z.avail_in = line_size;
     if (deflate(&z, Z_FINISH) != Z_STREAM_END)
-	goto failed;
+    goto failed;
 
     z_result = deflateEnd(&z);
     if (z_result != Z_OK)
-	return z_result;
+    return z_result;
 
     *dest_len = (z.next_out - (unsigned char *)dest);
     return Z_STREAM_END;
@@ -1253,8 +1253,8 @@ eb_bitmap_to_png(const char *bitmap, int width, int height, char *png,
     idat_start = png_p + sizeof(png_preamble);
     z_result = png_compress(bitmap, width, height, idat_start, &idat_len);
     if (z_result != Z_STREAM_END) {
-	error_code = EB_ERR_MEMORY_EXHAUSTED;
-	goto failed;
+    error_code = EB_ERR_MEMORY_EXHAUSTED;
+    goto failed;
     }
     INT2CHARS(png_p + 64, idat_len);
     crc = png_crc(idat_start - 4, idat_len + 4);
@@ -1267,10 +1267,10 @@ eb_bitmap_to_png(const char *bitmap, int width, int height, char *png,
     INT2CHARS(png_p, crc);
     png_p += sizeof(png_trailer);
     if (png_length != NULL)
-	*png_length = ((char *)png_p - png);
+    *png_length = ((char *)png_p - png);
 
     LOG(("out: eb_bitmap_to_png(png_length=%ld) = %s",
-	(long)((char *)png_p - png), eb_error_string(EB_SUCCESS)));
+    (long)((char *)png_p - png), eb_error_string(EB_SUCCESS)));
 
     return EB_SUCCESS;
 
@@ -1279,7 +1279,7 @@ eb_bitmap_to_png(const char *bitmap, int width, int height, char *png,
      */
   failed:
     LOG(("out: eb_bitmap_to_png(png_length=%ld) = %s",
-	(long)((char *)png_p - png), eb_error_string(error_code)));
+    (long)((char *)png_p - png), eb_error_string(error_code)));
     return error_code;
 }
 
@@ -1314,46 +1314,46 @@ main(int argc, char *argv[])
     eb_bitmap_to_xbm(test_bitmap, test_width, test_height, image, &image_size);
     file = creat("test.xbm", 0644);
     if (file < 0)
-	exit(1);
+    exit(1);
     if (write(file, image, image_size) != image_size) {
-	close(file);
-	exit(1);
+    close(file);
+    exit(1);
     }
 
     eb_bitmap_to_xpm(test_bitmap, test_width, test_height, image, &image_size);
     file = creat("test.xpm", 0644);
     if (file < 0)
-	exit(1);
+    exit(1);
     if (write(file, image, image_size) != image_size) {
-	close(file);
-	exit(1);
+    close(file);
+    exit(1);
     }
 
     eb_bitmap_to_gif(test_bitmap, test_width, test_height, image, &image_size);
     file = creat("test.gif", 0644);
     if (file < 0)
-	exit(1);
+    exit(1);
     if (write(file, image, image_size) != image_size) {
-	close(file);
-	exit(1);
+    close(file);
+    exit(1);
     }
 
     eb_bitmap_to_bmp(test_bitmap, test_width, test_height, image, &image_size);
     file = creat("test.bmp", 0644);
     if (file < 0)
-	exit(1);
+    exit(1);
     if (write(file, image, image_size) != image_size) {
-	close(file);
-	exit(1);
+    close(file);
+    exit(1);
     }
 
     eb_bitmap_to_png(test_bitmap, test_width, test_height, image, &image_size);
     file = creat("test.png", 0644);
     if (file < 0)
-	exit(1);
+    exit(1);
     if (write(file, image, image_size) != image_size) {
-	close(file);
-	exit(1);
+    close(file);
+    exit(1);
     }
 
     return 0;

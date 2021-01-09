@@ -29,49 +29,45 @@
 #ifndef ZIO_H
 #define ZIO_H
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 #include <sys/types.h>
 #include <time.h>
 
 /*
  * Header size of the ebzip compression file.
  */
-#define ZIO_SIZE_EBZIP_HEADER		22
+#define ZIO_SIZE_EBZIP_HEADER 22
 
 /*
  * Margin size for ebzip compression buffer.
  * (Since compressed data is larger than original in the worst case,
  * we must add margin to a compression buffer.)
  */
-#define ZIO_SIZE_EBZIP_MARGIN		1024
+#define ZIO_SIZE_EBZIP_MARGIN 1024
 
 /*
  * Maximum ebzio compression level.
  */
-#define ZIO_MAX_EBZIP_LEVEL		5
+#define ZIO_MAX_EBZIP_LEVEL 5
 
 /*
  * Huffman node types.
  */
-#define ZIO_HUFFMAN_NODE_INTERMEDIATE	0
-#define ZIO_HUFFMAN_NODE_EOF		1
-#define ZIO_HUFFMAN_NODE_LEAF8		2
-#define ZIO_HUFFMAN_NODE_LEAF16		3
-#define ZIO_HUFFMAN_NODE_LEAF32		4
+#define ZIO_HUFFMAN_NODE_INTERMEDIATE 0
+#define ZIO_HUFFMAN_NODE_EOF          1
+#define ZIO_HUFFMAN_NODE_LEAF8        2
+#define ZIO_HUFFMAN_NODE_LEAF16       3
+#define ZIO_HUFFMAN_NODE_LEAF32       4
 
 /*
  * Compression type codes.
  */
-#define ZIO_PLAIN			0
-#define ZIO_EBZIP1			1
-#define ZIO_EPWING			2
-#define ZIO_EPWING6			3
-#define ZIO_SEBXA			4
+#define ZIO_PLAIN   0
+#define ZIO_EBZIP1  1
+#define ZIO_EPWING  2
+#define ZIO_EPWING6 3
+#define ZIO_SEBXA   4
 #define ZIO_INVALID -1
-#define ZIO_REOPEN			-2
+#define ZIO_REOPEN  -2
 
 /*
  * Compression type.
@@ -224,9 +220,5 @@ int zio_file(Zio *zio);
 Zio_Code zio_mode(Zio *zio);
 off_t zio_lseek(Zio *zio, off_t offset, int whence);
 ssize_t zio_read(Zio *zio, char *buffer, size_t length);
-
-#ifdef __cplusplus
-}
-#endif
 
 #endif /* not ZIO_H */

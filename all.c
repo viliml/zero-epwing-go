@@ -36,7 +36,6 @@ static EB_Error_Code eb_search_all(EB_Book* book, EB_Word_Code word_code) {
     EB_Error_Code error_code = EB_SUCCESS;
 
     do {
-        eb_lock(&book->lock);
         LOG(("in: eb_search_all(book=%d)", book->code));
 
         /* Current subbook must have been set. */
@@ -101,13 +100,11 @@ static EB_Error_Code eb_search_all(EB_Book* book, EB_Word_Code word_code) {
     }
 
     LOG(("out: eb_search_all() = %s", eb_error_string(error_code)));
-    eb_unlock(&book->lock);
 
     return error_code;
 }
 
 int eb_have_all_search(EB_Book* book) {
-    eb_lock(&book->lock);
     LOG(("in: eb_have_all_search(book=%d)", book->code));
 
     int result = 0;
@@ -126,7 +123,6 @@ int eb_have_all_search(EB_Book* book) {
     }
 
     LOG(("out: eb_have_all_search() = %d", result));
-    eb_unlock(&book->lock);
     return result;
 }
 
