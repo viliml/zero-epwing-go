@@ -35,17 +35,17 @@
 /*
  * The maximum number of arguments for an escape sequence.
  */
-#define EB_MAX_ARGV     7
+#define EB_MAX_ARGV 7
 
 /*
  * Read next when the length of cached data is shorter than this value.
  */
-#define SIZE_FEW_REST   48
+#define SIZE_FEW_REST 48
 
 /*
  * Special skip-code that represents `no skip-code is set'.
  */
-#define SKIP_CODE_NONE  -1
+#define SKIP_CODE_NONE -1
 
 /*
  * Cache data buffer.
@@ -2094,5 +2094,3 @@ eb_backward_text(EB_Book *book, EB_Appendix *appendix)
     LOG(("out: eb_backward_text() = %s", eb_error_string(error_code)));
     return error_code;
 }
-
-

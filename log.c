@@ -130,7 +130,7 @@ eb_log_stderr(const char *message, va_list ap)
 
 }
 
-#define MAX_QUOTED_STREAM_LENGTH    100
+#define MAX_QUOTED_STREAM_LENGTH 100
 
 /*
  * Return Quoted printable string of `stream'.

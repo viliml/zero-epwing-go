@@ -43,7 +43,7 @@ static EB_Error_Code eb_narrow_character_text_latin(EB_Appendix *appendix,
 /*
  * Hash macro for cache data.
  */
-#define EB_HASH_ALT_CACHE(c)    ((c) & 0x0f)
+#define EB_HASH_ALT_CACHE(c) ((c) & 0x0f)
 
 
 /*

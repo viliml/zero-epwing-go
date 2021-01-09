@@ -40,7 +40,6 @@ static EB_Error_Code eb_narrow_character_bitmap_jis(EB_Book *book,
 static EB_Error_Code eb_narrow_character_bitmap_latin(EB_Book *book,
     int character_number, char *bitmap);
 
-
 /*
  * Open a font file.
  */

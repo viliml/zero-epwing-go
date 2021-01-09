@@ -113,7 +113,6 @@
 #define EB_ERR_UNBOUND_BOOKLIST 67
 #define EB_ERR_NO_SUCH_BOOK     68
 
-
 /*
  * The number of error codes.
  */

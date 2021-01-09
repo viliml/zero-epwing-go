@@ -35,16 +35,16 @@
 /*
  * Page-ID macros.
  */
-#define PAGE_ID_IS_LEAF_LAYER(page_id)      (((page_id) & 0x80) == 0x80)
-#define PAGE_ID_IS_LAYER_START(page_id)     (((page_id) & 0x40) == 0x40)
-#define PAGE_ID_IS_LAYER_END(page_id)       (((page_id) & 0x20) == 0x20)
-#define PAGE_ID_HAVE_GROUP_ENTRY(page_id)   (((page_id) & 0x10) == 0x10)
+#define PAGE_ID_IS_LEAF_LAYER(page_id)    (((page_id) & 0x80) == 0x80)
+#define PAGE_ID_IS_LAYER_START(page_id)   (((page_id) & 0x40) == 0x40)
+#define PAGE_ID_IS_LAYER_END(page_id)     (((page_id) & 0x20) == 0x20)
+#define PAGE_ID_HAVE_GROUP_ENTRY(page_id) (((page_id) & 0x10) == 0x10)
 
 /*
  * The maximum number of hit entries for tomporary hit lists.
  * This is used in eb_hit_list().
  */
-#define EB_TMP_MAX_HITS     64
+#define EB_TMP_MAX_HITS 64
 
 /*
  * Book-code of the book in which you want to search a word.

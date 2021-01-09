@@ -111,5 +111,3 @@ eb_text(EB_Book *book, EB_Position *position)
     LOG(("out: eb_text() = %s", eb_error_string(error_code)));
     return error_code;
 }
-
-

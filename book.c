@@ -49,7 +49,6 @@ static EB_Error_Code eb_load_catalog_epwing(EB_Book *book,
 static Zio_Code eb_get_hint_zio_code(int catalog_hint_value);
 static void eb_load_language(EB_Book *book);
 
-
 /*
  * Initialize `book'.
  */
@@ -72,7 +71,6 @@ eb_initialize_book(EB_Book *book)
 
     LOG(("out: eb_initialize_book()"));
 }
-
 
 /*
  * Bind `book' to `path'.

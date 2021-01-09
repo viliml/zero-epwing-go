@@ -46,23 +46,6 @@
 #endif
 
 /*
- * The maximum length of path name.
- */
-#ifndef PATH_MAX
-#ifdef MAXPATHLEN
-#define PATH_MAX        MAXPATHLEN
-#else /* not MAXPATHLEN */
-#define PATH_MAX        1024
-#endif /* not MAXPATHLEN */
-#endif /* not PATH_MAX */
-
-/*
- * Mutual exclusion lock of Pthreads.
- */
-#ifndef ENABLE_PTHREAD
-#endif
-
-/*
  * Debug message handler.
  */
 extern int eb_log_flag;
@@ -95,7 +78,7 @@ extern void eb_log(const char *, ...);
 /*
  * Size of a page (The term `page' means `block' in JIS X 4081).
  */
-#define ZIO_SIZE_PAGE           2048
+#define ZIO_SIZE_PAGE 2048
 
 /*
  * Size of a cache buffer.
@@ -109,7 +92,7 @@ extern void eb_log(const char *, ...);
 /*
  * NULL Zio ID.
  */
-#define ZIO_ID_NONE         -1
+#define ZIO_ID_NONE -1
 
 /*
  * Buffer for caching uncompressed data.

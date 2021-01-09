@@ -43,16 +43,6 @@
 #include <sys/time.h>
 
 /*
- * stat() macros.
- */
-#ifndef S_ISREG
-#define S_ISREG(m)   (((m) & S_IFMT) == S_IFREG)
-#endif
-#ifndef S_ISDIR
-#define S_ISDIR(m)   (((m) & S_IFMT) == S_IFDIR)
-#endif
-
-/*
  * Flags for open().
  */
 #ifndef O_BINARY
@@ -79,13 +69,5 @@
  */
 #define _(string) (string)
 #define N_(string) (string)
-
-/*
- * Fake missing function names.
- */
-#ifndef HAVE_STRCASECMP
-#define strcasecmp eb_strcasecmp
-#define strncasecmp eb_strncasecmp
-#endif
 
 #endif /* EB_BUILD_PRE_H */
