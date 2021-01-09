@@ -10,8 +10,7 @@ import (
 )
 
 /*
-#cgo LDFLAGS: -L"./eb/eb/.libs" -l:libeb.a -lz
-#cgo CFLAGS: -I"./eb/"
+#cgo LDFLAGS: -lz
 #include "zig.h"
 */
 import "C"
