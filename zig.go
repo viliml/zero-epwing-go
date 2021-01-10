@@ -34,6 +34,10 @@ func hookCallback(book *C.EB_Book, appendix *C.EB_Appendix, container *C.void, h
 	return C.EB_SUCCESS
 }
 
+func formatError(code C.EB_Error_Code) string {
+	return C.GoString(C.eb_error_string(code))
+}
+
 type blockType int
 
 const (
@@ -67,7 +71,7 @@ type Context struct {
 
 func (c *Context) initialize() error {
 	if errEb := C.eb_initialize_library(); errEb != C.EB_SUCCESS {
-		return fmt.Errorf("eb_initialize_library failed with code %d", errEb)
+		return fmt.Errorf("eb_initialize_library failed with code: %s", formatError(errEb))
 	}
 
 	c.book = (*C.EB_Book)(C.calloc(1, C.size_t(unsafe.Sizeof(C.EB_Book{}))+8))
@@ -104,7 +108,7 @@ func (c *Context) installHooks() error {
 
 	for _, hookCode := range hookCodes {
 		if errEb := C.installHook(c.hookset, hookCode); errEb != C.EB_SUCCESS {
-			return fmt.Errorf("eb_set_hook failed with code %d", errEb)
+			return fmt.Errorf("eb_set_hook failed with code: %s", formatError(errEb))
 		}
 	}
 
@@ -115,7 +119,7 @@ func (c *Context) loadInternal(path string) (*Book, error) {
 	pathC := C.CString(path)
 	defer C.free(unsafe.Pointer(pathC))
 	if errEb := C.eb_bind(c.book, pathC); errEb != C.EB_SUCCESS {
-		return nil, fmt.Errorf("eb_bind failed with code %d", errEb)
+		return nil, fmt.Errorf("eb_bind failed with code: %s", formatError(errEb))
 	}
 
 	var (
@@ -141,7 +145,7 @@ func (c *Context) loadInternal(path string) (*Book, error) {
 func (c *Context) loadCharCode() (string, error) {
 	var charCode C.EB_Character_Code
 	if errEb := C.eb_character_code(c.book, &charCode); errEb != C.EB_SUCCESS {
-		return "", fmt.Errorf("eb_character_code failed with code %d", errEb)
+		return "", fmt.Errorf("eb_character_code failed with code: %s", formatError(errEb))
 	}
 
 	switch charCode {
@@ -159,7 +163,7 @@ func (c *Context) loadCharCode() (string, error) {
 func (c *Context) loadDiscCode() (string, error) {
 	var discCode C.EB_Disc_Code
 	if errEb := C.eb_disc_type(c.book, &discCode); errEb != C.EB_SUCCESS {
-		return "", fmt.Errorf("eb_disc_type failed with code %d", errEb)
+		return "", fmt.Errorf("eb_disc_type failed with code: %s", formatError(errEb))
 	}
 
 	switch discCode {
@@ -179,7 +183,7 @@ func (c *Context) loadSubbooks() ([]BookSubbook, error) {
 	)
 
 	if errEb := C.eb_subbook_list(c.book, &subbookCodes[0], &subbookCount); errEb != C.EB_SUCCESS {
-		return nil, fmt.Errorf("eb_subbook_list failed with code %d", errEb)
+		return nil, fmt.Errorf("eb_subbook_list failed with code: %s", formatError(errEb))
 	}
 
 	var subbooks []BookSubbook
@@ -197,7 +201,7 @@ func (c *Context) loadSubbooks() ([]BookSubbook, error) {
 
 func (c *Context) loadSubbook(subbookCode C.EB_Subbook_Code) (*BookSubbook, error) {
 	if errEb := C.eb_set_subbook(c.book, subbookCode); errEb != C.EB_SUCCESS {
-		return nil, fmt.Errorf("eb_set_subbook failed with code %d", errEb)
+		return nil, fmt.Errorf("eb_set_subbook failed with code: %s", formatError(errEb))
 	}
 
 	var (
@@ -255,7 +259,7 @@ func (c *Context) loadEntries(blocksSeen map[uint32]bool) ([]BookEntry, error) {
 		)
 
 		if errEb := C.eb_hit_list(c.book, (C.int)(len(hits)), &hits[0], &hitCount); errEb != C.EB_SUCCESS {
-			return nil, fmt.Errorf("eb_hit_list failed with code %d", errEb)
+			return nil, fmt.Errorf("eb_hit_list failed with code: %s", formatError(errEb))
 		}
 
 		for _, hit := range hits[:hitCount] {
@@ -292,7 +296,7 @@ func (c *Context) loadEntries(blocksSeen map[uint32]bool) ([]BookEntry, error) {
 func (c *Context) loadTitle() (string, error) {
 	var data [C.EB_MAX_TITLE_LENGTH + 1]C.char
 	if errEb := C.eb_subbook_title(c.book, &data[0]); errEb != C.EB_SUCCESS {
-		return "", fmt.Errorf("eb_subbook_title failed with code %d", errEb)
+		return "", fmt.Errorf("eb_subbook_title failed with code: %s", formatError(errEb))
 	}
 
 	return c.decoder.String(C.GoString(&data[0]))
@@ -305,7 +309,7 @@ func (c *Context) loadCopyright() (string, error) {
 
 	var position C.EB_Position
 	if errEb := C.eb_copyright(c.book, &position); errEb != C.EB_SUCCESS {
-		return "", fmt.Errorf("eb_copyright failed with code %d", errEb)
+		return "", fmt.Errorf("eb_copyright failed with code: %s", formatError(errEb))
 	}
 
 	return c.loadContent(position, blockTypeText)
@@ -320,17 +324,17 @@ func (c *Context) loadContent(position C.EB_Position, blockType blockType) (stri
 		)
 
 		if errEb := C.eb_seek_text(c.book, &position); errEb != C.EB_SUCCESS {
-			return "", fmt.Errorf("eb_seek_text failed with code %d", errEb)
+			return "", fmt.Errorf("eb_seek_text failed with code: %s", formatError(errEb))
 		}
 
 		switch blockType {
 		case blockTypeHeading:
 			if errEb := C.eb_read_heading(c.book, nil, c.hookset, nil, dataSize, data, &dataUsed); errEb != C.EB_SUCCESS {
-				return "", fmt.Errorf("eb_read_heading failed with code %d", errEb)
+				return "", fmt.Errorf("eb_read_heading failed with code: %s", formatError(errEb))
 			}
 		case blockTypeText:
 			if errEb := C.eb_read_text(c.book, nil, c.hookset, nil, dataSize, data, &dataUsed); errEb != C.EB_SUCCESS {
-				return "", fmt.Errorf("eb_read_text failed with code %d", errEb)
+				return "", fmt.Errorf("eb_read_text failed with code: %s", formatError(errEb))
 			}
 		default:
 			panic("invalid block type")
