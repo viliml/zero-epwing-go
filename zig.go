@@ -10,7 +10,8 @@ import (
 )
 
 /*
-#cgo LDFLAGS: -lz
+#cgo linux LDFLAGS: -lz
+#cgo windows LDFLAGS: -lz -lws2_32
 #include "zig.h"
 */
 import "C"
@@ -74,7 +75,7 @@ func (c *Context) initialize() error {
 		return fmt.Errorf("eb_initialize_library failed with code: %s", formatError(errEb))
 	}
 
-	c.book = (*C.EB_Book)(C.calloc(1, C.size_t(unsafe.Sizeof(C.EB_Book{}))+8))
+	c.book = (*C.EB_Book)(C.calloc(1, C.size_t(unsafe.Sizeof(C.EB_Book{}))))
 	C.eb_initialize_book(c.book)
 
 	c.hookset = (*C.EB_Hookset)(C.calloc(1, C.size_t(unsafe.Sizeof(C.EB_Hookset{}))))

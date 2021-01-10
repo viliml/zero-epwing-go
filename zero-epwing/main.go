@@ -7,7 +7,6 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
-	"path"
 
 	zig "github.com/FooSoft/zero-epwing-go"
 )
@@ -66,7 +65,7 @@ func main() {
 	)
 
 	flag.Usage = func() {
-		fmt.Fprintf(os.Stderr, "Usage: %s [options] path\n", path.Base(os.Args[0]))
+		fmt.Fprintf(os.Stderr, "Usage: zero-epwing [options] path\n")
 		fmt.Fprintf(os.Stderr, "Parameters:\n")
 		flag.PrintDefaults()
 	}
