@@ -272,7 +272,7 @@ func (c *Context) loadEntries(blocksSeen map[uint32]bool) ([]BookEntry, error) {
 				return nil, err
 			}
 
-			if entry.Text, err = c.loadContent(hit.text, blockTypeHeading); err != nil {
+			if entry.Text, err = c.loadContent(hit.text, blockTypeText); err != nil {
 				return nil, err
 			}
 
