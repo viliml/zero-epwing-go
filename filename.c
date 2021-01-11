@@ -31,6 +31,10 @@
 #include "error.h"
 #include "build-post.h"
 
+#ifdef WIN32
+#include <direct.h>
+#endif
+
 #ifndef WIN32
 
 /*
@@ -119,7 +123,7 @@ eb_canonicalize_path_name(char *path_name)
          * `path_name' is a relative path.
          * Covert the path name to an absolute path.
          */
-        if (getdcwd(ASCII_TOUPPER(*path_name) - 'A' + 1, cwd,
+        if (_getdcwd(ASCII_TOUPPER(*path_name) - 'A' + 1, cwd,
         EB_MAX_PATH_LENGTH + 1) == NULL) {
         return EB_ERR_FAIL_GETCWD;
         }
@@ -278,9 +282,6 @@ eb_fix_path_name_suffix(char *path_name, const char *suffix)
 #ifndef WIN32
     base_name = strrchr(path_name, '/');
 #else
-    if (is_ebnet_url(path_name))
-    base_name = strrchr(path_name, '/');
-    else
     base_name = strrchr(path_name, '\\');
 #endif
     if (base_name == NULL)
@@ -491,9 +492,7 @@ eb_compose_path_name(const char *path_name, const char *file_name,
     else
     sprintf(composed_path_name, "%s/%s", path_name, file_name);
 #else
-    if (is_ebnet_url(path_name))
-    sprintf(composed_path_name, "%s/%s", path_name, file_name);
-    else if (ASCII_ISALPHA(*path_name) && strcmp(path_name + 1, ":\\") == 0)
+    if (ASCII_ISALPHA(*path_name) && strcmp(path_name + 1, ":\\") == 0)
     sprintf(composed_path_name, "%s%s", path_name, file_name);
     else
     sprintf(composed_path_name, "%s\\%s", path_name, file_name);
@@ -519,10 +518,7 @@ eb_compose_path_name2(const char *path_name, const char *sub_directory_name,
         path_name, sub_directory_name, file_name);
     }
 #else
-    if (is_ebnet_url(path_name)) {
-    sprintf(composed_path_name, "%s/%s/%s",
-        path_name, sub_directory_name, file_name);
-    } else if (ASCII_ISALPHA(*path_name)
+    if (ASCII_ISALPHA(*path_name)
     && strcmp(path_name + 1, ":\\") == 0) {
     sprintf(composed_path_name, "%s%s\\%s",
         path_name, sub_directory_name, file_name);
@@ -553,10 +549,7 @@ eb_compose_path_name3(const char *path_name, const char *sub_directory_name,
         path_name, sub_directory_name, sub2_directory_name, file_name);
     }
 #else
-    if (is_ebnet_url(path_name)) {
-    sprintf(composed_path_name, "%s/%s/%s/%s",
-        path_name, sub_directory_name, sub2_directory_name, file_name);
-    } else if (ASCII_ISALPHA(*path_name)
+    if (ASCII_ISALPHA(*path_name)
     && strcmp(path_name + 1, ":\\") == 0) {
     sprintf(composed_path_name, "%s%s\\%s\\%s",
         path_name, sub_directory_name, sub2_directory_name, file_name);
@@ -737,9 +730,6 @@ eb_path_name_zio_code(const char *path_name, Zio_Code default_zio_code,
 #ifndef WIN32
     base_name = strrchr(path_name, '/');
 #else
-    if (is_ebnet_url(path_name))
-    base_name = strrchr(path_name, '/');
-    else
     base_name = strrchr(path_name, '\\');
 #endif
     if (base_name != NULL)
