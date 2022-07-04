@@ -1,5 +1,5 @@
-module github.com/FooSoft/zero-epwing-go
+module foosoft.net/projects/zero-epwing-go
 
-go 1.15
+go 1.18
 
-require golang.org/x/text v0.3.4
+require golang.org/x/text v0.3.7
