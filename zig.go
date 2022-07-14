@@ -11,6 +11,7 @@ import (
 
 /*
 #cgo linux LDFLAGS: -lz
+#cgo darwin LDFLAGS: -lz
 #cgo windows LDFLAGS: -lz -lws2_32
 #include "zig.h"
 */
