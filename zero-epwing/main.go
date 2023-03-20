@@ -8,7 +8,7 @@ import (
 	"log"
 	"os"
 
-	zig "foosoft.net/projects/zero-epwing-go"
+	zig "github.com/themoeway/zero-epwing-go"
 )
 
 type Entry struct {

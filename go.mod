@@ -1,4 +1,4 @@
-module foosoft.net/projects/zero-epwing-go
+module github.com/themoeway/zero-epwing-go
 
 go 1.18
 
