@@ -1,4 +1,4 @@
-module github.com/themoeway/zero-epwing-go
+module github.com/viliml/zero-epwing-go
 
 go 1.18
 
